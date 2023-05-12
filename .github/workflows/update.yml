@@ -113,22 +113,22 @@ jobs:
         with:
           name: php
 
-      - name: Download a Build Artifact(php-gd)
+      - name: Download a Build Artifact(php-v_8.0.x)
         uses: actions/download-artifact@v2
         with:
           name: php-v_8.0.x
 
-      - name: Download a Build Artifact(php-gd-no-modification)
+      - name: Download a Build Artifact(php-v_8.0.x-og)
         uses: actions/download-artifact@v2
         with:
           name: php-v_8.0.x-og
 
-      - name: Download a Build Artifact(php-next-major-gd)
+      - name: Download a Build Artifact(php-v_8.1.x)
         uses: actions/download-artifact@v2
         with:
           name: php-v_8.1.x
 
-      - name: Download a Build Artifact(php-experimental-gd)
+      - name: Download a Build Artifact(php-v_8.1.x)
         uses: actions/download-artifact@v2
         with:
           name: php-v_8.2.x
@@ -137,11 +137,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: php.ini
-      - name: Download a Build Artifact(php-next-major.ini)
+      - name: Download a Build Artifact(php-v_8.1.x.ini)
         uses: actions/download-artifact@v2
         with:
           name: php-v_8.1.x.ini
-      - name: Download a Build Artifact(php-experimental-gd.ini)
+      - name: Download a Build Artifact(php-v_8.2.x.ini)
         uses: actions/download-artifact@v2
         with:
           name: php-v_8.2.x.ini
@@ -150,14 +150,14 @@ jobs:
       - name: file compressions
         run: |
           zip -9 zip-php php
-          zip -9 zip-php-v_8.0.x.zip php-v_8.0.x
-          zip -9 zip-php-v_8.0.x-og.zip php-v_8.0.x-og
-          zip -9 zip-php-v_8.1.x.zip php-v_8.1.x
-          zip -9 zip-php-v_8.2.x.zip php-v_8.2.x
+          zip -9 zip-php-v_8.0.x php-v_8.0.x
+          zip -9 zip-php-v_8.0.x-og php-v_8.0.x-og
+          zip -9 zip-php-v_8.1.x php-v_8.1.x
+          zip -9 zip-php-v_8.2.x php-v_8.2.x
           
       - name: create checksums.sha256
         run: |
-          sha256sum "php" "php-v_8.0.x" "php-v_8.0.x-og" "php-v_8.1.x" "php-v_8.2.x" "zip-php.zip" "zip-v_8.0.x.zip" "zip-v_8.0.x-og.zip" "zip-v_8.1.x.zip" "zip-php-v_8.2.x.zip" "php.ini" "php-v_8.1.x.ini" "php-v_8.2.x.ini" > checksums.sha256
+          sha256sum "php" "php-v_8.0.x" "php-v_8.0.x-og" "php-v_8.1.x" "php-v_8.2.x" "zip-php.zip" "zip-php-v_8.0.x.zip" "zip-php-v_8.0.x-og.zip" "zip-php-v_8.1.x.zip" "zip-php-v_8.2.x.zip" "php.ini" "php-v_8.1.x.ini" "php-v_8.2.x.ini" > checksums.sha256
           cat checksums.sha256
           
       - uses: actions/upload-artifact@v1

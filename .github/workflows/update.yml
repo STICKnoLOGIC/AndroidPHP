@@ -150,10 +150,10 @@ jobs:
       - name: file compressions
         run: |
           zip -9 zip-php php
-          zip -9 zip-php-v_8.0.x php-v_8.0.x
-          zip -9 zip-php-v_8.0.x-og php-v_8.0.x-og
-          zip -9 zip-php-v_8.1.x php-v_8.1.x
-          zip -9 zip-php-v_8.2.x php-v_8.2.x
+          zip -9 zip-php-v_8.0.x.zip php-v_8.0.x
+          zip -9 zip-php-v_8.0.x-og.zip php-v_8.0.x-og
+          zip -9 zip-php-v_8.1.x.zip php-v_8.1.x
+          zip -9 zip-php-v_8.2.x.zip php-v_8.2.x
           
       - name: create checksums.sha256
         run: |

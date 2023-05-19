@@ -108,6 +108,7 @@ jobs:
         with:
           name: Linux
           path: |
+            ./php${{ matrix.name }}
             ./PHP_Linux-x86_64.tar.gz
             install.log
             compile.sh

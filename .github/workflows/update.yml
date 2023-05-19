@@ -101,6 +101,17 @@ jobs:
         with:
           name: php${{ matrix.upload-php-ini }}.ini
           path: "./php${{ matrix.upload-php-ini }}.ini"
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Linux
+          path: |
+            ./PHP_Linux-x86_64.tar.gz
+            install.log
+            compile.sh
+          if-no-files-found: error
 
   commit-php:
     name: release

@@ -108,8 +108,8 @@ jobs:
         with:
           name: Linux
           path: |
-            install.log
-            compile.sh
+            ./php-build-scripts/install.log
+            ./php-build-scripts/compile.sh
           if-no-files-found: error
 
   commit-php:

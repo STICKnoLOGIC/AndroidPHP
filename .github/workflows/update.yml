@@ -185,7 +185,7 @@ jobs:
             php-v_8.1.x.ini
             php-v_8.2.x.ini
             checksums.sha256
-          body: "The php version for this release is ${{ github.event.inputs.tagname }}.
+          body: "The php version for this release is 8.1.1 - 8.2.x .
 
 The download is available from the Assets dropdown.
 

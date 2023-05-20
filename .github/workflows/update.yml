@@ -126,12 +126,12 @@ jobs:
       - name: Download a Build Artifact(php-v_8.0.x)
         uses: actions/download-artifact@v2
         with:
-          name: php-v_8.0.x
+          name: php-v_8.1.x
 
       - name: Download a Build Artifact(php-v_8.0.x-og)
         uses: actions/download-artifact@v2
         with:
-          name: php-v_8.0.x-og
+          name: php-v_8.1.x-og
 
       - name: Download a Build Artifact(php-v_8.1.x)
         uses: actions/download-artifact@v2
@@ -160,8 +160,6 @@ jobs:
       - name: file compressions
         run: |
           zip -9 zip-php php
-          zip -9 zip-php-v_8.0.x.zip php-v_8.0.x
-          zip -9 zip-php-v_8.0.x-og.zip php-v_8.0.x-og
           zip -9 zip-php-v_8.1.x.zip php-v_8.1.x
           zip -9 zip-php-v_8.2.x.zip php-v_8.2.x
           
@@ -182,13 +180,9 @@ jobs:
           name: Release ${{ github.event.inputs.tagname }}
           files: |
             php
-            php-v_8.0.x
-            php-v_8.0.x-og
             php-v_8.1.x
             php-v_8.2.x
             zip-php.zip
-            zip-php-v_8.0.x.zip
-            zip-php-v_8.0.x-og.zip
             zip-php-v_8.1.x.zip
             zip-php-v_8.2.x.zip
             php.ini

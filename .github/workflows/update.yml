@@ -38,7 +38,7 @@ jobs:
             - option: "-g"
               name: "-v_8.0.x-og"
               branch: "php/8.0"
-              upload-php-ini: ""
+              upload-php-ini: "no"
               musl-cross-make-repo: "STICKnoLOGIC/musl-cross-make"
             - option: "-g"
               name: "-v_8.1.x"

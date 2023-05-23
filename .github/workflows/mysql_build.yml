@@ -46,6 +46,9 @@ jobs:
           
           echo 'done'
           ./configure --enable-assembler --disable-community-features --without-debug --with-mysqld-ldflags=-all-static --prefix=/data/data/com.my.newproject6/output/lib/mysql --without-query-cache  --without-geometry  --without-extra-tools  --disable-shared --disable-profiling --disable-grant-options --disable-largefile --without-uca --without-docs --without-man --without-ndb-debug --without-bench
+          echo 100
           make
+          echo 2000
           make install
+          echo 30000
           

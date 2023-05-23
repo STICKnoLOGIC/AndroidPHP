@@ -41,7 +41,8 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           curl -o ./mysql.tar.gz http://cdn.mysql.com/archives/mysql-5.0/mysql-5.0.51a.tar.gz
-          tar -zxvf mysql.tar.gz
+          tar mysql.tar.gz
+          cd ./mysql
           make distclean
           ./configure --enable-assembler --disable-community-features --without-debug --with-mysqld-ldflags=-all-static --prefix=/data/data/com.solusiprogram.mysql/app_HOME/lib/mysql --without-query-cache  --without-geometry  --without-extra-tools  --disable-shared --disable-profiling --disable-grant-options --disable-largefile --without-uca --without-docs --without-man --without-ndb-debug --without-bench
           make

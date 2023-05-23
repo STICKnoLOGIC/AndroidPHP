@@ -48,7 +48,7 @@ jobs:
           cd ./mysql-5.0.51a
           
           echo 'done'
-          ./configure --enable-assembler --disable-community-features --without-debug --with-mysqld-ldflags=-all-static --prefix=$HOME/output/mysql --without-query-cache  --without-geometry  --without-extra-tools  --disable-shared --disable-profiling --disable-grant-options --disable-largefile --without-uca --without-docs --without-man --without-ndb-debug --without-bench
+          ./configure --enable-assembler --disable-community-features --without-debug --with-mysqld-ldflags=-all-static --without-query-cache  --without-geometry  --without-extra-tools  --disable-shared --disable-profiling --disable-grant-options --disable-largefile --without-uca --without-docs --without-man --without-ndb-debug --without-bench
           echo 100
           sudo make
           echo 2000

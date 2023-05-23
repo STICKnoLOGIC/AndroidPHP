@@ -34,7 +34,9 @@ jobs:
         run: |
          sudo apt update &> /dev/null 
          sudo apt-get install build-essential libncurses5-dev bison groff
-
+        
+      - name: init dirs
+        run: mkdir /Home/Android
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |

@@ -49,4 +49,4 @@ jobs:
           
           mkdir bld
           cd bld
-          cmake .. -DMAX_INDEXES=255 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp/
+          cmake .. -DMAX_INDEXES=255 -DDOWNLOAD_BOOST=0 -DWITH_BOOST=/tmp/

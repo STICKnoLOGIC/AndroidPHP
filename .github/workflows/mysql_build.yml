@@ -47,10 +47,6 @@ jobs:
           tar -zxvf mysql-8.0.23.tar.gz
           cd ./mysql-8.0.23
           
-          echo 'done'
-          echo 100
-          sudo make
-          echo 2000
-          sudo make install
-          echo 30000
-          
+          mkdir bld
+          cd bld
+          cmake .. -DMAX_INDEXES=255 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp/

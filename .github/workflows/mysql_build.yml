@@ -38,31 +38,18 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          cd $HOME
-          mkdir output && cd output
-          mkdir mysql && cd
-          GIT_VERSION=git-2.9.5
-          GIT_PATH=/usr/local/git/bin
-          DOWNLOAD_PATH=https://www.kernel.org/pub/software/scm/git/$GIT_VERSION.tar.gz
-          #sudo apt-get install -y wget autoconf make gcc curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker libxslt asciidoc xmlto
-          wget $DOWNLOAD_PATH
-          tar xzvf $GIT_VERSION.tar.gz
-          cd $GIT_VERSION
-          make prefix=/usr/local/git all
-          make prefix=/usr/local/git install
-          source contrib/completion/git-completion.bash
-
-#-------------------------------------------------------------------------------
-# 安装依赖的软件
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-# 下载git
-#-------------------------------------------------------------------------------
-
-
-#-------------------------------------------------------------------------------
-# 编译
-#-------------------------------------------------------------------------------
+          mkdir /output
+          echo ""
+          echo "This may take some time, please sit back and take a coffee."
+          echo ""
+          mkdir -p output
+          git clone --depth 1 --shallow-submodules https://github.com/git/git.git
+          cd git
+          export NO_OPENSSL=1
+          export NO_CURL=1
+          export CFLAGS="${CFLAGS} -static"
+          make configure
+          ./configure prefix=/output
+          make -j $(nproc)
+          make install
+          #chmod -R a+r /output

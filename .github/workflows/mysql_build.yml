@@ -43,10 +43,26 @@ jobs:
           cd $HOME
           mkdir output && cd output
           mkdir mysql && cd
-          wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.23.tar.gz
-          tar -zxvf mysql-8.0.23.tar.gz
-          cd ./mysql-8.0.23
-          
-          mkdir bld
-          cd bld
-          cmake .. -DMAX_INDEXES=255 -DDOWNLOAD_BOOST=0 -DWITH_BOOST=/tmp/
+          GIT_VERSION=git-2.9.5
+          GIT_PATH=/usr/local/git/bin
+          DOWNLOAD_PATH=https://www.kernel.org/pub/software/scm/git/$GIT_VERSION.tar.gz
+          yum install -y wget autoconf make gcc curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker libxslt asciidoc xmlto
+          wget $DOWNLOAD_PATH
+          tar xzvf $GIT_VERSION.tar.gz
+          cd $GIT_VERSION
+          make prefix=/usr/local/git all
+          make prefix=/usr/local/git install
+          source contrib/completion/git-completion.bash
+
+#-------------------------------------------------------------------------------
+# 安装依赖的软件
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# 下载git
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# 编译
+#-------------------------------------------------------------------------------

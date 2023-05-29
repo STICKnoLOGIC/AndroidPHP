@@ -46,7 +46,7 @@ jobs:
           GIT_VERSION=git-2.9.5
           GIT_PATH=/usr/local/git/bin
           DOWNLOAD_PATH=https://www.kernel.org/pub/software/scm/git/$GIT_VERSION.tar.gz
-          sudo apt-get install -y wget autoconf make gcc curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker libxslt asciidoc xmlto
+          #sudo apt-get install -y wget autoconf make gcc curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker libxslt asciidoc xmlto
           wget $DOWNLOAD_PATH
           tar xzvf $GIT_VERSION.tar.gz
           cd $GIT_VERSION

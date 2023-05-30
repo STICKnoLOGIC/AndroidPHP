@@ -28,12 +28,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: init directories
+        run: mkdir -p aarch64-linux-musl
+      - name: fetch aarch64-linux-musl from github release
+        working-directory: aarch64-linux-musl
+        run: wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/${{ matrix.musl-cross-make-repo }}/releases/latest/download/aarch64-linux-musl.tar.xz"
+        
+      - name: unzip aarch64-linux-musl and append path
+        working-directory: aarch64-linux-musl
+        run: |
+          tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
+          echo "$(pwd)/bin" >> $GITHUB_PATH
+    
       - uses: actions/checkout@v3
       
       - name: update system
         run: |
          sudo apt update &> /dev/null 
-         sudo apt-get install build-essential libncurses5-dev bison groff
+         sudo apt-get install build-essential install-info libncurses5-dev bison groff dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+         gettext libz-dev libssl-dev
        
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
@@ -49,7 +62,7 @@ jobs:
           export NO_CURL=1
           export CFLAGS="${CFLAGS} -static"
           make configure
-          ./configure --help # prefix=$HOME/output
-          #make -j $(nproc)
-          #make install
+          ./configure --prefix=$HOME/output
+          make -j $(nproc)
+          make install
           #chmod -R a+r /output

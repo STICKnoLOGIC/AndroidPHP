@@ -76,7 +76,7 @@ jobs:
            echo 4
            export NO_OPENSSL=1
            export NO_CURL=1
-           export CFLAGS="${CFLAGS} -static"
+           export CFLAGS=" -static"
            echo 5
            make configure
            echo 6

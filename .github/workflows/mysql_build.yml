@@ -81,7 +81,7 @@ jobs:
            make configure 
            echo 6
            ./configure --prefix=$DIR/output --disable-libseccomp NO_SSH=YesPlease NO_POSIX=YesPlease NO_PERL=YesPlease NO_OPENSSL=YesPlease NO_CURL=YesPlease NO_EXPAT=YesPlease NO_TCLTK=YesPlease NO_GETTEXT=YesPlease NO_PYTHON=YesPlease #CC=$DIR/aarch64-linux-musl/libexec/gcc/aarch64-linux-musl/9.4.0/
-           make -j $(nproc)
+           #make -j $(nproc)
            make install
            echo ""
            echo ""
@@ -91,4 +91,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
          name: my-artifact
-         path: "./output/bin/*"
+         path: "./output/bin/git"

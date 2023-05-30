@@ -24,7 +24,7 @@ on:
         default : 'v1Beta'
 
 jobs:
-   build:
+   build-on-aarch64:
     runs-on: ubuntu-latest
 
     steps:

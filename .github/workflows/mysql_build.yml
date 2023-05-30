@@ -67,6 +67,10 @@ jobs:
           ./configure --prefix=$DIR/output
           make -j $(nproc)
           make install
+          echo ""
+          echo ""
+          echo ""
+          ls $DIR/output
           #chmod -R a+r /output
       - uses: actions/upload-artifact@v3
         with:

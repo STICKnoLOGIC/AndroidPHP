@@ -32,7 +32,7 @@ jobs:
         run: mkdir -p aarch64-linux-musl
       - name: fetch aarch64-linux-musl from github release
         working-directory: aarch64-linux-musl
-        run: wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/${{ matrix.musl-cross-make-repo }}/releases/latest/download/aarch64-linux-musl.tar.xz"
+        run: wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"
         
       - name: unzip aarch64-linux-musl and append path
         working-directory: aarch64-linux-musl

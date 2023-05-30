@@ -56,8 +56,8 @@ jobs:
           # The image is cached publically like a package
           githubToken: ${{ github.token }}
           install: |
-            sudo apt update &> /dev/null 
-            sudo apt-get install build-essential install-info libncurses5-dev bison groff dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+            apt update &> /dev/null 
+            apt-get install build-essential install-info libncurses5-dev bison groff dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
             gettext libz-dev libssl-dev
           run: |
            DIR="$(pwd)"

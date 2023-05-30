@@ -66,13 +66,19 @@ jobs:
            echo "This may take some time, please sit back and take a coffee."
            echo ""
            cd $DIR
+           echo 1
            mkdir -p output
+           echo 2
            git clone --depth 1 --shallow-submodules https://github.com/git/git.git
+           echo 3
            cd git
+           echo 4
            export NO_OPENSSL=1
            export NO_CURL=1
            export CFLAGS="${CFLAGS} -static"
+           echo 5
            make configure
+           echo 6
            ./configure --prefix=$DIR/output #CC=$DIR/aarch64-linux-musl/libexec/gcc/aarch64-linux-musl/9.4.0/
            make -j $(nproc)
            make install

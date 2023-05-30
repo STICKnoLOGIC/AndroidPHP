@@ -64,7 +64,7 @@ jobs:
           export NO_CURL=1
           export CFLAGS="${CFLAGS} -static"
           make configure
-          ./configure --prefix=$DIR/output --CC=$DIR/aarch64-linux-musl/bin
+          ./configure --prefix=$DIR/output CC=$DIR/aarch64-linux-musl/bin
           make -j $(nproc)
           make install
           echo ""

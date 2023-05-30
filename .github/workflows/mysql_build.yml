@@ -64,11 +64,11 @@ jobs:
           export NO_CURL=1
           export CFLAGS="${CFLAGS} -static"
           make configure
-          ./configure --prefix=$HOME/output
+          ./configure --prefix=$DIR/output
           make -j $(nproc)
           make install
           #chmod -R a+r /output
       - uses: actions/upload-artifact@v3
         with:
          name: my-artifact
-         path: $(pwd)/output/*
+         path: "./output/*"

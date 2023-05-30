@@ -49,7 +49,7 @@ jobs:
           export NO_CURL=1
           export CFLAGS="${CFLAGS} -static"
           make configure
-          ./configure --help# prefix=$HOME/output
+          ./configure --help # prefix=$HOME/output
           #make -j $(nproc)
           #make install
           #chmod -R a+r /output

@@ -80,7 +80,7 @@ jobs:
            echo 5
            make configure 
            echo 6
-           ./configure --prefix=$DIR/output --disable-libseccomp#CC=$DIR/aarch64-linux-musl/libexec/gcc/aarch64-linux-musl/9.4.0/
+           ./configure --prefix=$DIR/output --disable-libseccomp #CC=$DIR/aarch64-linux-musl/libexec/gcc/aarch64-linux-musl/9.4.0/
            make -j $(nproc)
            make install
            echo ""

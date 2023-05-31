@@ -76,11 +76,11 @@ jobs:
            echo 4
            export NO_OPENSSL=1
            export NO_CURL=1
-           export CFLAGS=" -static"
+           #export CFLAGS=" -static"
            echo 5
            make configure 
            echo 6
-           ./configure --help # --prefix=$DIR/output --disable-libseccomp NO_SSH=YesPlease NO_POSIX=YesPlease NO_PERL=YesPlease NO_OPENSSL=YesPlease NO_CURL=YesPlease NO_EXPAT=YesPlease NO_TCLTK=YesPlease NO_GETTEXT=YesPlease NO_PYTHON=YesPlease --arch=aarch64-linux-android #CC=$DIR/aarch64-linux-musl/libexec/gcc/aarch64-linux-musl/9.4.0/
+           ./configure --help # --prefix=$DIR/output --disable-libseccomp NO_SSH=YesPlease NO_POSIX=YesPlease NO_PERL=YesPlease NO_OPENSSL=YesPlease NO_CURL=YesPlease NO_EXPAT=YesPlease NO_TCLTK=YesPlease NO_GETTEXT=YesPlease NO_PYTHON=YesPlease CFLAGS="${CFLAGS} `pkg-config –static –libs libcurl`" #CC=$DIR/aarch64-linux-musl/libexec/gcc/aarch64-linux-musl/9.4.0/
            #make -j $(nproc)
            make install
            echo ""

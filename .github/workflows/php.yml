@@ -29,12 +29,12 @@ jobs:
       fail-fast: true
       matrix:
           include:
-            - option: "-P 4"
+            - option: ""
               name: "-v_8.0.x"
               branch: "php/8.0"
               upload-php-ini: "no"
               musl-cross-make-repo: "STICKnoLOGIC/musl-cross-make"
-            - option: "-g -P 4"
+            - option: "-g"
               name: "-v_8.0.x-og"
               branch: "php/8.0"
               upload-php-ini: "no"

@@ -30,21 +30,31 @@ jobs:
       matrix:
           include:
             - option: ""
+              name: "-v_8.0.x"
+              branch: "php/8.0"
+              upload-php-ini: "no"
+              musl-cross-make-repo: "STICKnoLOGIC/musl-cross-make"
+            - option: "-g"
+              name: "-v_8.0.x-og"
+              branch: "php/8.0"
+              upload-php-ini: "no"
+              musl-cross-make-repo: "ScerIO/musl-cross-make"
+            - option: "-P 4"
               name: ""
               branch: "php/8.1"
               upload-php-ini: "no"
               musl-cross-make-repo: "STICKnoLOGIC/musl-cross-make"
-            - option: "-g"
+            - option: "-g -P 4"
               name: "-v_8.1.x"
               branch: "php/8.1"
               upload-php-ini: "no"
               musl-cross-make-repo: "ScerIO/musl-cross-make"
-            - option: "-g"
+            - option: "-g -P 5"
               name: "-og"
               branch: "php/8.1"
               upload-php-ini: ""
               musl-cross-make-repo: "STICKnoLOGIC/musl-cross-make"
-            - option: "-g"
+            - option: "-g -P 4"
               name: "-v_8.1.x"
               branch: "php/8.1"
               upload-php-ini: "-v_8.1.x"
@@ -131,6 +141,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: php-og
+          
+      - name: Download a Build Artifact(php-v_8.0.x)
+        uses: actions/download-artifact@v2
+        with:
+          name: php-v_8.0.x
+
+      - name: Download a Build Artifact(php-v_8.0.x-og)
+        uses: actions/download-artifact@v2
+        with:
+          name: php-v_8.0.x-og
 
       - name: Download a Build Artifact(php-v_8.1.x)
         uses: actions/download-artifact@v2
@@ -160,12 +180,14 @@ jobs:
         run: |
           zip -9 zip-php php
           zip -9 zip-php-og.zip php-og
+          zip -9 zip-php-v_8.0.x.zip php-v_8.0.x
+          zip -9 zip-php-v_8.0.x-og.zip php-v_8.0.x-og
           zip -9 zip-php-v_8.1.x.zip php-v_8.1.x
           zip -9 zip-php-v_8.2.x.zip php-v_8.2.x
           
       - name: create checksums.sha256
         run: |
-          sha256sum "php" "php-og" "php-v_8.1.x" "php-v_8.2.x" "zip-php.zip" "zip-php-og.zip" "zip-php-v_8.1.x.zip" "zip-php-v_8.2.x.zip" "php.ini" "php-v_8.1.x.ini" "php-v_8.2.x.ini" > checksums.sha256
+          sha256sum "php-v_8.0.x" "php-v_8.0.x-og" "php" "php-og" "php-v_8.1.x" "php-v_8.2.x" "zip-php.zip" "zip-php-og.zip" "zip-php-v_8.1.x.zip" "zip-php-v_8.2.x.zip" "php.ini" "php-v_8.1.x.ini" "php-v_8.2.x.ini" > checksums.sha256
           cat checksums.sha256
           
       - uses: actions/upload-artifact@v1
@@ -181,10 +203,14 @@ jobs:
           files: |
             php
             php-og
+            php-v_8.0.x
+            php-v_8.0.x-og
             php-v_8.1.x
             php-v_8.2.x
             zip-php.zip
             zip-php-og.zip
+            zip-php-v_8.0.x.zip
+            zip-php-v_8.0.x-og.zip
             zip-php-v_8.1.x.zip
             zip-php-v_8.2.x.zip
             php.ini

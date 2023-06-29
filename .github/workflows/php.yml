@@ -184,6 +184,7 @@ jobs:
           zip -9 zip-php-v_8.0.x-og.zip php-v_8.0.x-og
           zip -9 zip-php-v_8.1.x.zip php-v_8.1.x
           zip -9 zip-php-v_8.2.x.zip php-v_8.2.x
+          cd "$(pwd)/"
           tar -cfv - php-v_8.0.x | gzip -9 - > php-v_8.0.x.tar.gz
           tar -cfv - php-v_8.1.x | gzip -9 - > php-v_8.1.x.tar.gz
           tar -cfv - php-v_8.2.x | gzip -9 - > php-v_8.2.x.tar.gz

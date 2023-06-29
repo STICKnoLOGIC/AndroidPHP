@@ -185,9 +185,9 @@ jobs:
           zip -9 zip-php-v_8.1.x.zip php-v_8.1.x
           zip -9 zip-php-v_8.2.x.zip php-v_8.2.x
           cd "$(pwd)/"
-          tar -cfv - php-v_8.0.x | gzip -9 - > php-v_8.0.x.tar.gz
-          tar -cfv - php-v_8.1.x | gzip -9 - > php-v_8.1.x.tar.gz
-          tar -cfv - php-v_8.2.x | gzip -9 - > php-v_8.2.x.tar.gz
+          tar -cv - php-v_8.0.x | gzip -9 - > php-v_8.0.x.tar.gz
+          tar -cv - php-v_8.1.x | gzip -9 - > php-v_8.1.x.tar.gz
+          tar -cv - php-v_8.2.x | gzip -9 - > php-v_8.2.x.tar.gz
       - name: create checksums.sha256
         run: |
           sha256sum "php-v_8.0.x.tar.gz" "php-v_8.1.x.tar.gz" "php-v_8.2.x.tar.gz" "php-v_8.0.x" "php-v_8.0.x-og" "php" "php-og" "php-v_8.1.x" "php-v_8.2.x" "zip-php.zip" "zip-php-og.zip" "zip-php-v_8.1.x.zip" "zip-php-v_8.2.x.zip" "php.ini" "php-v_8.1.x.ini" "php-v_8.2.x.ini" > checksums.sha256

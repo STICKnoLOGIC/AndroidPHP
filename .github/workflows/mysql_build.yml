@@ -29,66 +29,8 @@ jobs:
 
     steps:
       - name: init directories
-        run: mkdir -p aarch64-linux-musl
-      - name: fetch aarch64-linux-musl from github release
-        working-directory: aarch64-linux-musl
-        run: wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"
-        
-      - name: unzip aarch64-linux-musl and append path
-        working-directory: aarch64-linux-musl
-        run: |
-          tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
-          echo "$(pwd)/bin" >> $GITHUB_PATH
-    
-      - uses: actions/checkout@v3
-      
-     # - name: update system
-     #   run: |
-      #   
-       
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        uses: uraimo/run-on-arch-action@v2.1.1
-        with:
-          arch: aarch64
-          distro: ubuntu20.04
-          # Install deps into the container. With the token, the container will be cached
-          # The image is cached publically like a package
-          githubToken: ${{ github.token }}
-          install: |
-            apt update -y &> /dev/null 
-            apt-get install -y build-essential install-info libncurses5-dev bison groff dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
-            gettext libz-dev libssl-dev \
-            dh-autoreconf libcurl4-gnutls-dev libexpat1-dev zlib1g-dev libssl-dev libncurses5-dev git
-          run: |
-           DIR="$(pwd)"
-           #mkdir $HOME/output
-           echo ""
-           echo "This may take some time, please sit back and take a coffee."
-           echo ""
-           cd $DIR
-           echo 1
-           mkdir -p output
-           echo 2
-           git clone --depth 1 --shallow-submodules https://github.com/git/git.git
-           echo 3
-           cd git
-           echo 4
-           export NO_OPENSSL=1
-           export NO_CURL=1
-           #export CFLAGS=" -static"
-           echo 5
-           make configure 
-           echo 6
-           ./configure --disable-shared --prefix=$DIR/output  NO_SSH=YesPlease  NO_PERL=YesPlease NO_OPENSSL=YesPlease NO_CURL=YesPlease NO_EXPAT=YesPlease NO_TCLTK=YesPlease NO_GETTEXT=YesPlease NO_PYTHON=YesPlease #CPFLAGS="-arch aarch64-linux-android"  #CC=$DIR/aarch64-linux-musl/libexec/gcc/aarch64-linux-musl/9.4.0/
-           #make -j $(nproc)
-           make install
-           echo ""
-           echo ""
-           echo ""
-           ls $DIR/output
-          #chmod -R a+r /output
-      - uses: actions/upload-artifact@v3
-        with:
-         name: my-artifact
-         path: "./output/bin/git"
+        run: | 
+          echo "reate"
+          echo pwd
+          echo HOME
+          

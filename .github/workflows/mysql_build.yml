@@ -31,6 +31,6 @@ jobs:
       - name: init directories
         run: | 
           echo "reate"
-          echo $pwd
+          echo "$(pwd)/a"
           echo $HOME
 

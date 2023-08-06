@@ -42,7 +42,7 @@ jobs:
       - name: install
         run: |
           mkdir -p git-static
-          sudo apt update &> /dev/null
+          sudo apt update && > /dev/null
           sudo apt install -y git make autoconf build-essentials re2c libexpat1-dev asciidoc libz-dev gettext curl libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libxml2-dev libyaml-dev libgmp-dev libzip-dev libssl-dev &> /dev/null
 
           DIR="$(pwd)"

@@ -98,7 +98,7 @@ jobs:
           set -e
 
           echo DL zlib
-          curl "https://github.com/madler/zlib/archive/v1.2.13.tar.gz" "zlib" | tar -zx >> "$DIR/install.log" 2>&1
+          curl -L "https://github.com/madler/zlib/archive/v1.2.13.tar.gz" "zlib" | tar -zx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "./zlib-1.2.13"
           ./configure --prefix="$INSTALL_DIR" \
@@ -114,7 +114,7 @@ jobs:
           OPENSSL_CMD="./config linux-aarch64 no-shared"
           WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
           local openssl_dir="./openssl-1.1.1t"
-          curl "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" "openssl" | tar -zx >> "$DIR/install.log" 2>&1
+          curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" "openssl" | tar -zx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "$openssl_dir"
           $OPENSSL_CMD \
@@ -134,7 +134,7 @@ jobs:
           echo DL CURL
           local EXTRA_FLAGS="--enable-static --disable-shared"
           local curl_dir="./curl-curl-8_1_0"
-          curl "https://github.com/curl/curl/archive/curl-8_1_0.tar.gz" "curl" | tar -zx >> "$DIR/install.log" 2>&1
+          curl -L "https://github.com/curl/curl/archive/curl-8_1_0.tar.gz" "curl" | tar -zx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "$curl_dir"
           ./buildconf --force >> "$DIR/install.log" 2>&1

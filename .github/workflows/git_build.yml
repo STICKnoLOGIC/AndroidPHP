@@ -110,15 +110,13 @@ jobs:
           cd ..
 
           echo DL openssl
-
-          OPENSSL_CMD="./config linux-aarch64 no-shared"
+          OPENSSL_CMD=""
           WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
           local openssl_dir="./openssl-1.1.1t"
           curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "$openssl_dir"
-          $OPENSSL_CMD \
-          --prefix="$INSTALL_DIR" \
+          ./config --linux-aarch64 --no-shared --prefix="$INSTALL_DIR" \
           --openssldir="$INSTALL_DIR" \
           no-asm \
           no-hw \

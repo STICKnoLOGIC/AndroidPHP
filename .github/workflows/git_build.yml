@@ -47,6 +47,9 @@ jobs:
 
           DIR="$(pwd)"
           ls $DIR
+          echo 1111111
+          ls $DIR/..
+          exit
           BASE_BUILD_DIR="$DIR/install_data"
           #libtool and autoconf have a "feature" where it looks for install.sh/install-sh in ./ ../ and ../../
           #this extra subdir makes sure that it doesn't find anything it's not supposed to be looking for.

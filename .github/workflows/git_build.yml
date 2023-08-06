@@ -192,5 +192,5 @@ jobs:
           NO_PERL=1 \
           USE_LIBPCRE2=1 \
           # --with-curl \ # =$INSTALL_DIR \
-          --with-zlib  # =$INSTALL_DIR
+          --with-zlib=$INSTALL_DIR
           make -j 1 install

@@ -28,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - name: init directories
         run: mkdir -p aarch64-linux-musl
       - name: fetch aarch64-linux-musl from github release
@@ -39,7 +40,6 @@ jobs:
         run: |
           tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
           echo "$(pwd)/bin" >> $GITHUB_PATH
-      - uses: actions/checkout@v2
       - name: install
         run: |
           mkdir -p git-static
@@ -178,13 +178,11 @@ jobs:
           cd ..
           echo " done!"
 
-
-
           echo DL git repo
           
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
           
-          mv -fv $DIR/patches/git/$patch ./git-2.41.0/$patch
+          mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           ./configure $CONFIGURE_FLAGS --prefix=$DIR/git-static CFLAGS="${CFLAGS}" \
           $CONFIGURE_FLAGS \

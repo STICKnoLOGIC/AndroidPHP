@@ -122,9 +122,9 @@ jobs:
           --openssldir="$INSTALL_DIR" \
           no-asm \
           no-hw \
-          no-engine >> "$DIR/install.log" 2>&1
+          no-engine
           echo -n " compiling..."
-          make -j 1 >> "$DIR/install.log" 2>&1 && mark_cache
+          make -j 1
     
           echo -n " installing..."
           make install_sw >> "$DIR/install.log" 2>&1

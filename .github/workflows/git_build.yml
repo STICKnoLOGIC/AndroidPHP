@@ -116,15 +116,14 @@ jobs:
           curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" | tar -zvx
           echo -n " checking..."
           cd "$openssl_dir"
-          echo $PWD
           ./Configure linux-aarch64 no-shared \
           --prefix="$INSTALL_DIR" \
           --openssldir="$INSTALL_DIR" \
           no-asm \
           no-hw \
-          no-engine
+          no-engine >> "$DIR/install.log" 2>&1
           echo -n " compiling..."
-          make -j 1
+          make -j 1 >> "$DIR/install.log" 2>&1
     
           echo -n " installing..."
           make install_sw >> "$DIR/install.log" 2>&1
@@ -167,7 +166,7 @@ jobs:
           $EXTRA_FLAGS \
           $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
           echo -n " compiling..."
-          make -j 1 >> "$DIR/install.log" 2>&1 && mark_cache
+          make -j 1 >> "$DIR/install.log" 2>&1
     
           echo -n " installing..."
           make install >> "$DIR/install.log" 2>&1

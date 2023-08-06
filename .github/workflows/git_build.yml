@@ -132,7 +132,7 @@ jobs:
 
           echo DL CURL
           EXTRA_FLAGS="--enable-static --disable-shared"
-          curl_dir="./curl-8_1_0"
+          curl_dir="./curl-curl-8_1_0"
           curl -L "https://github.com/curl/curl/archive/curl-8_1_0.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "$curl_dir"
@@ -189,6 +189,6 @@ jobs:
           NO_INSTALL_HARDLINKS=1 \
           NO_PERL=1 \
           USE_LIBPCRE2=1 \
-          --with-curl=$INSTALL_DIR \
-          --with-zlib=$INSTALL_DIR
+          with-curl=$INSTALL_DIR \
+          with-zlib=$INSTALL_DIR
           make -j 1 install

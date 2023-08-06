@@ -110,13 +110,14 @@ jobs:
           cd ..
 
           echo DL openssl
-          OPENSSL_CMD=""
+          OPENSSL_CMD="./config linux-aarch64 no-shared"
           WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
-          local openssl_dir="./openssl-1.1.1t"
+          openssl_dir="./openssl-1.1.1t"
           curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "$openssl_dir"
-          ./config --linux-aarch64 --no-shared --prefix="$INSTALL_DIR" \
+          $OPENSSL_CMD \
+          --prefix="$INSTALL_DIR" \
           --openssldir="$INSTALL_DIR" \
           no-asm \
           no-hw \
@@ -130,8 +131,8 @@ jobs:
           echo " done!"
 
           echo DL CURL
-          local EXTRA_FLAGS="--enable-static --disable-shared"
-          local curl_dir="./curl-8_1_0"
+          EXTRA_FLAGS="--enable-static --disable-shared"
+          curl_dir="./curl-8_1_0"
           curl -L "https://github.com/curl/curl/archive/curl-8_1_0.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "$curl_dir"

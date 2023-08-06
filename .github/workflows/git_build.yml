@@ -98,7 +98,7 @@ jobs:
           set -e
 
           echo DL zlib
-          download_file "https://github.com/madler/zlib/archive/v1.2.13.tar.gz" "zlib" | tar -zx >> "$DIR/install.log" 2>&1
+          curl "https://github.com/madler/zlib/archive/v1.2.13.tar.gz" "zlib" | tar -zx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "./zlib-1.2.13"
           ./configure --prefix="$INSTALL_DIR" \

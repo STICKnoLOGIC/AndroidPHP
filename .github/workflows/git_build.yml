@@ -55,12 +55,12 @@ jobs:
 
           TOOLCHAIN_PREFIX="aarch64-linux-musl"
           export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-          CFLAGS="-static $CFLAGS"
+          CFLAGS="-02 -fPIC -m64 -static $CFLAGS"
           export CXXFLAGS="-static $CXXFLAGS"
           LDFLAGS="-static -static-libgcc -Wl,-static"
           export ac_cv_func_fnmatch_works=yes #musl should be OK
           echo "[INFO] Cross-compiling for Android ARMv8 (aarch64)"
-
+          export EXTRA_CFLAGS=-lresolv
           echo "[INFO] Compiling for current machine using 64-bit"
 
 

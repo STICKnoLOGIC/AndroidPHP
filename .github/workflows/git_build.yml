@@ -133,7 +133,7 @@ jobs:
           echo DL CURL
           EXTRA_FLAGS="--enable-static --disable-shared"
           curl_dir="./curl-curl-8_1_0"
-          curl -L "https://github.com/curl/curl/archive/curl-8_1_0.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
+          curl -L "https://github.com/curl/curl/archive/curl-8_1_0.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
           echo -n " checking..."
           cd "$curl_dir"
           ./buildconf --force >> "$DIR/install.log" 2>&1
@@ -164,7 +164,7 @@ jobs:
           --enable-threaded-resolver \
           --prefix="$INSTALL_DIR" \
           $EXTRA_FLAGS \
-          $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
+          $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
           echo -n " compiling..."
           make -j 1 >> "$DIR/install.log" 2>&1
     

@@ -1,0 +1,138 @@
+# This is a basic workflow to help you get started with Actions
+
+name: git test build for Android
+
+# Controls when the workflow will run
+on:
+ workflow_dispatch:
+  inputs:
+      tagname:
+        description: 'tagname'
+        required: true
+        default: '8.0.x'
+      prefix:
+        description: 'your package name'
+        required: true
+        default: 'ph.STICKnoLOGIC.com.laramobi'
+      createRelease:
+        description: 'If "yes", create the release.'
+        required: true
+        default: 'yes'
+      version:
+        description: 'version'
+        required: true
+        default : 'v1Beta'
+
+jobs:
+   build-on-aarch64:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: init directories
+        run: mkdir -p aarch64-linux-musl
+      - name: fetch aarch64-linux-musl from github release
+        working-directory: aarch64-linux-musl
+        run: wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"
+        
+      - name: unzip aarch64-linux-musl and append path
+        working-directory: aarch64-linux-musl
+        run: |
+          tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
+          echo "$(pwd)/bin" >> $GITHUB_PATH
+      - name: install
+        run: |
+          mkdir -p git-static
+          sudo apt update &> /dev/null
+          sudo apt install -y git make autoconf re2c libexpat1-dev asciidoc libz-dev gettext curl libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libxml2-dev libyaml-dev libgmp-dev libzip-dev libssl-dev &> /dev/null
+
+          DIR="$(pwd)"
+          BASE_BUILD_DIR="$DIR/install_data"
+          #libtool and autoconf have a "feature" where it looks for install.sh/install-sh in ./ ../ and ../../
+          #this extra subdir makes sure that it doesn't find anything it's not supposed to be looking for.
+          BUILD_DIR="$BASE_BUILD_DIR/subdir"
+          LIB_BUILD_DIR="$BUILD_DIR/lib"
+          INSTALL_DIR="$DIR/bin/php7"
+
+          TOOLCHAIN_PREFIX="aarch64-linux-musl"
+          CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
+          CFLAGS="-static $CFLAGS"
+          CXXFLAGS="-static $CXXFLAGS"
+          LDFLAGS="-static -static-libgcc -Wl,-static"
+          DO_STATIC="yes"
+          OPENSSL_TARGET="linux-aarch64"
+          export ac_cv_func_fnmatch_works=yes #musl should be OK
+          echo "[INFO] Cross-compiling for Android ARMv8 (aarch64)"
+
+          echo "[INFO] Compiling for current machine using 64-bit"
+          if [ "$(uname -m)" != "aarch64" ]; then
+            CFLAGS="-m64 $CFLAGS"
+          fi
+          GMP_ABI="64"
+
+          HAVE_OPCACHE="no"
+
+          CFLAGS="$CFLAGS -O2 -ftree-vectorize -fomit-frame-pointer -funswitch-loops -fivopts"
+          if [ "$COMPILE_TARGET" != "mac-x86-64" ] && [ "$COMPILE_TARGET" != "mac-arm64" ]; then
+            CFLAGS="$CFLAGS -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range"
+          fi
+
+          CFLAGS="$CFLAGS -mfpu=vfp"
+
+          if [ "$TOOLCHAIN_PREFIX" != "" ]; then
+              export CC="$TOOLCHAIN_PREFIX-gcc"
+              export CXX="$TOOLCHAIN_PREFIX-g++"
+              export AR="$TOOLCHAIN_PREFIX-ar"
+              export RANLIB="$TOOLCHAIN_PREFIX-ranlib"
+              export CPP="$TOOLCHAIN_PREFIX-cpp"
+              export LD="$TOOLCHAIN_PREFIX-ld"
+          fi
+          echo "#include <stdio.h>" > test.c
+          echo "int main(void){" >> test.c
+          echo "printf(\"Hello world\n\");" >> test.c
+          echo "return 0;" >> test.c
+          echo "}" >> test.c
+          $CC -march=$march $CFLAGS -o test test.c >> "$DIR/install.log" 2>&1
+          if [ $? -eq 0 ]; then
+            CFLAGS="-march=$march -fno-gcse $CFLAGS"
+          fi
+          CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" $CC -fsanitize=$FSANITIZE_OPTIONS -o asan-test test.c >> "$DIR/install.log" 2>&1 && \
+              chmod +x asan-test >> "$DIR/install.log" 2>&1 && \
+              ./asan-test >> "$DIR/install.log" 2>&1 && \
+              rm asan-test >> "$DIR/install.log" 2>&1
+            if [ $? -ne 0 ]; then
+              echo "[ERROR] One or more sanitizers are not working. Check install.log for details."
+              exit 1
+            else
+              echo "[INFO] All selected sanitizers are working"
+            fi
+
+            m test.* >> "$DIR/install.log" 2>&1
+            rm test >> "$DIR/install.log" 2>&1
+
+            export CC="$CC"
+            export CXX="$CXX"
+            export CFLAGS="-O2 -fPIC $CFLAGS"
+            export CXXFLAGS="$CFLAGS $CXXFLAGS"
+            export LDFLAGS="$LDFLAGS"
+            export CPPFLAGS="$CPPFLAGS"
+            export LIBRARY_PATH="$INSTALL_DIR/lib:$LIBRARY_PATH"
+            export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
+
+            export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
+            export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
+
+            rm -r -f "$BASE_BUILD_DIR" >> "$DIR/install.log" 2>&1
+            rm -r -f bin/ >> "$DIR/install.log" 2>&1
+            mkdir -m 0755 "$BASE_BUILD_DIR" >> "$DIR/install.log" 2>&1
+            mkdir -m 0755 "$BUILD_DIR" >> "$DIR/install.log" 2>&1
+            mkdir -m 0755 -p $INSTALL_DIR >> "$DIR/install.log" 2>&1
+            mkdir -m 0755 -p "$LIB_BUILD_DIR" >> "$DIR/install.log" 2>&1
+            cd "$BUILD_DIR"
+            set -e
+
+            echo DL git repo
+            
+            curl https://kernel.org/pub/software/scm/git/git-2.41.0.tar.xz | tar xvj
+            cd git-2.41.0
+            ./configure --prefix=$$DIR/git-static NO_OPENSSL=1 NO_CURL=1
+            make install

@@ -40,6 +40,7 @@ jobs:
           tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
           echo "$(pwd)/bin" >> $GITHUB_PATH
       - name: install
+        working-directory: .
         run: |
           mkdir -p git-static
           sudo apt update &> /dev/null

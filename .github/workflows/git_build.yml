@@ -60,6 +60,10 @@ jobs:
           LDFLAGS="-static -static-libgcc -Wl,-static"
           export ac_cv_func_fnmatch_works=yes #musl should be OK
           export ac_cv_func_memcmp_working=yes
+          export ac_cv_fread_reads_directories=yes
+          export ac_cv_header_libintl_h=no
+          export ac_cv_iconv_omits_bom=no
+          export ac_cv_snprintf_returns_bogus=no
           echo "[INFO] Cross-compiling for Android ARMv8 (aarch64)"
           export EXTRA_CFLAGS=-lresolv
           echo "[INFO] Compiling for current machine using 64-bit"
@@ -97,5 +101,5 @@ jobs:
           
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xvz
           cd git-2.41.0
-          ./configure --prefix=$DIR/git-static CFLAGS="${CFLAGS}" $CONFIGURE_FLAGS NO_OPENSSL=1 NO_CURL=1
+          ./configure --prefix=$DIR/git-static CFLAGS="${CFLAGS}" $CONFIGURE_FLAGS NO_OPENSSL=1 NO_CURL=1 NO_NSEC=1 NO_GETTEXT=1 NO_EXPAT=1 NO_INSTALL_HARDLINKS=1 NO_PERL=1 --with-curl --with-shell USE_LIBPCRE2=1
           make -j 1 install

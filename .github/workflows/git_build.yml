@@ -179,9 +179,11 @@ jobs:
           echo DL git repo
           
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
-          ls ./patches/git
-          for patch in 'ls ./patches/git'; do
-          mv -fv ./patches/git/$patch ./git-2.41.0/$patch
+          ls
+
+          for patch in 'ls '; do
+          ls ./$patch
+          # mv -fv ./patches/git/$patch ./git-2.41.0/$patch
           done 
           cd git-2.41.0
           ./configure $CONFIGURE_FLAGS --prefix=$DIR/git-static CFLAGS="${CFLAGS}" \

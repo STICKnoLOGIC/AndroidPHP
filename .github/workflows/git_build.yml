@@ -39,6 +39,7 @@ jobs:
         run: |
           tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
           echo "$(pwd)/bin" >> $GITHUB_PATH
+      - uses: actions/checkout@v2
       - name: install
         run: |
           mkdir -p git-static

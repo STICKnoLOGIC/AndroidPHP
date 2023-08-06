@@ -55,7 +55,7 @@ jobs:
 
           TOOLCHAIN_PREFIX="aarch64-linux-musl"
           export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-          CFLAGS="$CFLAGS 'pkg-config -static -libs libcurl'"
+          CFLAGS="$CFLAGS -static"
           export CXXFLAGS="-static $CXXFLAGS"
           LDFLAGS="-static -static-libgcc -Wl,-static"
           export ac_cv_func_fnmatch_works=yes #musl should be OK

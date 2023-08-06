@@ -178,12 +178,8 @@ jobs:
           echo DL git repo
           
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
-          ls ./..
-
-          for patch in 'ls ./..'; do
-          ls ./../$patch
-          # mv -fv ./patches/git/$patch ./git-2.41.0/$patch
-          done 
+          
+          mv -fv $DIR/patches/git/$patch ./git-2.41.0/$patch
           cd git-2.41.0
           ./configure $CONFIGURE_FLAGS --prefix=$DIR/git-static CFLAGS="${CFLAGS}" \
           $CONFIGURE_FLAGS \
@@ -192,7 +188,7 @@ jobs:
           NO_NSEC=1 \
           NO_GETTEXT=1 \
           NO_EXPAT=1 \
-          __ANDROID__=1 \
+          # __ANDROID__=1 \
           NO_INSTALL_HARDLINKS=1 \
           NO_PERL=1 \
           USE_LIBPCRE2=1 \

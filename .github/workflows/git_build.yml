@@ -186,6 +186,7 @@ jobs:
           NO_NSEC=1 \
           NO_GETTEXT=1 \
           NO_EXPAT=1 \
+          __ANDROID__=1 \
           NO_INSTALL_HARDLINKS=1 \
           NO_PERL=1 \
           USE_LIBPCRE2=1 \

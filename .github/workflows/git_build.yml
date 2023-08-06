@@ -47,10 +47,6 @@ jobs:
           sudo apt install -y git make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext curl libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libxml2-dev libyaml-dev libgmp-dev libzip-dev libssl-dev &> /dev/null
 
           DIR="$(pwd)"
-          ls $DIR
-          echo 1111111
-          ls $DIR/..
-          exit
           BASE_BUILD_DIR="$DIR/install_data"
           #libtool and autoconf have a "feature" where it looks for install.sh/install-sh in ./ ../ and ../../
           #this extra subdir makes sure that it doesn't find anything it's not supposed to be looking for.

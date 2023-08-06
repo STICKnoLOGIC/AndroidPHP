@@ -110,7 +110,7 @@ jobs:
 
           echo DL git repo
           
-          curl https://kernel.org/pub/software/scm/git/git-2.41.0.tar.xz | tar xvz
+          curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xvz
           cd git-2.41.0
           ./configure --prefix=$$DIR/git-static NO_OPENSSL=1 NO_CURL=1
           make -j 1 install

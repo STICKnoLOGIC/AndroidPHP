@@ -54,29 +54,15 @@ jobs:
           INSTALL_DIR="$DIR/bin/php7"
 
           TOOLCHAIN_PREFIX="aarch64-linux-musl"
-          CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
+          export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
           CFLAGS="-static $CFLAGS"
-          CXXFLAGS="-static $CXXFLAGS"
+          export CXXFLAGS="-static $CXXFLAGS"
           LDFLAGS="-static -static-libgcc -Wl,-static"
-          DO_STATIC="yes"
-          OPENSSL_TARGET="linux-aarch64"
           export ac_cv_func_fnmatch_works=yes #musl should be OK
           echo "[INFO] Cross-compiling for Android ARMv8 (aarch64)"
 
           echo "[INFO] Compiling for current machine using 64-bit"
-          if [ "$(uname -m)" != "aarch64" ]; then
-            CFLAGS="-m64 $CFLAGS"
-          fi
-          GMP_ABI="64"
 
-          HAVE_OPCACHE="no"
-
-          CFLAGS="$CFLAGS -O2 -ftree-vectorize -fomit-frame-pointer -funswitch-loops -fivopts"
-          if [ "$COMPILE_TARGET" != "mac-x86-64" ] && [ "$COMPILE_TARGET" != "mac-arm64" ]; then
-            CFLAGS="$CFLAGS -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range"
-          fi
-
-          CFLAGS="$CFLAGS -mfpu=vfp"
 
           if [ "$TOOLCHAIN_PREFIX" != "" ]; then
               export CC="$TOOLCHAIN_PREFIX-gcc"
@@ -89,8 +75,6 @@ jobs:
 
           export CC="$CC"
           export CXX="$CXX"
-          export CFLAGS="-O2 -fPIC $CFLAGS"
-          export CXXFLAGS="$CFLAGS $CXXFLAGS"
           export LDFLAGS="$LDFLAGS"
           export CPPFLAGS="$CPPFLAGS"
           export LIBRARY_PATH="$INSTALL_DIR/lib:$LIBRARY_PATH"

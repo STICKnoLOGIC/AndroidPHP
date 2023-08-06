@@ -117,7 +117,7 @@ jobs:
           echo -n " checking..."
           cd "$openssl_dir"
           echo $PWD
-          ./config linux-aarch64 no-shared \
+          ./Configure linux-aarch64 no-shared \
           --prefix="$INSTALL_DIR" \
           --openssldir="$INSTALL_DIR" \
           no-asm \

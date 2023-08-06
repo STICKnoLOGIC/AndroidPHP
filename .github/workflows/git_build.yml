@@ -113,7 +113,7 @@ jobs:
           OPENSSL_CMD="./config linux-aarch64 no-shared"
           WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
           openssl_dir="./openssl-1.1.1t"
-          curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
+          curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" | tar -zvx
           echo -n " checking..."
           cd "$openssl_dir"
           ./config linux-aarch64 no-shared \

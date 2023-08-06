@@ -40,7 +40,6 @@ jobs:
           tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
           echo "$(pwd)/bin" >> $GITHUB_PATH
       - name: install
-        working-directory: .
         run: |
           mkdir -p git-static
           sudo apt update &> /dev/null
@@ -179,10 +178,10 @@ jobs:
           echo DL git repo
           
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
-          ls
+          ls ./..
 
-          for patch in 'ls '; do
-          ls ./$patch
+          for patch in 'ls ./..'; do
+          ls ./../$patch
           # mv -fv ./patches/git/$patch ./git-2.41.0/$patch
           done 
           cd git-2.41.0

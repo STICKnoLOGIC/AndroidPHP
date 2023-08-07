@@ -195,4 +195,4 @@ jobs:
           USE_LIBPCRE2=1 \
           # --with-curl \
           # --with-zlib=$INSTALL_DIR/lib
-          make -j 2 install
+          make -j 1 install

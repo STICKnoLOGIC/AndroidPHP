@@ -196,3 +196,9 @@ jobs:
           # --with-curl \
           # --with-zlib=$INSTALL_DIR/lib
           make -j 1 install
+
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: git-static

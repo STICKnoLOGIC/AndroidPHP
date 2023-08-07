@@ -211,5 +211,5 @@ jobs:
         with:
           name: "GITS"
           path: |
-            "./git-static/bin"
-            "./git-static/libexec"
+            "git-static/bin"
+            "git-static/libexec"

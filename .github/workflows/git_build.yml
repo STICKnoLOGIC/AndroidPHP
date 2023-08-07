@@ -107,7 +107,7 @@ jobs:
           echo -n " compiling..."
           make -j 1 >> "$DIR/install.log"
           make install
-          rm -fv "$INSTALL_DIR/lib/libz.a"
+          # rm -fv "$INSTALL_DIR/lib/libz.a"
           cd ..
 
           echo DL openssl

@@ -210,6 +210,11 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: "GITS"
-          path: |
-            "git-static/bin"
-            "git-static/libexec"
+          path: "git-static/bin"
+            
+      - name: Download artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: "GIT"
+          path: "git-static/libexec"
+            

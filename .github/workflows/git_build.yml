@@ -197,6 +197,13 @@ jobs:
           # --with-zlib=$INSTALL_DIR/lib
           make -j 1 install
 
+      - name: LIST
+        run: |
+            for l in 'ls ./git-static'; do
+             echo #########
+             ls ./git-static/$l
+            done
+
 
       - name: Download artifacts
         uses: actions/upload-artifact@v1

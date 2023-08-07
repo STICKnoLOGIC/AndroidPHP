@@ -180,7 +180,7 @@ jobs:
           ls $INSTALL_DIR
           mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
-          ./configure $CONFIGURE_FLAGS --prefix=$DIR/git-static CFLAGS="${CFLAGS}" \
+          ./configure $CONFIGURE_FLAGS --prefix=$DIR/git-static CFLAGS="${CFLAGS} -m64" \
           $CONFIGURE_FLAGS \
           NO_OPENSSL=1 \
           NO_CURL=1 \

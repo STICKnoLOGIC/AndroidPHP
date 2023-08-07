@@ -81,8 +81,8 @@ jobs:
 
           export CC="$CC"
           export CXX="$CXX"
-          export LDFLAGS="$LDFLAGS"
-          export CPPFLAGS="$CPPFLAGS -I $INSTALL_DIR/include"
+          export LDFLAGS="$LDFLAGS -L$INSTALL_DIR/lib"
+          export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include"
           export LIBRARY_PATH="$INSTALL_DIR/lib:$LIBRARY_PATH"
           export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
 
@@ -181,7 +181,7 @@ jobs:
           mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           ./configure --prefix=$DIR/git-static \
-          CFLAGS="-static" \
+          CFLAGS="-static -I$INSTALL_DIR/include" \
           $CONFIGURE_FLAGS \
           NO_OPENSSL=1 \
           NO_NSEC=1 \
@@ -192,6 +192,6 @@ jobs:
           NO_INSTALL_HARDLINKS=1 \
           NO_PERL=1 \
           USE_LIBPCRE2=1 \
-          # with-curl=$INSTALL_DIR \
-          # with-zlib=$INSTALL_DIR
+          #--with-curl \
+          -- with-zlib # =$INSTALL_DIR
           make -j 1 install

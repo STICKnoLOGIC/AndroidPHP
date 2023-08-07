@@ -82,7 +82,7 @@ jobs:
           export CC="$CC"
           export CXX="$CXX"
           export LDFLAGS="$LDFLAGS"
-          export CPPFLAGS="$CPPFLAGS -I $INSTALL_DIR"
+          export CPPFLAGS="$CPPFLAGS -I $INSTALL_DIR/include"
           export LIBRARY_PATH="$INSTALL_DIR/lib:$LIBRARY_PATH"
           export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
 

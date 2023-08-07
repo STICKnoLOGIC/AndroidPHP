@@ -175,7 +175,7 @@ jobs:
           echo " done!"
 
           echo DL git repo
-          
+          export cross_compiling=yes
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
           ls $INSTALL_DIR
           mv -fv $DIR/patches/git/* ./git-2.41.0/

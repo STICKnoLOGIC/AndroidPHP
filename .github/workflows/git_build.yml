@@ -187,11 +187,12 @@ jobs:
           NO_NSEC=1 \
           NO_GETTEXT=1 \
           NO_EXPAT=1 \
+          NO_CURL=1 \
           # NO_ZLIB=1 \
           # __ANDROID__=1 \
           NO_INSTALL_HARDLINKS=1 \
           NO_PERL=1 \
           USE_LIBPCRE2=1 \
-          --with-curl \
+          # --with-curl \
           --with-zlib # =$INSTALL_DIR
           make -j 1 install

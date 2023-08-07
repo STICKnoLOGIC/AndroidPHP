@@ -199,7 +199,7 @@ jobs:
 
       - name: LIST
         run: |
-            for l in 'ls ./git-static'; do
+            for l in '${ ls ./git-static }'; do
              echo #########
              ls ./git-static/$l
             done
@@ -209,4 +209,6 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: "GITS"
-          path: "./git-static"
+          path: |
+            "./git-static/bin"
+            "./git-static/libexec"

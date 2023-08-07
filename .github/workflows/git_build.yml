@@ -83,7 +83,7 @@ jobs:
           export CXX="$CXX"
           export LDFLAGS="$LDFLAGS -L$INSTALL_DIR/lib"
           export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include"
-          export LIBRARY_PATH="$INSTALL_DIR/lib:$LIBRARY_PATH"
+          export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:$LIBRARY_PATH"
           export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
 
           export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
@@ -181,18 +181,18 @@ jobs:
           mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           ./configure --prefix=$DIR/git-static \
-          CFLAGS="-static -I$INSTALL_DIR/include" \
+          CFLAGS="-static -I$INSTALL_DIR/include -I$INSTALL_DIR" \
           $CONFIGURE_FLAGS \
           NO_OPENSSL=1 \
           NO_NSEC=1 \
           NO_GETTEXT=1 \
-          # NO_EXPAT=1 \
-          # NO_CURL=1 \
+          NO_EXPAT=1 \
+          NO_CURL=1 \
           # NO_ZLIB=1 \
           # __ANDROID__=1 \
           NO_INSTALL_HARDLINKS=1 \
           NO_PERL=1 \
           USE_LIBPCRE2=1 \
           # --with-curl \
-          --with-zlib=$INSTALL_DIR/lib
-          make -j 1 install
+          # --with-zlib=$INSTALL_DIR/lib
+          make -j 2 install

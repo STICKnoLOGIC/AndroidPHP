@@ -199,10 +199,10 @@ jobs:
 
       - name: LIST
         run: |
-            for l in '${ ls ./git-static }'; do
+            # for l in '${ ls ./git-static }'; do
              echo #########
-             ls ./git-static/$l
-            done
+             # ls ./git-static/$l
+            # done
 
 
       - name: Download artifacts

@@ -199,6 +199,7 @@ jobs:
 
 
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/upload-artifact@v1
         with:
-          path: git-static
+          name: "GITS"
+          path: "./git-static"

@@ -199,6 +199,7 @@ jobs:
 
       - name: LIST
         run: |
+            ls git-static
             # for l in '${ ls ./git-static }'; do
              echo #########
              # ls ./git-static/$l

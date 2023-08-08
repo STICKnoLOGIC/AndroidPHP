@@ -44,7 +44,9 @@ jobs:
         run: |
           mkdir -p git-static
           sudo apt update &> /dev/null
-          sudo apt install -y build-essential dh-autoreconf libcurl4-gnutls-dev libexpat1-dev gettext zlib1g zlib1g-dev libghc-zlib-dev libssl-dev libncurses5-dev git
+          sudo apt install -y build-essential dh-autoreconf libcurl4-gnutls-dev libexpat1-dev gettext zlib1g zlib1g-dev libghc-zlib-dev libssl-dev libncurses5-dev git \
+          gettext-doc libasprintf-dev libgettextpo-dev ghc-prof ghc-doc haskell-doc llvm-11 libcurl4-doc libgnutls28-dev libidn11-dev libkrb5-dev libldap2-dev \
+          librtmp-dev libssh2-1-dev libghc-zlib-doc libghc-zlib-prof
 
           DIR="$(pwd)"
           BASE_BUILD_DIR="$DIR/install_data"

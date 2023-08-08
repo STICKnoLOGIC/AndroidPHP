@@ -125,8 +125,8 @@ jobs:
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
           CFLAGS="-static -static-libgcc -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
           $CONFIGURE_FLAGS NO_CURL=YesPlease NO_EXPAT=YesPlease NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
-          NO_INSTALL_HARDLINKS=YesPlease NO_OPENSSL=YesPlease NO_CROSS_DIRECTORY_HARDLINKS=YesPlease \
-          INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease USE_LIBPCRE=YesPlease
+          NO_INSTALL_HARDLINKS=YesPlease NO_OPENSSL=YesPlease NO_CROSS_DIRECTORY_HARDLINKS=YesPlease NO_ZLIB=YesPlease NO_ICONV=YesPlease \
+          INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease USE_LIBPCRE=no
           # make -j 1 strip
           
           make -j 1 install

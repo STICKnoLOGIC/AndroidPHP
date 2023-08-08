@@ -115,6 +115,7 @@ jobs:
           export cross_compiling=yes
           export NO_CURL=1 NO_EXPAT=1 NO_GETTEXT=1 NO_PERL=1 NO_PYTHON=1 NO_TCLTK=1
           export NO_INSTALL_HARDLINKS=1 NO_OPENSSL=1 NO_CROSS_DIRECTORY_HARDLINKS=1
+          export INSTALL_STRIP=1 INSTALL_SYMLINKS=1
           export CFLAGS='-g -O " # -fdebug-prefix-map=/=. -fstack-protector-strong -Wformat -Werror=format-security'
 
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
@@ -122,7 +123,7 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
-          CFLAGS="$CFLAGS -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
+          CFLAGS="-static -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
           $CONFIGURE_FLAGS 
        
           make -j 1 install

@@ -123,7 +123,7 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
-          CFLAGS="-static -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
+          CFLAGS="-static -static-libgcc -m64 -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
           $CONFIGURE_FLAGS NO_CURL=YesPlease NO_EXPAT=YesPlease NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
           NO_INSTALL_HARDLINKS=YesPlease NO_OPENSSL=YesPlease NO_CROSS_DIRECTORY_HARDLINKS=YesPlease \
           INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease USE_LIBPCRE=YesPlease

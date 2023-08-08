@@ -126,9 +126,9 @@ jobs:
           NO_EXPAT=1 \
           NO_CURL=1 \
           NO_ZLIB=1 \
-          NO_SYMLINK_HEAD=1 \
+          # NO_SYMLINK_HEAD=1 \
           # __ANDROID__=1 \
-          NO_INSTALL_HARDLINKS=1 \
+          # NO_INSTALL_HARDLINKS=1 \
           NO_PERL=1 \
           USE_LIBPCRE2=1 \
           # --with-curl \

@@ -107,7 +107,7 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
-          CFLAGS="-static -I$INSTALL_DIR/include -I$INSTALL_DIR" \
+          CFLAGS="-static -I$INSTALL_DIR/include:$INSTALL_DIR:/usr/bin" \
           $CONFIGURE_FLAGS \
           NO_OPENSSL=1 \
           NO_NSEC=1 \

@@ -128,8 +128,8 @@ jobs:
           NO_INSTALL_HARDLINKS=1 NO_OPENSSL=1 NO_CROSS_DIRECTORY_HARDLINKS=1 \
           INSTALL_STRIP=1 INSTALL_SYMLINKS=1
           # make -j 1 strip
-          make
-          make -j 1 install
+          
+          make -j 1 PROFILE=BUILD install
 
       - name: LIST
         run: |

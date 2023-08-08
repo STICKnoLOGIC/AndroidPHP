@@ -122,7 +122,7 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
-          CFLAGS="$CFLAGS -static -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
+          CFLAGS="$CFLAGS -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
           $CONFIGURE_FLAGS 
        
           make -j 1 install

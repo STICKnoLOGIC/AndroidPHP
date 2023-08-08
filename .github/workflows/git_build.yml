@@ -99,8 +99,17 @@ jobs:
           mkdir -m 0755 -p "$LIB_BUILD_DIR" >> "$DIR/install.log" 2>&1
           cd "$BUILD_DIR"
           set -e
-
-
+          echo DL zlib
+          curl -L "https://github.com/madler/zlib/releases/latest/download/zlib-1.2.13.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
+          echo -n " checking..."
+          cd "./zlib-1.2.13"
+          ./configure --prefix="$INSTALL_DIR" \
+          --static >> "$DIR/install.log" 2>&1
+          echo -n " compiling..."
+          make -j 1 >> "$DIR/install.log"
+          make install
+          rm -fv "$INSTALL_DIR/lib/libz.a"
+          cd ..
 
           echo DL git repo
           export cross_compiling=yes
@@ -109,7 +118,7 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
-          CFLAGS="-static -I$INSTALL_DIR/include:$INSTALL_DIR:/usr/bin" \
+          CFLAGS="-static -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
           $CONFIGURE_FLAGS \
           NO_OPENSSL=1 \
           NO_NSEC=1 \

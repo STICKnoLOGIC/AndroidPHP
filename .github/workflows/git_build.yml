@@ -113,7 +113,7 @@ jobs:
 
           echo DL git repo
           export cross_compiling=yes
-          export NO_CURL=1 NO_EXPAT=1 NO_GETTEXT=1 NO_PERL=1 NO_PYTHON=1 NO_TCLTK=1
+          export NO_CURL=YesPlease NO_EXPAT=YesPlease1 NO_GETTEXT=YesPlease1 NO_PERL=YesPlease1 NO_PYTHON=YesPlease1 NO_TCLTK=YesPlease1
           export NO_INSTALL_HARDLINKS=1 NO_OPENSSL=1 NO_CROSS_DIRECTORY_HARDLINKS=1
           export INSTALL_STRIP=1 INSTALL_SYMLINKS=1
           export CFLAGS='-g -O " # -fdebug-prefix-map=/=. -fstack-protector-strong -Wformat -Werror=format-security'
@@ -124,9 +124,9 @@ jobs:
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
           CFLAGS="-static -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
-          $CONFIGURE_FLAGS NO_CURL=1 NO_EXPAT=1 NO_GETTEXT=1 NO_PERL=1 NO_PYTHON=1 NO_TCLTK=1 \
-          NO_INSTALL_HARDLINKS=1 NO_OPENSSL=1 NO_CROSS_DIRECTORY_HARDLINKS=1 \
-          INSTALL_STRIP=1 INSTALL_SYMLINKS=1
+          $CONFIGURE_FLAGS NO_CURL=YesPlease NO_EXPAT=YesPlease NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
+          NO_INSTALL_HARDLINKS=YesPlease NO_OPENSSL=YesPlease NO_CROSS_DIRECTORY_HARDLINKS=YesPlease \
+          INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease
           # make -j 1 strip
           
           make -j 1 PROFILE=BUILD install

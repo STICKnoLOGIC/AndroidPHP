@@ -120,19 +120,20 @@ jobs:
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
           CFLAGS="-static -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
           $CONFIGURE_FLAGS \
-          # NO_OPENSSL=1 \
-          # NO_NSEC=1 \
-          # NO_GETTEXT=1 \
-          # NO_EXPAT=1 \
-          # NO_CURL=1 \
-          # NO_ZLIB=1 \
-          # NO_SYMLINK_HEAD=1 \
+          NO_OPENSSL=1 \
+          NO_NSEC=1 \
+          NO_GETTEXT=1 \
+          NO_EXPAT=1 \
+          NO_CURL=1 \
+          NO_ZLIB=1 \
+          NO_SYMLINK_HEAD=1 \
           # __ANDROID__=1 \
-          # NO_INSTALL_HARDLINKS=1 \
-          # NO_PERL=1 \
-          # USE_LIBPCRE2=1 \
+          NO_INSTALL_HARDLINKS=1 \
+          NO_PERL=1 \
+          USE_LIBPCRE2=1 \
           # --with-curl \
           # --with-zlib=$INSTALL_DIR/lib
+          make strip
           make -j 1 install
 
       - name: LIST

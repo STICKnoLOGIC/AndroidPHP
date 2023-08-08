@@ -112,18 +112,18 @@ jobs:
           cd ..
 
           echo DL git repo
-          export cross_compiling=yes
-          export NO_CURL=YesPlease NO_EXPAT=YesPlease1 NO_GETTEXT=YesPlease1 NO_PERL=YesPlease1 NO_PYTHON=YesPlease1 NO_TCLTK=YesPlease1
-          export NO_INSTALL_HARDLINKS=1 NO_OPENSSL=1 NO_CROSS_DIRECTORY_HARDLINKS=1
-          export INSTALL_STRIP=1 INSTALL_SYMLINKS=1
-          export CFLAGS='-g -O " # -fdebug-prefix-map=/=. -fstack-protector-strong -Wformat -Werror=format-security'
+          # export cross_compiling=yes
+          # export NO_CURL=YesPlease NO_EXPAT=YesPlease1 NO_GETTEXT=YesPlease1 NO_PERL=YesPlease1 NO_PYTHON=YesPlease1 NO_TCLTK=YesPlease1
+          # export NO_INSTALL_HARDLINKS=1 NO_OPENSSL=1 NO_CROSS_DIRECTORY_HARDLINKS=1
+          # export INSTALL_STRIP=1 INSTALL_SYMLINKS=1
+          # export CFLAGS='-g -O " # -fdebug-prefix-map=/=. -fstack-protector-strong -Wformat -Werror=format-security'
 
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
           ls $INSTALL_DIR
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
-          CFLAGS="-static -static-libgcc -m64 -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
+          CFLAGS="-static -static-libgcc -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
           $CONFIGURE_FLAGS NO_CURL=YesPlease NO_EXPAT=YesPlease NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
           NO_INSTALL_HARDLINKS=YesPlease NO_OPENSSL=YesPlease NO_CROSS_DIRECTORY_HARDLINKS=YesPlease \
           INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease USE_LIBPCRE=YesPlease

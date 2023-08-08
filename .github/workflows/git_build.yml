@@ -129,7 +129,7 @@ jobs:
           INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease
           # make -j 1 strip
           
-          make -j 1 PROFILE=BUILD install
+          make -j 1 install
 
       - name: LIST
         run: |

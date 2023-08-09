@@ -184,7 +184,7 @@ jobs:
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static cross_compiling=yes -C \
           CFLAGS="-static -static-libgcc -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
-          $CONFIGURE_FLAGS CURLDIR=/system/bin NO_EXPAT=YesPlease NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
+          $CONFIGURE_FLAGS NO_CURL=YesPlease NO_EXPAT=YesPlease NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
           NO_INSTALL_HARDLINKS=YesPlease OPENSSLDIR=$INSTALL_DIR NO_CROSS_DIRECTORY_HARDLINKS=YesPlease NO_ZLIB=YesPlease NO_ICONV=YesPlease \
           INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease USE_LIBPCRE=YesPlease
           # make -j 1 strip
@@ -202,7 +202,7 @@ jobs:
               rm -fv "git-"$file
               echo "git-remote-http" >> "git-"$file
             done
-            for file in merge-resolve bisect mrege-octopus difftool--helper quiltimport merge-one-file request-pull web-browse submodule mergetool filter-branch instaweb subtree citool ; do
+            for file in merge-resolve bisect merge-octopus difftool--helper quiltimport merge-one-file request-pull web-browse submodule mergetool filter-branch instaweb subtree citool ; do
               sed -i 's/#!\/bin\/sh/#\/system\/bin\/sh/g' "git-"$file
               done
               

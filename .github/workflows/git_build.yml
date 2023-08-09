@@ -109,72 +109,6 @@ jobs:
           # rm -fv "$INSTALL_DIR/lib/libz.a"
           cd ..
 
-          echo DL openssl
-          # OPENSSL_CMD="./config linux-aarch64 no-shared"
-          WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
-          openssl_dir="./openssl-1.1.1t"
-          curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
-          echo -n " checking..."
-          cd "$openssl_dir"
-          ./Configure linux-aarch64 no-shared \
-          --prefix="$INSTALL_DIR" \
-          --openssldir="$INSTALL_DIR" \
-          no-asm \
-          no-hw \
-          no-engine >> "$DIR/install.log" 2>&1
-          echo -n " compiling..."
-          make -j 1 >> "$DIR/install.log" 2>&1
-    
-          echo -n " installing..."
-          make install_sw >> "$DIR/install.log" 2>&1
-          cd ..
-          echo " done!"
-
-          echo DL CURL
-          EXTRA_FLAGS="--enable-static --disable-shared"
-          curl_dir="./curl-curl-8_1_0"
-          curl -L "https://github.com/curl/curl/archive/curl-8_1_0.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
-          echo -n " checking..."
-          cd "$curl_dir"
-          ./buildconf --force >> "$DIR/install.log" 2>&1
-          ./configure --disable-dependency-tracking \
-          --enable-ipv6 \
-          --enable-optimize \
-          --enable-http \
-          --enable-ftp \
-          --enable-dict \
-          --enable-file \
-          --without-librtmp \
-          --enable-gopher \
-          --enable-imap \
-          --enable-pop3 \
-          --enable-rtsp \
-          --enable-smtp \
-          --enable-telnet \
-          --enable-tftp \
-          --disable-ldap \
-          --disable-ldaps \
-          --without-libidn \
-          --without-libidn2 \
-          --without-brotli \
-          --without-nghttp2 \
-          --without-zstd \
-          --with-zlib="$INSTALL_DIR" \
-          --with-ssl="$INSTALL_DIR" \
-          --enable-threaded-resolver \
-          --prefix="$INSTALL_DIR" \
-          $EXTRA_FLAGS \
-          $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
-          echo -n " compiling..."
-          make -j 1 >> "$DIR/install.log" 2>&1
-    
-          echo -n " installing..."
-          make install >> "$DIR/install.log" 2>&1
-          cd ..
-          echo " done!"
-
-          
-
           echo DL git repo
           # export cross_compiling=yes
 
@@ -185,7 +119,7 @@ jobs:
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static cross_compiling=yes -C \
           CFLAGS="-static -static-libgcc -I$INSTALL_DIR/include:$INSTALL_DIR:$INSTALL_DIR/bin" \
           $CONFIGURE_FLAGS NO_CURL=YesPlease NO_EXPAT=YesPlease NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
-          NO_INSTALL_HARDLINKS=YesPlease OPENSSLDIR=$INSTALL_DIR NO_CROSS_DIRECTORY_HARDLINKS=YesPlease NO_ZLIB=YesPlease NO_ICONV=YesPlease \
+          NO_INSTALL_HARDLINKS=YesPlease NO_OPENSSL=YesPlease NO_CROSS_DIRECTORY_HARDLINKS=YesPlease NO_ZLIB=YesPlease NO_ICONV=YesPlease \
           INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease USE_LIBPCRE=YesPlease
           # make -j 1 strip
           

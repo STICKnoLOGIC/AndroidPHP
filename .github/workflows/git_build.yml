@@ -191,12 +191,29 @@ jobs:
           
           make -j 1 install
 
-      - name: minifying git-core
+      - name: minifying and fixing git-core
         working-directory: git-static/libexec/git-core
         run: |
-            for file in add am annotate apply archive bisect-helper blame branch bugreport bundle cat-file check=attr check-ignore check-mailmap check-ref-format checkout checkout--worker checkout-index cherry cherry-pick clean clone column commit commit-graph commit-tree config count-objects credential credential-cache credential-cache--daemon credential-store describe diff diff-files diff-index diff-tree diftool env--helper fast-export fast-import fetch fetch-pack fmt-merge-msg for-each-ref for-each-repo format-patch fsck fsck-obkects gc get-tar-commit-id grep hash0object help index=pack init init-db interpret-trailers log ls-files ls-remote ls-tree mailinfo mailsplit maintenance merge merge-base merge-file merge-index merge-ours merge-recursive merge-subtree merge-tree mktag mktree multi-pack-index nc name-rev notes pack-objects pack-redundant pack=refs patch-id prune prune-packed pull push range-diff read-tree rebase receive-pack reflog remote remote-ext remote-fd repack replace rerere reset restore rev-list rev-parse revert rm send-packshortlog show show-branch show-index show-ref sparse-checkout stage stash stripspace submodule--helper switch symbolic-ref tag unpack-file unpack-onjects updae-index update-ref update-server-info upload-archive upload-pack var verify-commit verifiy-pack verify-tag watchchanged worktreee wire-tree remote-ftp remote-ftps remote-https; do 
+            for file in add am annotate apply archive bisect--helper blame branch bugreport bundle cat-file check-attr check-ignore check-mailmap check-ref-format checkout checkout--worker checkout-index cherry cherry-pick clean clone column commit commit-graph commit-tree config count-objects credential credential-cache credential-cache--daemon credential-store describe diff diff-files diff-index diff-tree diftool env--helper fast-export fast-import fetch fetch-pack fmt-merge-msg for-each-ref for-each-repo format-patch fsck fsck-obkects gc get-tar-commit-id grep hash-object help index-pack init init-db interpret-trailers log ls-files ls-remote ls-tree mailinfo mailsplit maintenance merge merge-base merge-file merge-index merge-ours merge-recursive merge-subtree merge-tree mktag mktree multi-pack-index mv name-rev notes pack-objects pack-redundant pack-refs patch-id prune prune-packed pull push range-diff read-tree rebase receive-pack reflog remote remote-ext remote-fd repack replace rerere reset restore rev-list rev-parse revert rm send-pack shortlog show show-branch show-index show-ref sparse-checkout stage stash status stripspace submodule--helper switch symbolic-ref tag unpack-file unpack-objects update-index update-ref update-server-info upload-archive upload-pack var verify-commit verify-pack verify-tag whatchanged worktree write-tree; do 
               rm -fv "git-"$file
               echo "git" >> "git-"$file
+            done
+            for file in remote-ftp remote-ftps remote-https; do
+              rm -fv "git-"$file
+              echo "git-remote-http" >> "git-"$file
+            done
+            for file in merge-resolve bisect mrege-octopus difftool--helper quiltimport merge-one-file request-pull web-browse submodule mergetool filter-branch instaweb subtree citool ; do
+              sed -i 's/#!\/bin\/sh/#\/system\/bin\/sh/g' "git-"$file
+              done
+              
+              # perl
+              for file in cvsexportcommit cvsimport archimport add--interactive send-email cvsserver  ; do
+              sed -i 's/#!\/bin\/sh/#\/system\/bin\/perl/g' "git-"$file
+            done
+            
+            # python
+            for file in p4
+            sed -i 's/#!\/bin\/sh/#\/system\/bin\/python/g' "git-"$file
             done
 
 

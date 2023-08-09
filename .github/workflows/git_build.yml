@@ -137,21 +137,21 @@ jobs:
               echo "git-remote-http" >> "git-"$file
             done
             for file in merge-resolve bisect merge-octopus difftool--helper quiltimport merge-one-file request-pull web--browse submodule mergetool filter-branch instaweb subtree citool ; do
-               if [ -e "$file" ]; then
+               if [ -e "git-$file" ]; then
                sed -i 's/#!\/bin\/sh/#\/system\/bin\/sh/g' "git-"$file
                fi
                done
                
             # perl
             for file in cvsexportcommit cvsimport archimport add--interactive send-email cvsserver  ; do
-              if [ -e "$file" ]; then
+              if [ -e "git-$file" ]; then
               sed -i 's/#!\/bin\/sh/#\/system\/bin\/perl/g' "git-"$file
               fi
               done
               
             # python
-            for file in p4
-              if [ -e "$file" ]; then
+            for file in p4; do
+              if [ -e "git-$file" ]; then
                 sed -i 's/#!\/bin\/sh/#\/system\/bin\/python/g' "git-"$file
               fi
             done

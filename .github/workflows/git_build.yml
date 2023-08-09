@@ -56,7 +56,7 @@ jobs:
 
           TOOLCHAIN_PREFIX="aarch64-linux-musl"
           export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-          export CFLAGS="$CFLAGS -static -arch=aarch64 "
+          export CFLAGS="$CFLAGS -static  "
           export CXXFLAGS="-static $CXXFLAGS"
           LDFLAGS="-static -static-libgcc -Wl,-static"
           export ac_cv_func_fnmatch_works=yes #musl should be OK
@@ -81,8 +81,8 @@ jobs:
 
           export CC="$CC"
           export CXX="$CXX"
-          export LDFLAGS="$LDFLAGS -L$INSTALL_DIR/lib"
-          export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include"
+          export LDFLAGS="$LDFLAGS"
+          export CPPFLAGS="$CPPFLAGS"
           export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:$LIBRARY_PATH"
           export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
 
@@ -119,7 +119,7 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static cross_compiling=yes -C --with-curl --with-expat  \
-          # CFLAGS="-static $CFLAGS" \
+          CFLAGS="-static $CFLAGS" \
           $CONFIGURE_FLAGS NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
           NO_INSTALL_HARDLINKS=YesPlease NO_CROSS_DIRECTORY_HARDLINKS=YesPlease NO_ICONV=YesPlease \
           INSTALL_STRIP=YesPlease INSTALL_SYMLINKS=YesPlease USE_LIBPCRE=YesPlease

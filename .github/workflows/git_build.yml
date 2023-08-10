@@ -180,7 +180,7 @@ jobs:
           --without-brotli \
           --without-nghttp2 \
           --without-zstd \
-          --with-openssl=$INSTALL_DIR \
+          --with-openssl="$INSTALL_DIR" \
           --with-zlib="$INSTALL_DIR" \
           --with-ssl="$INSTALL_DIR" \
           --enable-threaded-resolver \

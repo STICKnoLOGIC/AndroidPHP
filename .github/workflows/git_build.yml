@@ -194,7 +194,7 @@ jobs:
           ls $INSTALL_DIR
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
-          RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$INSTALL_DIR cross_compiling=yes --with-curl CURLDIR=$INSTALL_DIR --with-expat  \
+          RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$INSTALL_DIR cross_compiling=yes --with-curl CURLDIR=$INSTALL_DIR --with-expat SHELL_PATH=/bin/bash \
           CFLAGS="$CFLAGS -O2 -fPIC -march=armv8-a -mtune=generic -fno-gcse -static  -O2 -ftree-vectorize -fomit-frame-pointer -funswitch-loops -fivopts -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range " \
           $CONFIGURE_FLAGS NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
           NO_ICONV=YesPlease USE_LIBPCRE=YesPlease

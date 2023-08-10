@@ -188,7 +188,7 @@ jobs:
 
 
           echo DL git repo
-          export cross_compiling=yes
+          # export cross_compiling=yes
 
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
           ls $INSTALL_DIR
@@ -196,7 +196,7 @@ jobs:
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$INSTALL_DIR --with-curl --with-expat SHELL_PATH=/usr/bin/sh $CONFIGURE_FLAGS \
           CFLAGS="$CFLAGS" $CONFIGURE_FLAGS NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
-          NO_ICONV=YesPlease USE_LIBPCRE=YesPlease
+          NO_ICONV=YesPlease USE_LIBPCRE=YesPlease cross_compiling=yes
           # make -j 1 strip
           
           make -j 1 install

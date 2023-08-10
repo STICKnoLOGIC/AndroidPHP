@@ -128,8 +128,8 @@ jobs:
           ls $INSTALL_DIR
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
-          RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$DIR/git-static \
-          CFLAGS="-static" 
+          RANLIB=$RANLIB ./configure --prefix=$DIR/git-static \
+          CFLAGS="${CFLAGS} -static" 
           
           # make -j 1 strip
           

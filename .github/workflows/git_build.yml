@@ -194,13 +194,13 @@ jobs:
           ls $INSTALL_DIR
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
-          RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$INSTALL_DIR cross_compiling=yes -C --with-curl --with-expat  \
+          RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$INSTALL_DIR cross_compiling=yes --with-curl CURLDIR=$INSTALL_DIR --with-expat  \
           CFLAGS="-static $CFLAGS" \
           $CONFIGURE_FLAGS NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
           NO_ICONV=YesPlease USE_LIBPCRE=YesPlease
           # make -j 1 strip
           
-          make -j 1 CURLDIR=$INSTALL_DIR install
+          make -j 1 install
           # mv -fv $GIT_DIRS/* $DIR/git-static
 
       - name: minifying and fixing git-core

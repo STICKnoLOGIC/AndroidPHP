@@ -59,7 +59,7 @@ jobs:
           TOOLCHAIN_PREFIX="aarch64-linux-musl"
           export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
           export CFLAGS="$CFLAGS -static  "
-          export CXXFLAGS="-static $CXXFLAGS"
+          export CXXFLAGS="-static $CXXFLAGS "
           LDFLAGS="-static -static-libgcc -Wl,-static"
           export ac_cv_func_fnmatch_works=yes #musl should be OK
           export ac_cv_func_memcmp_working=yes
@@ -83,8 +83,8 @@ jobs:
 
           export CC="$CC"
           export CXX="$CXX"
-          export LDFLAGS="$LDFLAGS -L$INSTALL_DIR/lib"
-          export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include"
+          export LDFLAGS="$LDFLAGS -L$INSTALL_DIR/lib:/usr/lib"
+          export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include:/usr/include"
           export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:$LIBRARY_PATH"
           export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
 

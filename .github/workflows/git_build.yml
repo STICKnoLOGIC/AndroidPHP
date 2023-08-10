@@ -157,7 +157,7 @@ jobs:
           echo -n " checking..."
           cd "$curl_dir"
           ./buildconf --force >> "$DIR/install.log" 2>&1
-          ./configure --disable-dependency-tracking \
+          ./configure \ # --disable-dependency-tracking \
           --enable-ipv6 \
           --with-gnutls \
           --enable-optimize \
@@ -180,9 +180,9 @@ jobs:
           --without-brotli \
           --without-nghttp2 \
           --without-zstd \
-          --with-openssl \
+          # --with-openssl \
           --with-zlib="$INSTALL_DIR" \
-          --with-ssl="$INSTALL_DIR" \
+          --with-openssl="$INSTALL_DIR" \
           --enable-threaded-resolver \
           --prefix="$INSTALL_DIR" \
           $EXTRA_FLAGS \

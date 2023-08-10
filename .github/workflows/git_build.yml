@@ -129,11 +129,11 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static cross_compiling=yes \
-          CFLAGS="-static" 
+          CFLAGS="-static" $CONFIGURE_FLAGS
           
           # make -j 1 strip
           
-          make --with-curl --with-expat SHELL_PATH=$(which sh) $CONFIGURE_FLAGS NO_ICONV=YesPlease USE_LIBPCRE=YesPlease -j 2 install
+          make SHELL_PATH=$(which sh) NO_ICONV=YesPlease USE_LIBPCRE=YesPlease -j 2 install
           # mv -fv $GIT_DIRS/* $DIR/git-static
 
       - name: minifying and fixing git-core

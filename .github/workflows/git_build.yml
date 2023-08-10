@@ -149,6 +149,7 @@ jobs:
           echo " done!"
 
           echo DL CURL
+          export CURL_LDFLAGS=-lcurl
           EXTRA_FLAGS="--enable-static --disable-shared"
           curl_dir="./curl-8.2.1"
           curl -L "https://curl.se/download/curl-8.2.1.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
@@ -194,6 +195,7 @@ jobs:
 
           echo DL git repo
           # export cross_compiling=yes
+          export CURL_LDFLAGS=-lcurl
 
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
           ls $INSTALL_DIR
@@ -201,7 +203,7 @@ jobs:
           cd git-2.41.0
           make configure
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static --with-openssl --with-curl --with-expat \
-          CFLAGS="-static" $CONFIGURE_FLAGS CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR
+          CFLAGS="-static -s -w" $CONFIGURE_FLAGS CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR
           
           # make -j 1 strip
           

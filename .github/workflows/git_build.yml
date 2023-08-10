@@ -45,7 +45,7 @@ jobs:
           which curl
           mkdir -p git-static
           sudo apt update &> /dev/null
-          sudo apt install -y pcre2-utils git make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libcurl4-gnutls-dev libzip-dev libssl-dev &> /dev/null
+          sudo apt install -y pcre2-utils git make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
       
           DIR="$(pwd)"
           BASE_BUILD_DIR="$DIR/install_data"
@@ -158,6 +158,7 @@ jobs:
           ./buildconf --force >> "$DIR/install.log" 2>&1
           ./configure --disable-dependency-tracking \
           --enable-ipv6 \
+          --with-gnutls \
           --enable-optimize \
           --enable-http \
           --enable-ftp \

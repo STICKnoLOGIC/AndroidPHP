@@ -57,7 +57,7 @@ jobs:
           INSTALL_DIR="$DIR/bin/php7"
 
           TOOLCHAIN_PREFIX="aarch64-linux-musl"
-          export CONFIGURE_FLAGS="--host $TOOLCHAIN_PREFIX"
+          export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
           export CFLAGS="$CFLAGS -static $CONFIGURE_FLAGS"
           export CXXFLAGS="-static $CXXFLAGS "
           LDFLAGS="-static -static-libgcc -Wl,-static"

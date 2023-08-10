@@ -195,8 +195,7 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$INSTALL_DIR --with-curl --with-expat SHELL_PATH=/usr/bin/sh \
-          CFLAGS="$CFLAGS -O2 -fPIC -march=armv8-a -mtune=generic -fno-gcse -static  -O2 -ftree-vectorize -fomit-frame-pointer -funswitch-loops -fivopts -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range " \
-          $CONFIGURE_FLAGS NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
+          CFLAGS="$CFLAGS" $CONFIGURE_FLAGS NO_GETTEXT=YesPlease NO_PERL=YesPlease NO_PYTHON=YesPlease NO_TCLTK=YesPlease \
           NO_ICONV=YesPlease USE_LIBPCRE=YesPlease
           # make -j 1 strip
           

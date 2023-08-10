@@ -122,7 +122,70 @@ jobs:
           ./configure $CONFIGURE_FLAGS --disable-shared --prefix=$INSTALL_DIR
           make -j 1 install
           cd ..
-                
+          
+          echo DL openssl
+          # OPENSSL_CMD="./config linux-aarch64 no-shared"
+          WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
+          openssl_dir="./openssl-1.1.1t"
+          curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
+          echo -n " checking..."
+          cd "$openssl_dir"
+          ./Configure linux-aarch64 no-shared \
+          --prefix="$INSTALL_DIR" \
+          --openssldir="$INSTALL_DIR" \
+          no-asm \
+          no-hw \
+          no-engine >> "$DIR/install.log" 2>&1
+          echo -n " compiling..."
+          make -j 1 >> "$DIR/install.log" 2>&1
+
+          echo -n " installing..."
+          make install_sw >> "$DIR/install.log" 2>&1
+          cd ..
+          echo " done!"
+
+          echo DL CURL
+          EXTRA_FLAGS="--enable-static --disable-shared"
+          curl_dir="./curl-8.2.1"
+          curl -L "https://curl.se/download/curl-8.2.1.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
+          echo -n " checking..."
+          cd "$curl_dir"
+          ./buildconf --force >> "$DIR/install.log" 2>&1
+          ./configure --disable-dependency-tracking \
+          --enable-ipv6 \
+          --enable-optimize \
+          --enable-http \
+          --enable-ftp \
+          --enable-dict \
+          --enable-file \
+          --without-librtmp \
+          --enable-gopher \
+          --enable-imap \
+          --enable-pop3 \
+          --enable-rtsp \
+          --enable-smtp \
+          --enable-telnet \
+          --enable-tftp \
+          --disable-ldap \
+          --disable-ldaps \
+          --without-libidn \
+          --without-libidn2 \
+          --without-brotli \
+          --without-nghttp2 \
+          --without-zstd \
+          --with-zlib="$INSTALL_DIR" \
+          --with-ssl="$INSTALL_DIR" \
+          --enable-threaded-resolver \
+          --prefix="$INSTALL_DIR" \
+          $EXTRA_FLAGS \
+          $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
+          echo -n " compiling..."
+          make -j 1 >> "$DIR/install.log" 2>&1
+
+          echo -n " installing..."
+          make install >> "$DIR/install.log" 2>&1
+          cd ..
+          echo " done!"
 
 
           echo DL git repo

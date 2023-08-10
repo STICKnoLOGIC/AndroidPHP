@@ -157,34 +157,6 @@ jobs:
           --without-librtmp \
           --enable-gopher \
           --enable-imap \
-          --enable-pop3 \
-          --enable-rtsp \
-          --enable-smtp \
-          --enable-telnet \
-          --enable-tftp \
-          --disable-ldap \
-          --disable-ldaps \
-          --without-libidn \
-          --without-libidn2 \
-          --without-brotli \
-          --without-nghttp2 \
-          --without-zstd \
-          --with-zlib="$INSTALL_DIR" \
-          --with-ssl="$INSTALL_DIR" \
-          --enable-threaded-resolver \
-          --prefix="$INSTALL_DIR" \
-          $EXTRA_FLAGS \
-          $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
-          echo -n " compiling..."
-          make -j 1 >> "$DIR/install.log" 2>&1
-    
-          echo -n " installing..."
-          make install >> "$DIR/install.log" 2>&1
-          cd ..
-          echo " done!"
-
-
-        
 
 
           echo DL git repo
@@ -194,7 +166,7 @@ jobs:
           ls $INSTALL_DIR
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
-          RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$INSTALL_DIR --with-curl CURLDIR=/usr --with-expat SHELL_PATH=/usr/bin/sh $CONFIGURE_FLAGS \
+          RANLIB=$RANLIB ./configure --build $TOOLCHAIN_PREFIX --prefix=$DIR/git-static --with-curl CURLDIR=/usr --with-expat SHELL_PATH=/usr/bin/sh $CONFIGURE_FLAGS \
           CFLAGS="$CFLAGS" $CONFIGURE_FLAGS \
           NO_ICONV=YesPlease USE_LIBPCRE=YesPlease cross_compiling=yes
           # make -j 1 strip

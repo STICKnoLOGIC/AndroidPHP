@@ -85,7 +85,7 @@ jobs:
           export CXX="$CXX"
           export LDFLAGS="$LDFLAGS"
           LDFLAGS+=" -L$INSTALL_DIR/lib "
-          LDFLAGS+=" -L/usr/lib "
+          # LDFLAGS+=" -L/usr/lib "
           export CPPFLAGS="$CPPFLAGS"
           CPPFLAGS+=" -I$INSTALL_DIR/bin "
           CPPFLAGS+=" -I/usr/bin "

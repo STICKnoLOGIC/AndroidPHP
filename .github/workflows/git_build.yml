@@ -119,7 +119,9 @@ jobs:
           echo DL PCRE2
           curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-10.42.tar.gz | tar -zx
           cd ./pcre2-10.42
-          
+          ./configure --disable-shared --prefix=$INSTALL_DIR
+          make -j 1 install
+          cd ..
                 
 
 

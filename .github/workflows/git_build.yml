@@ -199,7 +199,7 @@ jobs:
           echo DL git repo
           # export cross_compiling=yes
           export CURL_LDFLAGS=-lcurl
-          # export ac_cv_lib_curl_curl_global_init=yes
+           export ac_cv_lib_curl_curl_global_init=yes
           
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
           ls $INSTALL_DIR

@@ -201,11 +201,11 @@ jobs:
           cd git-2.41.0
           make configure
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static --with-openssl --with-curl --with-expat \
-          CFLAGS="-static" $CONFIGURE_FLAGS CURLDIR=$INSTALL_DIR
+          CFLAGS="-static" $CONFIGURE_FLAGS CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR
           
           # make -j 1 strip
           
-          make CURLDIR=$INSTALL_DIR SHELL_PATH=$(which sh) NO_ICONV=YesPlease USE_LIBPCRE=YesPlease -j 2 install
+          make CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR SHELL_PATH=$(which sh) NO_ICONV=YesPlease USE_LIBPCRE=YesPlease -j 2 install
           # mv -fv $GIT_DIRS/* $DIR/git-static
 
       - name: minifying and fixing git-core

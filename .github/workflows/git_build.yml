@@ -207,7 +207,7 @@ jobs:
           cd git-2.41.0
           make configure
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static --with-openssl --with-curl --with-expat \
-          CFLAGS="-static -s -w" $CONFIGURE_FLAGS CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR LIBS="-lcurl"
+          CFLAGS="-static -s -w" $CONFIGURE_FLAGS CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR LIBS="-lcurl -lssl -lcrypto"
           
           # make -j 1 strip
           

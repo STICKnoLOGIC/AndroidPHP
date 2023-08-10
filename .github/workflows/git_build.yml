@@ -208,6 +208,8 @@ jobs:
           make CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR SHELL_PATH=$(which sh) NO_ICONV=YesPlease USE_LIBPCRE=YesPlease -j 2 install
           # mv -fv $GIT_DIRS/* $DIR/git-static
           ls $INSTALL_DIR/lib
+          echo "#:####:###:#:###"
+          ls $INSTALL_DIR/bin
 
       - name: minifying and fixing git-core
         working-directory: git-static/libexec/git-core

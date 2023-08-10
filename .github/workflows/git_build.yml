@@ -198,14 +198,15 @@ jobs:
           echo DL git repo
           # export cross_compiling=yes
           export CURL_LDFLAGS=-lcurl
-
+          export ac_cv_lib_curl_curl_global_init=yes
+          
           curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
           ls $INSTALL_DIR
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           make configure
           RANLIB=$RANLIB ./configure --prefix=$DIR/git-static --with-openssl --with-curl --with-expat \
-          CFLAGS="-static -s -w" $CONFIGURE_FLAGS CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR
+          CFLAGS="-static -s -w" $CONFIGURE_FLAGS CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR LIBS="-lcurl"
           
           # make -j 1 strip
           

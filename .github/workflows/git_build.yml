@@ -53,7 +53,7 @@ jobs:
           #this extra subdir makes sure that it doesn't find anything it's not supposed to be looking for.
           BUILD_DIR="$BASE_BUILD_DIR/subdir"
           LIB_BUILD_DIR="$BUILD_DIR/lib"
-          INSTALL_DIR="$DIR/bin/php7"
+          INSTALL_DIR="/data/data/ph.sticknologic.com.laraide/usr/etc" # "$DIR/bin/php7"
 
           TOOLCHAIN_PREFIX="aarch64-linux-musl"
           export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
@@ -94,7 +94,7 @@ jobs:
           rm -r -f bin/ >> "$DIR/install.log" 2>&1
           mkdir -m 0755 "$BASE_BUILD_DIR" >> "$DIR/install.log" 2>&1
           mkdir -m 0755 "$BUILD_DIR" >> "$DIR/install.log" 2>&1
-          mkdir -m 0755 -p $INSTALL_DIR # >> "$DIR/install.log" 2>&1
+          sudo mkdir -m 0755 -p $INSTALL_DIR # >> "$DIR/install.log" 2>&1
           mkdir -m 0755 -p "$LIB_BUILD_DIR" >> "$DIR/install.log" 2>&1
           cd "$BUILD_DIR"
           set -e

@@ -87,7 +87,7 @@ jobs:
           export LDFLAGS+=" -L$INSTALL_DIR/lib "
           export LDFLAGS+=" -L/usr/lib "
           export CPPFLAGS="$CPPFLAGS"
-          export CPPFLAGS+=" -I$INSTALL_DIR/include "
+          export CPPFLAGS+=" -I$INSTALL_DIR/include"
           # export CPPFLAGS+=" -I/usr/include -I/usr/bin"
           export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:$LIBRARY_PATH:$LD_LIBRARY_PATH"
           export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
@@ -150,7 +150,7 @@ jobs:
           echo " done!"
 
           echo DL CURL
-          export CURL_LDFLAGS=-lcurl
+          # export CURL_LDFLAGS=-lcurl
           EXTRA_FLAGS="--enable-static --disable-shared"
           curl_dir="./curl-8.2.1"
           curl -L "https://curl.se/download/curl-8.2.1.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
@@ -159,7 +159,6 @@ jobs:
           ./buildconf --force >> "$DIR/install.log" 2>&1
           ./configure --disable-dependency-tracking \
           --enable-ipv6 \
-          # --with-gnutls \
           --enable-optimize \
           --enable-http \
           --enable-ftp \
@@ -180,7 +179,6 @@ jobs:
           --without-brotli \
           --without-nghttp2 \
           --without-zstd \
-          # --with-openssl="$INSTALL_DIR" \
           --with-zlib="$INSTALL_DIR" \
           --with-ssl="$INSTALL_DIR" \
           --enable-threaded-resolver \

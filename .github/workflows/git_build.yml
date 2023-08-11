@@ -150,52 +150,52 @@ jobs:
           echo " done!"
 
           echo DL CURL
-          # export CURL_LDFLAGS=-lcurl
-          # EXTRA_FLAGS="--enable-static --disable-shared"
-          # curl_dir="./curl-8.2.1"
-          # curl -L "https://curl.se/download/curl-8.2.1.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
-          # echo -n " checking..."
-          # cd "$curl_dir"
-          # ./buildconf --force >> "$DIR/install.log" 2>&1
-          # ./configure --disable-dependency-tracking \
-          # --enable-ipv6 \
+          export CURL_LDFLAGS=-lcurl
+          EXTRA_FLAGS="--enable-static --disable-shared"
+          curl_dir="./curl-8.2.1"
+          curl -L "https://curl.se/download/curl-8.2.1.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
+          echo -n " checking..."
+          cd "$curl_dir"
+          ./buildconf --force >> "$DIR/install.log" 2>&1
+          ./configure --disable-dependency-tracking \
+          --enable-ipv6 \
           # --with-gnutls \
-          # --enable-optimize \
-          # --enable-http \
-          # --enable-ftp \
-          # --enable-dict \
-          # --enable-file \
-          #  --without-librtmp \
-          # --enable-gopher \
-          # --enable-imap \
-          # --enable-pop3 \
-          # --enable-rtsp \
-          # --enable-smtp \
-          # --enable-telnet \
-          # --enable-tftp \
-          # --disable-ldap \
-          # --disable-ldaps \
-          # --without-libidn \
-          # --without-libidn2 \
-          EEEH="--without-brotli \
+          --enable-optimize \
+          --enable-http \
+          --enable-ftp \
+          --enable-dict \
+          --enable-file \
+          --without-librtmp \
+          --enable-gopher \
+          --enable-imap \
+          --enable-pop3 \
+          --enable-rtsp \
+          --enable-smtp \
+          --enable-telnet \
+          --enable-tftp \
+          --disable-ldap \
+          --disable-ldaps \
+          --without-libidn \
+          --without-libidn2 \
+          --without-brotli \
           --without-nghttp2 \
           --without-zstd \
-          --with-openssl="$INSTALL_DIR" \
+          # --with-openssl="$INSTALL_DIR" \
           --with-zlib="$INSTALL_DIR" \
           --with-ssl="$INSTALL_DIR" \
           --enable-threaded-resolver \
           --prefix="$INSTALL_DIR" \
           $EXTRA_FLAGS \
-          $CONFIGURE_FLAGS" # >> "$DIR/install.log" 2>&1
+          $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
           # echo -n " compiling..."
           # make -j 1 >> "$DIR/install.log" 2>&1
-          curl -Lo $INSTALL_DIR/bin/curl "https://github.com/STICKnoLOGIC/Cross-Compiled-Binaries-Android/raw/master/curl/curl-arm64"
-          
-    
+              
 
           echo -n " installing..."
           #make install >> "$DIR/install.log" 2>&1
           cd ..
+          curl -Lo $INSTALL_DIR/bin/curl "https://github.com/STICKnoLOGIC/Cross-Compiled-Binaries-Android/raw/master/curl/curl-arm64"
+          
           echo " done!"
 
 

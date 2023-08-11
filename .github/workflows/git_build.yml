@@ -216,7 +216,7 @@ jobs:
           --with-openssl \
           --with-curl \
           --with-expat \
-          CFLAGS="-static -s -w" LDFLAGS="$LDFLAGS -lcurl -lssl -lcrypto" $CONFIGURE_FLAGS  LIBS="-lcurl -lssl -lcrypto"
+          CFLAGS="-static -s -w" LDFLAGS="$LDFLAGS" $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
           
           # make -j 1 strip
           

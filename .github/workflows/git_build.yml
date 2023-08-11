@@ -208,6 +208,7 @@ jobs:
           make configure
           RANLIB=$RANLIB ./configure CURLDIR=$INSTALL_DIR \
           OPENSSLDIR=$INSTALL_DIR \
+          NO_GETTEXT=YesPlease \
           --prefix=$DIR/git-static \
           --with-openssl \
           --with-curl \

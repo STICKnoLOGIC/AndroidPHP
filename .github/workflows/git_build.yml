@@ -62,11 +62,7 @@ jobs:
           export CXXFLAGS="-static $CXXFLAGS "
           LDFLAGS="-static -static-libgcc -Wl,-static"
           export ac_cv_func_fnmatch_works=yes #musl should be OK
-          export ac_cv_func_memcmp_working=yes
-          export ac_cv_fread_reads_directories=yes
-          export ac_cv_header_libintl_h=no
-          export ac_cv_iconv_omits_bom=no
-          export ac_cv_snprintf_returns_bogus=no
+          
           echo "[INFO] Cross-compiling for Android ARMv8 (aarch64)"
           export EXTRA_CFLAGS=-lresolv
           echo "[INFO] Compiling for current machine using 64-bit"
@@ -206,8 +202,13 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           make configure
-          RANLIB=$RANLIB ./configure CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR --prefix=$DIR/git-static --with-openssl --with-curl --with-expat \
-          CFLAGS="-static -s -w" $CONFIGURE_FLAGS  LIBS="-lcurl -lssl -lcrypto"
+          RANLIB=$RANLIB ./configure CURLDIR=$INSTALL_DIR \
+          OPENSSLDIR=$INSTALL_DIR \
+          --prefix=$DIR/git-static \
+          --with-openssl \
+          --with-curl \
+          --with-expat \
+          CFLAGS="-static -s -w" LDFLAGS="$LDFLAGS -lcurl -lssl -lcrypto" $CONFIGURE_FLAGS  LIBS="-lcurl -lssl -lcrypto"
           
           # make -j 1 strip
           

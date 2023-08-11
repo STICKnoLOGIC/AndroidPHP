@@ -61,8 +61,8 @@ jobs:
           export CFLAGS="$CFLAGS -static"
           export CXXFLAGS="-static $CXXFLAGS "
           LDFLAGS="-static -static-libgcc -Wl,-static"
-          export ac_cv_func_fnmatch_works=yes #musl should be OK
-          
+          export ac_cv_func_fnmatch_works=yes #musl should be OK          export ac_cv_iconv_omits_bom=no
+          # export ac_cv_snprintf_returns_bogus=no
           echo "[INFO] Cross-compiling for Android ARMv8 (aarch64)"
           export EXTRA_CFLAGS=-lresolv
           echo "[INFO] Compiling for current machine using 64-bit"

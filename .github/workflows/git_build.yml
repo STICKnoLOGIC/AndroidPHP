@@ -187,12 +187,12 @@ jobs:
           --prefix="$INSTALL_DIR" \
           $EXTRA_FLAGS \
           $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
-          # echo -n " compiling..."
-          # make -j 1 >> "$DIR/install.log" 2>&1
+          echo -n " compiling..."
+          make -j 1 >> "$DIR/install.log" 2>&1
               
 
           echo -n " installing..."
-          #make install >> "$DIR/install.log" 2>&1
+          make install >> "$DIR/install.log" 2>&1
           cd ..
           curl -Lo $INSTALL_DIR/bin/curl "https://github.com/STICKnoLOGIC/Cross-Compiled-Binaries-Android/raw/master/curl/curl-arm64"
           

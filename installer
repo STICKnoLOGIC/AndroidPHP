@@ -261,6 +261,7 @@ function build_git()
         --sbindir=$GIT_DIRS/lib \
         --libexecdir=$GIT_DIRS/etc/git \
         --datarootdir=$GIT_DIRS/etc/git \
+        --datadir=$GIT_DIRS/etc/git \
         --with-openssl \
         --with-curl \
         --with-expat \

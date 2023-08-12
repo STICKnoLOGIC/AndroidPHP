@@ -10,7 +10,7 @@ PCRE_v='2-10.41'
 
 
 #DIRS
-DIR=${ pwd } 
+DIR="$(pwd)"
 BASE_BUILD_DIR="$DIR/install_data"
 BUILD_DIR="$BASE_BUILD_DIR/subdir"
 LIB_BUILD_DIR="$BUILD_DIR/lib"

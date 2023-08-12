@@ -77,18 +77,7 @@ jobs:
       - name: Download artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: "bin"
-          path: "git-static/bin"
-            
-      - name: Download artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: "libexec_gitcore"
-          path: "git-static/libexec/git-core"
-      
-      - name: Download artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: "share"
-          path: "git-static/share"
+          name: "package"
+          path: "git-static/"
+
             

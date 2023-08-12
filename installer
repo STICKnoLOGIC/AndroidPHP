@@ -15,7 +15,7 @@ DIR="$(pwd)"
 BASE_BUILD_DIR="$DIR/install_data"
 BUILD_DIR="$BASE_BUILD_DIR/subdir"
 LIB_BUILD_DIR="$BUILD_DIR/lib"
-GIT_DIRS="/data/data/ph.sticknologic.com.laraide/usr/etc"
+GIT_DIRS="/data/data/ph.sticknologic.com.laraide/usr"
 INSTALL_DIR="$DIR/LS/"
 
 #cross compiler env
@@ -234,6 +234,7 @@ function build_git()
     fi
 
     build_libexpat
+
     
     if [ ! "$1" = "" ]; then
         git_v=$1
@@ -250,12 +251,16 @@ function build_git()
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     # mv -fv $DIR/patches/git/* ./git-2.41.0/
     cd git-$git_v
-    ./configure CURLDIR=$INSTALL_DIR \
+    sudo ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
         NO_GETTEXT=YesPlease \
         NO_EXPAT=YesPlease \
         NO_NSEC=YesPlease \
-        --prefix=$DIR/git-static \
+        --prefix=$GIT_DIRS \
+        --bindir=$GIT_DIRS/lib \
+        --sbindir=$GIT_DIRS/lib \
+        --libexecdir=$GIT_DIRS/etc/git \
+        --datarootdir=$GIT_DIRS/etc/git \
         --with-openssl \
         --with-curl \
         --with-expat \
@@ -265,13 +270,14 @@ function build_git()
         $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
     # make -j 1 strip
     echo -n " compiling..."
-    make -j 2 >> "$DIR/install.log" 2>&1
+    sudo make -j 2 >> "$DIR/install.log" 2>&1
     echo -n " installing..."
-    make -j 2 install
+    sudo make -j 2 install
     echo " done!"
     cd ..
     echo "[INFO] Building Pcre2:success..."
-
+    mv -fv $GIT_DIRS ./git-static
+    ls ./git-static
     echo "######################################"
     ls $INSTALL_DIR/lib
     echo "######################################"

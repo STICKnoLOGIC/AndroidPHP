@@ -96,7 +96,7 @@ function build_openssl()
     /usr/bin/curl -L "http://www.openssl.org/source/openssl-$openssl_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
     echo -n " checking..."
     cd "$openssl_dir"
-    ./config linux-aarch64 no-shared \
+    ./Configure linux-aarch64 no-shared \
         --prefix="$INSTALL_DIR" \
         --openssldir="$INSTALL_DIR" \
         no-asm \

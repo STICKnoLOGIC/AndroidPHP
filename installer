@@ -7,6 +7,7 @@ GIT_v='2.41.0'
 OPENSSL_v='1.1.1t'
 ZLIB_v='1.2.13'
 PCRE_v='10.41'
+LIBEXPAT_v='2.5.0'
 
 
 #DIRS
@@ -76,7 +77,7 @@ function build_zlib(){
     ./configure --prefix="$INSTALL_DIR" --static >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
     make -j 2 >> "$DIR/install.log"
-    make -j 2 install
+    make -j 2 install >> "$DIR/install.log"
     cd ..
     echo " done!"
     echo "[INFO] Building zlib:success..."
@@ -103,9 +104,9 @@ function build_openssl()
         no-hw \
         no-engine >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
-     make -j 2 # >> "$DIR/install.log" 2>&1
+     make -j 2 >> "$DIR/install.log" 2>&1
     echo -n " installing..."
-    make -j 2 install_sw # >> "$DIR/install.log" 2>&1
+    make -j 2 install_sw >> "$DIR/install.log" 2>&1
     cd ..
     echo " done!"
     echo "[INFO] Building OpenSSL:success..."
@@ -171,10 +172,32 @@ function build_curl()
     echo -n " compiling..."
     make -j 2 >> "$DIR/install.log" 2>&1
     echo -n " installing..."
-    make -j 2 install # >> "$DIR/install.log" 2>&1
+    make -j 2 install >> "$DIR/install.log" 2>&1
     cd ..
     echo " done!"
     echo "[INFO] Building Curl:success..."
+}
+
+function build_libexpat()
+{
+    if [ ! "$1" = "" ]; then
+        libexpat_v=$1
+    else
+        libexpat_v=$LIBEXPAT_v
+    fi
+
+    /usr/bin/curl -L https://github.com/libexpat/libexpat/releases/latest/download/expat-$libexpat_v.tar.gz | tar -xz
+    cd ./expat-$libexpat_v
+    ./configure --prefix=$INSTALL_DIR \
+        --enable-silent-rules \
+        --disable-dependency-tracking \
+        --enable-static=yes \
+        --enable-shared=no \
+        --enable-fast-install=yes \
+        $CONFIGURE_FLAGS 
+    make -j 2
+    make -j 2 install
+
 }
 
 function build_pcre2()
@@ -209,6 +232,8 @@ function build_git()
     build_pcre2
     fi
 
+    build_libexpat
+
     if [ ! "$1" = "" ]; then
         git_v=$1
     else
@@ -241,6 +266,12 @@ function build_git()
     echo -n " installing..."
     make -j 2 install
     echo " done!"
+    cd ..
     echo "[INFO] Building Pcre2:success..."
+
+    echo "######################################"
+    ls $INSTALL_DIR/lib
+    echo "######################################"
+    ls $INSTALL_DIR/bin
 }
 

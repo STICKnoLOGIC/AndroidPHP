@@ -90,7 +90,7 @@ function build_openssl()
     else
         openssl_v=$OPENSSL_v
     fi 
-    local OPENSSL_CMD="./config linux-aarch64 no-shared"
+    local OPENSSL_CMD='./config linux-aarch64 no-shared'
     local WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
     openssl_dir="./openssl-$openssl_v"
     /usr/bin/curl -L "http://www.openssl.org/source/openssl-$openssl_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
@@ -103,7 +103,7 @@ function build_openssl()
         no-hw \
         no-engine >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
-    # make -j 1 >> "$DIR/install.log" 2>&1
+     make -j 2 # >> "$DIR/install.log" 2>&1
     echo -n " installing..."
     make -j 2 install_sw # >> "$DIR/install.log" 2>&1
     cd ..

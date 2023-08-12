@@ -90,18 +90,18 @@ function build_openssl()
     else
         openssl_v=$OPENSSL_v
     fi 
-    local OPENSSL_CMD='./config linux-aarch64 no-shared'
+    local OPENSSL_CMD='./Configure linux-aarch64 no-shared'
     local WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
     openssl_dir="./openssl-$openssl_v"
     /usr/bin/curl -L "http://www.openssl.org/source/openssl-$openssl_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
     echo -n " checking..."
     cd "$openssl_dir"
-    ./Configure linux-aarch64 no-shared \
+    $OPENSSL_CMD \
         --prefix="$INSTALL_DIR" \
         --openssldir="$INSTALL_DIR" \
         no-asm \
         no-hw \
-        no-engine # >> "$DIR/install.log" 2>&1
+        no-engine >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
      make -j 2 # >> "$DIR/install.log" 2>&1
     echo -n " installing..."
@@ -167,11 +167,11 @@ function build_curl()
         --enable-threaded-resolver \
         --prefix="$INSTALL_DIR" \
         $EXTRA_FLAGS \
-        $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
+        $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
     make -j 2 >> "$DIR/install.log" 2>&1
     echo -n " installing..."
-    make -j 2 install >> "$DIR/install.log" 2>&1
+    make -j 2 install # >> "$DIR/install.log" 2>&1
     cd ..
     echo " done!"
     echo "[INFO] Building Curl:success..."

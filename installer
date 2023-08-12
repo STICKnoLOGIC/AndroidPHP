@@ -6,7 +6,7 @@ CURL_v='8.2.1'
 GIT_v='2.41.0'
 OPENSSL_v='1.1.1t'
 ZLIB_v='1.2.13'
-PCRE_v='2-10.41'
+PCRE_v='10.41'
 
 
 #DIRS
@@ -101,7 +101,7 @@ function build_openssl()
         --openssldir="$INSTALL_DIR" \
         no-asm \
         no-hw \
-        no-engine >> "$DIR/install.log" 2>&1
+        no-engine # >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
      make -j 2 # >> "$DIR/install.log" 2>&1
     echo -n " installing..."

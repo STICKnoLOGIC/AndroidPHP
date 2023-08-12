@@ -105,7 +105,7 @@ function build_openssl()
     echo -n " compiling..."
     # make -j 1 >> "$DIR/install.log" 2>&1
     echo -n " installing..."
-    make -j 2 install_sw >> "$DIR/install.log" 2>&1
+    make -j 2 install_sw # >> "$DIR/install.log" 2>&1
     cd ..
     echo " done!"
     echo "[INFO] Building OpenSSL:success..."

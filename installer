@@ -278,7 +278,7 @@ function build_git()
     cd ..
     echo "[INFO] Building Pcre2:success..."
     sudo mv -fv $GIT_DIRS $DIR/git-static
-    sudo ls ./git-static
+    sudo ls $DIR/git-static
     echo "######################################"
     ls $INSTALL_DIR/lib
     echo "######################################"

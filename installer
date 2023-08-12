@@ -194,6 +194,7 @@ function build_libexpat()
         --enable-static=yes \
         --enable-shared=no \
         --enable-fast-install=yes \
+        --without-ddocbook \
         $CONFIGURE_FLAGS 
     make -j 2
     make -j 2 install
@@ -228,7 +229,7 @@ function build_git()
      build_curl
     fi
 
-    if [! -e "$INSTALL_DIR/bin/pcre2-config"]; then
+    if [! -e "$INSTALL_DIR/bin/pcre2-config" ]; then
     build_pcre2
     fi
 

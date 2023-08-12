@@ -48,7 +48,8 @@ function setup_environment()
     sudo apt install -y pcre2-utils git make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
     
     mkdir -p aarch64-linux-musl && cd aarch64-linux-musl
-    /usr/bin/curl -L "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz" | tar -xfv &> /dev/null
+    wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"
+    tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
     echo "$(pwd)/bin" >> $GITHUB_PATH
     cd ..
     DIR="$(pwd)"

@@ -75,7 +75,7 @@ function build_zlib(){
     cd "./zlib-$zlib_v"
     ./configure --prefix="$INSTALL_DIR" --static >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
-    # make -j >> "$DIR/install.log"
+    make -j 2 >> "$DIR/install.log"
     make -j 2 install
     cd ..
     echo " done!"
@@ -96,7 +96,7 @@ function build_openssl()
     /usr/bin/curl -L "http://www.openssl.org/source/openssl-$openssl_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
     echo -n " checking..."
     cd "$openssl_dir"
-    $OPENSSL_CMD \
+    ./config linux-aarch64 no-shared \
         --prefix="$INSTALL_DIR" \
         --openssldir="$INSTALL_DIR" \
         no-asm \
@@ -169,7 +169,7 @@ function build_curl()
         $EXTRA_FLAGS \
         $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
-    # make -j 1 >> "$DIR/install.log" 2>&1
+    make -j 2 >> "$DIR/install.log" 2>&1
     echo -n " installing..."
     make -j 2 install >> "$DIR/install.log" 2>&1
     cd ..
@@ -188,6 +188,9 @@ function build_pcre2()
     curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-$pcre2_v.tar.gz | tar -zx
     cd ./pcre2-$pcre2_v
     ./configure $CONFIGURE_FLAGS --disable-shared --prefix=$INSTALL_DIR
+    echo -n " compiling..."
+    make -j 2 >> "$DIR/install.log" 2>&1
+    echo -n " installing..."
     make -j 2 install
     cd ..
     echo " done!"
@@ -233,6 +236,9 @@ function build_git()
         CFLAGS="-static -s -w" LDFLAGS="$LDFLAGS" \
         $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
     # make -j 1 strip
+    echo -n " compiling..."
+    make -j 2 >> "$DIR/install.log" 2>&1
+    echo -n " installing..."
     make -j 2 install
     echo " done!"
     echo "[INFO] Building Pcre2:success..."

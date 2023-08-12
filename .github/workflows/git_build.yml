@@ -30,9 +30,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: setup Environment for Cross-compiling for Android ARMv8 (aarch64)
+        env:
+          DIR: ${{ env.DIR }}
         run: source ./installer && setup_environment
-      
+          
       - name: install
+        env:
+          DIR: ${{ env.DIR }}
         run: source ./installer && cd $BUILD_DIR && build_git
           
           

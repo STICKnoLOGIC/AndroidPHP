@@ -234,7 +234,7 @@ function build_git()
     fi
 
     build_libexpat
-
+    
     if [ ! "$1" = "" ]; then
         git_v=$1
     else
@@ -250,9 +250,11 @@ function build_git()
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     # mv -fv $DIR/patches/git/* ./git-2.41.0/
     cd git-$git_v
-    RANLIB=$RANLIB ./configure CURLDIR=$INSTALL_DIR \
+    ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
         NO_GETTEXT=YesPlease \
+        NO_EXPAT=YesPlease \
+        NO_NSEC=YesPlease \
         --prefix=$DIR/git-static \
         --with-openssl \
         --with-curl \

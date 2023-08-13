@@ -276,7 +276,7 @@ function build_git()
     echo " done!"
     echo "[INFO] Building git:success..."
     cd $DIR/git-static
-    sudo mv -fv $GIT_DIRS ./
+    sudo mv -fv $GIT_DIRS/* ./
 
     tar -cv bin lib etc | gzip -9 - > git.tar.gz
 

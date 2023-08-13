@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: setup Environment for Cross-compiling for Android ARMv8 (aarch64)
         run: source ./installer && setup_environment
           
@@ -75,6 +75,6 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: "package"
-          path: "git-static/git.tar.gz"
+          path: "git-static"
 
             

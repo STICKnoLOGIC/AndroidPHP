@@ -262,16 +262,15 @@ function build_git()
         --with-openssl \
         --with-curl \
         --with-expat \
-        ac_cv_func_memcmp_working=yes \
+        $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
+    # make -j 1 strip
+    echo -n " compiling..."
+    sudo make -j 2 ac_cv_func_memcmp_working=yes \
         ac_cv_fread_reads_directories=yes \
         ac_cv_header_libintl_h=no \
         ac_cv_iconv_omits_bom=no \
         ac_cv_snprintf_returns_bogus=no \
-        ac_cv_lib_curl_curl_global_init=yes \
-        $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
-    # make -j 1 strip
-    echo -n " compiling..."
-    sudo make -j 2 >> "$DIR/install.log" 2>&1
+        ac_cv_lib_curl_curl_global_init=yes >> "$DIR/install.log" 2>&1
     echo -n " installing..."
     sudo make -j 2 install
     echo " done!"

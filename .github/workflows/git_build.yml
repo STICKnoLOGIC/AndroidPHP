@@ -81,10 +81,13 @@ jobs:
               fi
             done
 
+            echo deleting unneeded file
+             
+
             tar -cv bin lib etc | gzip -9 - > git.tar.gz
             
             for file in share lib etc; do
-              rm -vf $file
+              rm -rvf $file
             done
 
 

@@ -240,21 +240,20 @@ function build_git()
     else
         git_v=$GIT_v
     fi 
-    export ac_cv_func_memcmp_working=yes
-    export ac_cv_fread_reads_directories=yes
-    export ac_cv_header_libintl_h=no
-    export ac_cv_iconv_omits_bom=no
-    export ac_cv_snprintf_returns_bogus=no
-    export ac_cv_lib_curl_curl_global_init=yes
 
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     # mv -fv $DIR/patches/git/* ./git-2.41.0/
     cd git-$git_v
     sudo ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
+        CFLAGS="-static -s -w" LDFLAGS="$LDFLAGS" \
         NO_GETTEXT=YesPlease \
-        NO_EXPAT=YesPlease \
+        NO_INSTALL_HARDLINKS=YesPlease \
+        # NO_EXPAT=YesPlease \
         NO_NSEC=YesPlease \
+        NO_ICONV=YesPlease \
+        NO_TCLTK=YesPlease \
+        USE_LIBPCRE=YesPlease \
         --prefix=$GIT_DIRS \
         --bindir=$GIT_DIRS/lib \
         --sbindir=$GIT_DIRS/lib \
@@ -264,9 +263,12 @@ function build_git()
         --with-openssl \
         --with-curl \
         --with-expat \
-        NO_ICONV=YesPlease \
-        USE_LIBPCRE=YesPlease \
-        CFLAGS="-static -s -w" LDFLAGS="$LDFLAGS" \
+        ac_cv_func_memcmp_working=yes \
+        ac_cv_fread_reads_directories=yes \
+        ac_cv_header_libintl_h=no \
+        ac_cv_iconv_omits_bom=no \
+        ac_cv_snprintf_returns_bogus=no \
+        ac_cv_lib_curl_curl_global_init=yes \
         $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
     # make -j 1 strip
     echo -n " compiling..."
@@ -280,7 +282,5 @@ function build_git()
     sudo chmod 777 ./*
     sudo chmod 777 ./**/*
     sudo chmod 777 ./**/**/*
-
-
 }
 

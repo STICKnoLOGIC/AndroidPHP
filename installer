@@ -196,8 +196,8 @@ function build_libexpat()
         --without-docbook \
         $CONFIGURE_FLAGS 
     make -j 2
-    cd ..
     make -j 2 install
+    cd ..
 
 }
 

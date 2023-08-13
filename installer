@@ -249,7 +249,6 @@ function build_git()
         CFLAGS="-static -s -w" LDFLAGS="$LDFLAGS" \
         NO_GETTEXT=YesPlease \
         NO_INSTALL_HARDLINKS=YesPlease \
-        # NO_EXPAT=YesPlease \
         NO_NSEC=YesPlease \
         NO_ICONV=YesPlease \
         NO_TCLTK=YesPlease \

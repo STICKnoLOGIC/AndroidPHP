@@ -41,7 +41,7 @@ export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
 
 #error catching
-set -e
+set -ex
 
 function setup_environment()
 {
@@ -53,7 +53,7 @@ function setup_environment()
     tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
     echo "$(pwd)/bin" >> $GITHUB_PATH
     cd ..
-    echo $DIR >> "$GITHUB_ENV"
+    echo "$DIR" >> "$GITHUB_ENV"
     rm -r -f "$BASE_BUILD_DIR" >> "$DIR/install.log" 2>&1
     rm -r -f bin/ >> "$DIR/install.log" 2>&1
     mkdir git-static

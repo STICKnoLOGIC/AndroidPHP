@@ -16,7 +16,7 @@ BASE_BUILD_DIR="$DIR/install_data"
 BUILD_DIR="$BASE_BUILD_DIR/subdir"
 LIB_BUILD_DIR="$BUILD_DIR/lib"
 GIT_DIRS="/data/data/ph.sticknologic.com.laraide/usr"
-INSTALL_DIR="$DIR/LS/"
+INSTALL_DIR="$DIR/LS"
 
 #cross compiler env
 TOOLCHAIN_PREFIX="aarch64-linux-musl"

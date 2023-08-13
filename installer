@@ -275,13 +275,12 @@ function build_git()
     echo -n " installing..."
     sudo make -j 2 install
     echo " done!"
-    cd ..
-    echo "[INFO] Building Pcre2:success..."
-    sudo mv -fv $GIT_DIRS $DIR/git-static
-    sudo ls $DIR/git-static
-    echo "######################################"
-    ls $INSTALL_DIR/lib
-    echo "######################################"
-    ls $INSTALL_DIR/bin
+    echo "[INFO] Building git:success..."
+    cd $DIR/git-static
+    sudo mv -fv $GIT_DIRS ./
+
+    tar -cv bin lib etc | gzip -9 - > git.tar.gz
+
+
 }
 

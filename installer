@@ -196,6 +196,7 @@ function build_libexpat()
         --without-docbook \
         $CONFIGURE_FLAGS 
     make -j 2
+    cd ..
     make -j 2 install
 
 }
@@ -246,6 +247,7 @@ function build_git()
     ac_cv_header_libintl_h=no \
     ac_cv_iconv_omits_bom=no \
     ac_cv_snprintf_returns_bogus=no \
+    execdir=$GIT_DIRS/etc/git \
     ac_cv_lib_curl_curl_global_init=yes
 
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
@@ -262,7 +264,6 @@ function build_git()
         USE_LIBPCRE=YesPlease \
         --prefix=$GIT_DIRS \
         --bindir=$GIT_DIRS/lib \
-        --execdir=$GIT_DIRS/etc/git \
         --sbindir=$GIT_DIRS/lib \
         --libexecdir=$GIT_DIRS/etc/git \
         --datarootdir=$GIT_DIRS/etc/git \

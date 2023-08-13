@@ -278,8 +278,6 @@ function build_git()
     cd $DIR/git-static
     sudo mv -fv $GIT_DIRS/* ./
 
-    tar -cv bin lib etc | gzip -9 - > git.tar.gz
-
 
 }
 

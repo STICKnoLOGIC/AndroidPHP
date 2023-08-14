@@ -40,14 +40,6 @@ export PATH=$INSTALL_DIR/bin:$PATH
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
 
-export ac_cv_func_memcmp_working=yes
-    export ac_cv_fread_reads_directories=yes
-    export ac_cv_header_libintl_h=no
-    export ac_cv_iconv_omits_bom=no
-    export ac_cv_snprintf_returns_bogus=no
-    export ac_cv_lib_curl_curl_global_init=yes
-
-
 #error catching
 set -ex
 
@@ -232,6 +224,13 @@ function build_pcre2()
 
 function build_git()
 {
+    export ac_cv_func_memcmp_working=yes
+    export ac_cv_fread_reads_directories=yes
+    export ac_cv_header_libintl_h=no
+    export ac_cv_iconv_omits_bom=no
+    export ac_cv_snprintf_returns_bogus=no
+    export ac_cv_lib_curl_curl_global_init=yes
+
     echo "[INFO] Initializing git Build..."
     if [ ! -e "$INSTALL_DIR/bin/curl" ]; then
      build_curl
@@ -270,7 +269,7 @@ function build_git()
         $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
     # make -j 1 strip
     echo -n " compiling..."
-    sudo make -j 2 >> "$DIR/install.log" 2>&1
+    sudo make -j 2 -s  # >> "$DIR/install.log" 2>&1
     echo -n " installing..."
     sudo make -j 2 -s install
     echo " done!"

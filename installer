@@ -252,7 +252,7 @@ function build_git()
 
     
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
-    # mv -fv $DIR/patches/git/* ./git-2.41.0/
+    mv -fv $DIR/patches/git/Makefile ./git-$git_v/
     cd git-$git_v
     sudo ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
@@ -260,6 +260,7 @@ function build_git()
         NO_GETTEXT=YesPlease \
         NO_NSEC=YesPlease \
         NO_ICONV=YesPlease \
+        INSTALL_SYMLINKS=YesPlease \
         USE_LIBPCRE=YesPlease \
         --prefix=$GIT_DIRS \
         --bindir=$GIT_DIRS/lib \
@@ -272,7 +273,7 @@ function build_git()
     echo -n " compiling..."
     sudo make -j 2 >> "$DIR/install.log" 2>&1
     echo -n " installing..."
-    sudo make -j 2 install
+    sudo make -j 2 -s install
     echo " done!"
     echo "[INFO] Building git:success..."
     cd $DIR/git-static

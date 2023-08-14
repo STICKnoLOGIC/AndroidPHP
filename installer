@@ -209,7 +209,7 @@ function build_pcre2()
     else
         pcre2_v=$PCRE_v
     fi 
-    curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-$pcre2_v.tar.gz | tar -zx
+    /usr/bin/curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-$pcre2_v.tar.gz | tar -zx
     cd ./pcre2-$pcre2_v
     ./configure $CONFIGURE_FLAGS --disable-shared --prefix=$INSTALL_DIR
     echo -n " compiling..."

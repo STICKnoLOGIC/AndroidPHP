@@ -270,7 +270,7 @@ function build_git()
         $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
     # make -j 1 strip
     echo -n " compiling..."
-    sudo make -j 2 -s  # >> "$DIR/install.log" 2>&1
+    # sudo make -j 2 -s  # >> "$DIR/install.log" 2>&1
     echo -n " installing..."
     sudo make -j 2 -s install
     echo " done!"

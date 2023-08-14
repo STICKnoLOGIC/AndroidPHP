@@ -774,7 +774,7 @@ x_libraries=NONE
 # (The list follows the same order as the GNU Coding Standards.)
 bindir='${exec_prefix}/lib'
 sbindir='${exec_prefix}/lib'
-libexecdir='${exec_prefix}/lib'
+libexecdir='${exec_prefix}/etc/git'
 datarootdir='${prefix}/etc/git'
 datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'

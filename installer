@@ -260,8 +260,6 @@ function build_git()
         NO_GETTEXT=YesPlease \
         NO_NSEC=YesPlease \
         NO_ICONV=YesPlease \
-        NO_INSTALL_HARDLINKS=YesPlease \
-        INSTALL_SYMLINKS=YesPlease \
         USE_LIBPCRE=YesPlease \
         --prefix=$GIT_DIRS \
         --exec_prefix=$GIT_DIRS \

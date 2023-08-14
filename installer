@@ -234,7 +234,7 @@ function build_git()
     fi
 
     build_libexpat
-
+    build_pcre2
     
     if [ ! "$1" = "" ]; then
         git_v=$1
@@ -263,9 +263,9 @@ function build_git()
         --prefix=$GIT_DIRS \
         --bindir=$GIT_DIRS/lib \
         --sbindir=$GIT_DIRS/lib \
-        --libexecdir=$GIT_DIRS/etc/git \
-        --datarootdir=$GIT_DIRS/etc/git \
-        --datadir=$GIT_DIRS/etc/git \
+        # --libexecdir=$GIT_DIRS/etc/git \
+        # --datarootdir=$GIT_DIRS/etc/git \
+        # --datadir=$GIT_DIRS/etc/git \
         --with-openssl \
         --with-curl \
         --with-expat \

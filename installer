@@ -252,6 +252,7 @@ function build_git()
     
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     mv -fv $DIR/patches/git/Makefile ./git-$git_v/
+    mv -fv $DIR/patches/git/configure ./git-$git_v/
     cd git-$git_v
     sudo ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \

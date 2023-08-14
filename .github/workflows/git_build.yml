@@ -88,7 +88,7 @@ jobs:
 
             tar -cv git | gzip -9 - > git.tar.gz
             
-            for file in bin share lib etc; do
+            for file in bin share lib etc git ; do
               rm -rvf $file
             done
 

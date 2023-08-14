@@ -262,7 +262,6 @@ function build_git()
         NO_ICONV=YesPlease \
         USE_LIBPCRE=YesPlease \
         --prefix=$GIT_DIRS \
-        --exec_prefix=$GIT_DIRS \
         --with-openssl \
         --with-curl \
         --with-expat \

@@ -40,6 +40,14 @@ export PATH=$INSTALL_DIR/bin:$PATH
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
 
+export ac_cv_func_memcmp_working=yes
+    export ac_cv_fread_reads_directories=yes
+    export ac_cv_header_libintl_h=no
+    export ac_cv_iconv_omits_bom=no
+    export ac_cv_snprintf_returns_bogus=no
+    export ac_cv_lib_curl_curl_global_init=yes
+
+
 #error catching
 set -ex
 
@@ -209,7 +217,7 @@ function build_pcre2()
     else
         pcre2_v=$PCRE_v
     fi 
-    /usr/bin/curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-$pcre2_v.tar.gz | tar -jx
+    /usr/bin/curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-$pcre2_v.tar.gz | tar -zxv
     cd ./pcre2-$pcre2_v
     ./configure $CONFIGURE_FLAGS --disable-shared --prefix=$INSTALL_DIR
     echo -n " compiling..."
@@ -242,13 +250,7 @@ function build_git()
         git_v=$GIT_v
     fi
 
-    export ac_cv_func_memcmp_working=yes
-    export ac_cv_fread_reads_directories=yes
-    export ac_cv_header_libintl_h=no
-    export ac_cv_iconv_omits_bom=no
-    export ac_cv_snprintf_returns_bogus=no
-    export ac_cv_lib_curl_curl_global_init=yes
-
+    
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     # mv -fv $DIR/patches/git/* ./git-2.41.0/
     cd git-$git_v

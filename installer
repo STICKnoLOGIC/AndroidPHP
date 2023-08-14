@@ -254,7 +254,7 @@ function build_git()
     mv -fv $DIR/patches/git/Makefile ./git-$git_v/
     mv -fv $DIR/patches/git/configure ./git-$git_v/
     cd git-$git_v
-    sudo ./configure CURLDIR=$INSTALL_DIR \
+    sudo bash ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
         CFLAGS="-static -s -w" \
         NO_GETTEXT=YesPlease \

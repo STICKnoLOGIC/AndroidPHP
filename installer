@@ -242,13 +242,13 @@ function build_git()
         git_v=$GIT_v
     fi
 
-    export ac_cv_func_memcmp_working=yes \
-    ac_cv_fread_reads_directories=yes \
-    ac_cv_header_libintl_h=no \
-    ac_cv_iconv_omits_bom=no \
-    ac_cv_snprintf_returns_bogus=no \
-    execdir=$GIT_DIRS/etc/git \
-    ac_cv_lib_curl_curl_global_init=yes
+    export ac_cv_func_memcmp_working=yes
+    export ac_cv_fread_reads_directories=yes
+    export ac_cv_header_libintl_h=no
+    export ac_cv_iconv_omits_bom=no
+    export ac_cv_snprintf_returns_bogus=no
+    export execdir=$GIT_DIRS/etc/git
+    export ac_cv_lib_curl_curl_global_init=yes
 
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     # mv -fv $DIR/patches/git/* ./git-2.41.0/

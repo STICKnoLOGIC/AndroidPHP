@@ -258,7 +258,6 @@ function build_git()
         NO_GETTEXT=YesPlease \
         NO_NSEC=YesPlease \
         NO_ICONV=YesPlease \
-        NO_TCLTK=YesPlease \
         USE_LIBPCRE=YesPlease \
         --prefix=$GIT_DIRS \
         --bindir=$GIT_DIRS/lib \

@@ -34,7 +34,9 @@ jobs:
         run: source ./installer && setup_environment
           
       - name: install
-        run: source ./installer && cd $BUILD_DIR && build_git
+        run: |
+          echo "$(pwd)/aarch64-linux-musl/bin" >> $GITHUB_PATH
+          source ./installer && cd $BUILD_DIR && build_git
           
           
 

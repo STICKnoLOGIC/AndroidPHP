@@ -273,7 +273,7 @@ function build_git()
     echo -n " compiling..."
     # sudo make -j 2 -s  # >> "$DIR/install.log" 2>&1
     echo -n " installing..."
-    sudo make -j 2 -s install
+    sudo make -j 2 install
     echo " done!"
     echo "[INFO] Building git:success..."
     cd $DIR/git-static

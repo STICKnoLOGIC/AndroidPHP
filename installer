@@ -6,7 +6,7 @@ CURL_v='8.2.1'
 GIT_v='2.41.0'
 OPENSSL_v='1.1.1t'
 ZLIB_v='1.2.13'
-PCRE_v='10.41'
+PCRE_v='10.42'
 LIBEXPAT_v='2.5.0'
 
 

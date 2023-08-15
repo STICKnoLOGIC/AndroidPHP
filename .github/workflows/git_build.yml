@@ -90,9 +90,9 @@ jobs:
 
             tar -cv git | gzip -9 - > git.tar.gz
             
-            for file in bin share lib etc; do
-              rm -rvf $file
-            done
+            # for file in bin share lib etc; do
+              rm -rvf git
+            # done
 
 
       - name: Download artifacts

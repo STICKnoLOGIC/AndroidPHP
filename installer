@@ -23,7 +23,7 @@ TOOLCHAIN_PREFIX="aarch64-linux-musl"
 export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
 export CFLAGS="$CFLAGS -static"
 export CXXFLAGS="-static $CXXFLAGS "
-export LDFLAGS="-static -static-libgcc -Wl,-static -L$INSTALL_DIR/lib -L/usr/lib"
+export LDFLAGS="-static -static-libgcc -Wl,-static -L$INSTALL_DIR/lib -L/usr/lib "
 export ac_cv_func_fnmatch_works=yes
 export EXTRA_CFLAGS=-lresolv
 export CC="$TOOLCHAIN_PREFIX-gcc"
@@ -32,7 +32,7 @@ export AR="$TOOLCHAIN_PREFIX-ar"
 export RANLIB="$TOOLCHAIN_PREFIX-ranlib"
 export CPP="$TOOLCHAIN_PREFIX-cpp"
 export LD="$TOOLCHAIN_PREFIX-ld"
-export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include"
+export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include "
 export LIBRARY_PATH="$INSTALL_DIR/bin:$INSTALL_DIR/lib:$LIBRARY_PATH:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
 export LD_LIBRARY_PATH="$INSTALL_DIR/lib"$LD_LIBRARY_PATH;

@@ -32,21 +32,14 @@ jobs:
 
       - name: setup Environment for Cross-compiling for Android ARMv8 (aarch64)
         run: |
-          mkdir -p aarch64-linux-musl
-          cd aarch64-linux-musl
-          wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"
-          tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
-          echo "$(pwd)/bin" >> $GITHUB_PATH
-          cd ..
-          
-          sudo apt update &> /dev/null
-          sudo apt install -y pcre2-utils git cmake make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
-    
+          export GITHUB_PATH=$GITHUB_PATH
+          source ./installer && setup_environment
           
       - name: install
         run: |
-          bash ./installer
-        
+          export GITHUB_PATH=$GITHUB_PATH
+          source ./installer && cd $BUILD_DIR && build_git
+          
           
 
       - name: minifying and fixing git-core
@@ -97,7 +90,7 @@ jobs:
 
             tar -cv git | gzip -9 - > git.tar.gz
             
-            for file in bin share lib etc git ; do
+            for file in bin share lib etc; do
               rm -rvf $file
             done
 

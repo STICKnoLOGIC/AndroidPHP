@@ -38,6 +38,7 @@ jobs:
       - name: install
         run: |
           export GITHUB_PATH=$GITHUB_PATH
+          export cross_compiling=yes
           source ./installer && cd $BUILD_DIR && build_git
           
           

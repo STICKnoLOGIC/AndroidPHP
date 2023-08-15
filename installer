@@ -291,8 +291,7 @@ function build_git()
 
 if [ "$1" = "setup" ]; then
     setup_environment
-else
-    prepare_dir
+    # prepare_dir
     cd $BUILD_DIR
     build_git
 fi

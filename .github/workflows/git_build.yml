@@ -31,13 +31,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: setup Environment for Cross-compiling for Android ARMv8 (aarch64)
-        run: source ./installer && setup_environment
+        run: |
+          bash ./installer "setup"
           
       - name: install
         run: |
-          echo "$(pwd)/aarch64-linux-musl/bin" >> $GITHUB_PATH
-          source ./installer && cd $BUILD_DIR && build_git
-          
+          bash ./installer
+        
           
 
       - name: minifying and fixing git-core

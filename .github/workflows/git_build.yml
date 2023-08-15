@@ -32,7 +32,16 @@ jobs:
 
       - name: setup Environment for Cross-compiling for Android ARMv8 (aarch64)
         run: |
-          bash ./installer "setup"
+          mkdir -p aarch64-linux-musl
+          cd aarch64-linux-musl
+          wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"
+          tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
+          echo "$(pwd)/bin" >> $GITHUB_PATH
+          cd ..
+          
+          sudo apt update &> /dev/null
+          sudo apt install -y pcre2-utils git cmake make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
+    
           
       - name: install
         run: |

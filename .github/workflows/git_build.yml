@@ -207,10 +207,14 @@ jobs:
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
           make configure
-          RANLIB=$RANLIB ./configure CURLDIR=$INSTALL_DIR \
+          RANLIB=$RANLIB 
+          sudo ./configure CURLDIR=$INSTALL_DIR \
           OPENSSLDIR=$INSTALL_DIR \
           NO_GETTEXT=YesPlease \
-          --prefix=$DIR/git-static \
+          NO_NSEC=YesPlease \
+          NO_ICONV=YesPlease \
+          USE_LIBPCRE=YesPlease \
+          --prefix=$GIT_DIRS \
           --with-openssl \
           --with-curl \
           --with-expat \
@@ -218,8 +222,8 @@ jobs:
           
           # make -j 1 strip
           
-          make CURLDIR=$INSTALL_DIR OPENSSLDIR=$INSTALL_DIR SHELL_PATH=$(which sh) NO_ICONV=YesPlease USE_LIBPCRE=YesPlease -j 2 install
-          # mv -fv $GIT_DIRS/* $DIR/git-static
+          sudo make -j 2 install
+          sudo mv -fv $GIT_DIRS/* $DIR/git-static
           ls $INSTALL_DIR/lib
           echo "#:####:###:#:###"
           ls $INSTALL_DIR/bin

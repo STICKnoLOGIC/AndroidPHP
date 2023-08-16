@@ -231,7 +231,7 @@ jobs:
             sudo chmod 755 ./**/**/**/*
             sudo chmod 755 ./**/**/**/**/*
             sudo chmod 755 ./**/**/**/**/**/*
-            sudo chmod 755 ./**/**/**/**/**/**/*
+            
           ls $INSTALL_DIR/lib
           echo "#:####:###:#:###"
           ls $INSTALL_DIR/bin

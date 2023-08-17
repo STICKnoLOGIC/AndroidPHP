@@ -198,17 +198,17 @@ jobs:
 
 
           echo DL git repo
-          # export cross_compiling=yes
+          export cross_compiling=yes
           # export CURL_LDFLAGS=-lcurl
-          # export ac_cv_lib_curl_curl_global_init=yes
+          export ac_cv_lib_curl_curl_global_init=yes
           
           /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
           ls $INSTALL_DIR
           # mv -fv $DIR/patches/git/* ./git-2.41.0/
           cd git-2.41.0
-          make configure
+          # make configure
           RANLIB=$RANLIB 
-          sudo ./configure CURLDIR=$INSTALL_DIR \
+          ./configure CURLDIR=$INSTALL_DIR \
           OPENSSLDIR=$INSTALL_DIR \
           NO_GETTEXT=YesPlease \
           NO_NSEC=YesPlease \
@@ -222,16 +222,9 @@ jobs:
           
           # make -j 1 strip
           
-          sudo make -j 2 install
+          make -j 2 -s install
           # sudo mv -fv $GIT_DIRS/* $DIR/git-static
-          cd $DIR/git-static
-          sudo chmod 777 ./*
-          sudo chmod 777 ./**/*
-          sudo chmod 777 ./**/**/*
-          sudo chmod 777 ./**/**/**/*
-          sudo chmod 777 ./**/**/**/**/*
-          sudo chmod 777 ./**/**/**/**/**/*
-            
+          
           ls $INSTALL_DIR/lib
           echo "#:####:###:#:###"
           ls $INSTALL_DIR/bin

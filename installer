@@ -264,7 +264,7 @@ function build_git()
     make -j 2 install
     echo " done!"
     echo "[INFO] Building git:success..."
-    cd $DIR/git-static
-    mv -fv $GIT_DIRS ./
+    # cd $DIR/git-static
+    # mv -fv $GIT_DIRS ./
 }
 

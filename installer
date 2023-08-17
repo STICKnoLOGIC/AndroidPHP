@@ -247,7 +247,7 @@ function build_git()
     
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     cd git-$git_v
-    sudo bash ./configure CURLDIR=$INSTALL_DIR \
+    ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
         CFLAGS="-static -s -w" \
         NO_GETTEXT=YesPlease \

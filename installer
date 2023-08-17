@@ -15,7 +15,7 @@ DIR="$(pwd)"
 BASE_BUILD_DIR="$DIR/install_data"
 BUILD_DIR="$BASE_BUILD_DIR/subdir"
 LIB_BUILD_DIR="$BUILD_DIR/lib"
-GIT_DIRS="/data/data/ph.sticknologic.com.laraide/usr/lib/git"
+GIT_DIRS="$INSTALL_DIR/git-static/git"
 INSTALL_DIR="$DIR/LS"
 
 #cross compiler env
@@ -232,14 +232,9 @@ function build_git()
     export ac_cv_lib_curl_curl_global_init=yes
 
     echo "[INFO] Initializing git Build..."
-    if [ ! -e "$INSTALL_DIR/bin/curl" ]; then
-     build_curl
-    fi
 
-    if [! -e "$INSTALL_DIR/bin/pcre2-config" ]; then
+    build_curl
     build_pcre2
-    fi
-
     build_libexpat
     build_pcre2
     
@@ -266,19 +261,12 @@ function build_git()
         $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
     # make -j 1 strip
     echo -n " compiling..."
-    # sudo make -j 2 -s  # >> "$DIR/install.log" 2>&1
+    make -j 2 -s  # >> "$DIR/install.log" 2>&1
     echo -n " installing..."
     sudo make -j 2 install
     echo " done!"
     echo "[INFO] Building git:success..."
     cd $DIR/git-static
-    sudo mv -fv $GIT_DIRS ./
-    sudo chmod 755 ./*
-    sudo chmod 755 ./**/*
-    sudo chmod 755 ./**/**/*
-    sudo chmod 755 ./**/**/**/*
-    sudo chmod 755 ./**/**/**/**/*
-    sudo chmod 755 ./**/**/**/**/**/*
-    sudo chmod 755 ./**/**/**/**/**/**/*
+    mv -fv $GIT_DIRS ./
 }
 

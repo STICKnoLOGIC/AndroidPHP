@@ -24,7 +24,7 @@ on:
         default : 'v1Beta'
 
 jobs:
-   build-on-aarch64:
+   building-git:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,136 +32,17 @@ jobs:
 
       - name: setup Environment for Cross-compiling for Android ARMv8 (aarch64)
         run: |
-          export GITHUB_PATH=$GITHUB_PATH
           source ./installer && setup_environment
           
       - name: install
         run: |
-          export GITHUB_PATH=$GITHUB_PATH
-          export cross_compiling=yes
           source ./installer && cd $BUILD_DIR && build_git
-          
-          
-<<<<<<< HEAD
-          echo DL openssl
-          # OPENSSL_CMD="./config linux-aarch64 no-shared"
-          WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
-          openssl_dir="./openssl-1.1.1t"
-          curl -L "http://www.openssl.org/source/openssl-1.1.1t.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
-          echo -n " checking..."
-          cd "$openssl_dir"
-          ./Configure linux-aarch64 no-shared \
-          --prefix="$INSTALL_DIR" \
-          --openssldir="$INSTALL_DIR" \
-          no-asm \
-          no-hw \
-          no-engine >> "$DIR/install.log" 2>&1
-          echo -n " compiling..."
-          make -j 1 >> "$DIR/install.log" 2>&1
-
-          echo -n " installing..."
-          make install_sw >> "$DIR/install.log" 2>&1
-          cd ..
-          echo " done!"
-
-          echo DL CURL
-          # export CURL_LDFLAGS=-lcurl
-          EXTRA_FLAGS="--enable-static --disable-shared"
-          curl_dir="./curl-8.2.1"
-          curl -L "https://curl.se/download/curl-8.2.1.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
-          echo -n " checking..."
-          cd "$curl_dir"
-          ./buildconf --force >> "$DIR/install.log" 2>&1
-          ./configure --disable-dependency-tracking \
-          --enable-ipv6 \
-          --enable-optimize \
-          --enable-http \
-          --enable-ftp \
-          --enable-dict \
-          --enable-file \
-          --without-librtmp \
-          --enable-gopher \
-          --enable-imap \
-          --enable-pop3 \
-          --enable-rtsp \
-          --enable-smtp \
-          --enable-telnet \
-          --enable-tftp \
-          --disable-ldap \
-          --disable-ldaps \
-          --without-libidn \
-          --without-libidn2 \
-          --without-brotli \
-          --without-nghttp2 \
-          --without-zstd \
-          --with-zlib="$INSTALL_DIR" \
-          --with-ssl="$INSTALL_DIR" \
-          --enable-threaded-resolver \
-          --prefix="$INSTALL_DIR" \
-          $EXTRA_FLAGS \
-          $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1
-          echo -n " compiling..."
-          make -j 1 >> "$DIR/install.log" 2>&1
-              
-
-          echo -n " installing..."
-          make install >> "$DIR/install.log" 2>&1
-          cd ..
-          /usr/bin/curl -Lo $INSTALL_DIR/bin/curl "https://github.com/STICKnoLOGIC/Cross-Compiled-Binaries-Android/raw/master/curl/curl-arm64"
-          
-          echo " done!"
-
-
-          echo DL git repo
-          # export cross_compiling=yes
-          # export CURL_LDFLAGS=-lcurl
-          # export ac_cv_lib_curl_curl_global_init=yes
-          
-          /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-2.41.0.tar.gz | tar xz
-          ls $INSTALL_DIR
-          # mv -fv $DIR/patches/git/* ./git-2.41.0/
-          cd git-2.41.0
-          make configure
-          RANLIB=$RANLIB 
-          sudo ./configure CURLDIR=$INSTALL_DIR \
-          OPENSSLDIR=$INSTALL_DIR \
-          NO_GETTEXT=YesPlease \
-          NO_NSEC=YesPlease \
-          NO_ICONV=YesPlease \
-          USE_LIBPCRE=YesPlease \
-          --prefix=$GIT_DIRS \
-          --with-openssl \
-          --with-curl \
-          --with-expat \
-          CFLAGS="-static -s -w" LDFLAGS="$LDFLAGS" $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
-          
-          # make -j 1 strip
-          
-          sudo make -j 2 install
-          sudo mv -fv $GIT_DIRS/* $DIR/git-static
-          cd $DIR/git-static
-          sudo chmod 777 ./*
-          sudo chmod 777 ./**/*
-          sudo chmod 777 ./**/**/*
-          sudo chmod 777 ./**/**/**/*
-          sudo chmod 777 ./**/**/**/**/*
-          sudo chmod 777 ./**/**/**/**/**/*
-            
-          ls $INSTALL_DIR/lib
-          echo "#:####:###:#:###"
-          ls $INSTALL_DIR/bin
-=======
->>>>>>> parent of 568a036 (Update git_build.yml)
-
+      
       - name: minifying and fixing git-core
         working-directory: git-static
         run: |
-<<<<<<< HEAD
-        
-            ls --color=auto
-=======
-            echo linking git
->>>>>>> parent of 568a036 (Update git_build.yml)
+
+
             for file in add am annotate apply archive bisect--helper blame branch bugreport bundle cat-file check-attr check-ignore check-mailmap check-ref-format checkout checkout--worker checkout-index cherry cherry-pick clean clone column commit commit-graph commit-tree config count-objects credential credential-cache credential-cache--daemon credential-store describe diff diff-files diff-index diff-tree diftool env--helper fast-export fast-import fetch fetch-pack fmt-merge-msg for-each-ref for-each-repo format-patch fsck fsck-obkects gc get-tar-commit-id grep hash-object help index-pack init init-db interpret-trailers log ls-files ls-remote ls-tree mailinfo mailsplit maintenance merge merge-base merge-file merge-index merge-ours merge-recursive merge-subtree merge-tree mktag mktree multi-pack-index mv name-rev notes pack-objects pack-redundant pack-refs patch-id prune prune-packed pull push range-diff read-tree rebase receive-pack reflog remote remote-ext remote-fd repack replace rerere reset restore rev-list rev-parse revert rm send-pack shortlog show show-branch show-index show-ref sparse-checkout stage stash status stripspace submodule--helper switch symbolic-ref tag unpack-file unpack-objects update-index update-ref update-server-info upload-archive upload-pack var verify-commit verify-pack verify-tag whatchanged worktree write-tree; do 
               if [ -e "git/libexec/git-core/git-"$file ]; then
                 rm -f "git/libexec/git-core/git-"$file

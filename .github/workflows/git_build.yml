@@ -29,105 +29,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: init directories
-        run: mkdir -p aarch64-linux-musl
-      - name: fetch aarch64-linux-musl from github release
-        working-directory: aarch64-linux-musl
-        run: wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"
-        
-      - name: unzip aarch64-linux-musl and append path
-        working-directory: aarch64-linux-musl
+
+      - name: setup Environment for Cross-compiling for Android ARMv8 (aarch64)
         run: |
-          tar Jxfv aarch64-linux-musl.tar.xz > /dev/null
-          echo "$(pwd)/bin" >> $GITHUB_PATH
+          export GITHUB_PATH=$GITHUB_PATH
+          source ./installer && setup_environment
+          
       - name: install
         run: |
-          which curl
-          mkdir -p git-static
-          sudo apt update &> /dev/null
-          sudo apt install -y pcre2-utils git make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
-      
-          DIR="$(pwd)"
-          BASE_BUILD_DIR="$DIR/install_data"
-          #libtool and autoconf have a "feature" where it looks for install.sh/install-sh in ./ ../ and ../../
-          #this extra subdir makes sure that it doesn't find anything it's not supposed to be looking for.
-          BUILD_DIR="$BASE_BUILD_DIR/subdir"
-          LIB_BUILD_DIR="$BUILD_DIR/lib"
-          GIT_DIRS="/data/data/ph.sticknologic.com.laraide/usr/etc"
-          INSTALL_DIR="$DIR/bin/php7"
-
-          TOOLCHAIN_PREFIX="aarch64-linux-musl"
-          export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-          export CFLAGS="$CFLAGS -static"
-          export CXXFLAGS="-static $CXXFLAGS "
-          LDFLAGS="-static -static-libgcc -Wl,-static"
-          export ac_cv_func_fnmatch_works=yes #musl should be OK          export ac_cv_iconv_omits_bom=no
-          export ac_cv_func_memcmp_working=yes
-          export ac_cv_fread_reads_directories=yes
-          export ac_cv_header_libintl_h=no
-          export ac_cv_iconv_omits_bom=no
-          export ac_cv_snprintf_returns_bogus=no
-          echo "[INFO] Cross-compiling for Android ARMv8 (aarch64)"
-          export EXTRA_CFLAGS=-lresolv
-          echo "[INFO] Compiling for current machine using 64-bit"
-
-
-          if [ "$TOOLCHAIN_PREFIX" != "" ]; then
-              export CC="$TOOLCHAIN_PREFIX-gcc"
-              export CXX="$TOOLCHAIN_PREFIX-g++"
-              export AR="$TOOLCHAIN_PREFIX-ar"
-              export RANLIB="$TOOLCHAIN_PREFIX-ranlib"
-              export CPP="$TOOLCHAIN_PREFIX-cpp"
-              export LD="$TOOLCHAIN_PREFIX-ld"
-          fi
-
-          export CC="$CC"
-          export CXX="$CXX"
-          export LDFLAGS="$LDFLAGS"
-          export LDFLAGS+=" -L$INSTALL_DIR/lib "
-          export LDFLAGS+=" -L/usr/lib "
-          export CPPFLAGS="$CPPFLAGS"
-          export CPPFLAGS+=" -I$INSTALL_DIR/include"
-          # export CPPFLAGS+=" -I/usr/include -I/usr/bin"
-          export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:$LIBRARY_PATH:$LD_LIBRARY_PATH"
-          export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
-          export LD_LIBRARY_PATH="$INSTALL_DIR/lib"$LD_LIBRARY_PATH;
-          export PATH=$INSTALL_DIR/bin:$PATH
-          export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
-          export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
-
-          rm -r -f "$BASE_BUILD_DIR" >> "$DIR/install.log" 2>&1
-          rm -r -f bin/ >> "$DIR/install.log" 2>&1
-          mkdir -m 0755 "$BASE_BUILD_DIR" >> "$DIR/install.log" 2>&1
-          mkdir -m 0755 "$BUILD_DIR" >> "$DIR/install.log" 2>&1
-          sudo mkdir -m 0755 -p $GIT_DIRS
-          mkdir -m 0755 -p $INSTALL_DIR # >> "$DIR/install.log" 2>&1
-          mkdir -m 0755 -p "$LIB_BUILD_DIR" >> "$DIR/install.log" 2>&1
-          cd "$BUILD_DIR"
-          set -e
-
-
-
-
-          echo DL zlib
-          curl -L "https://github.com/madler/zlib/releases/latest/download/zlib-1.2.13.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
-          echo -n " checking..."
-          cd "./zlib-1.2.13"
-          RANLIB=$RANLIB ./configure --prefix="$INSTALL_DIR" \
-          --static >> "$DIR/install.log" 2>&1
-          echo -n " compiling..."
-          make -j 1 >> "$DIR/install.log"
-          make install
-          # rm -fv "$INSTALL_DIR/lib/libz.a"
-          cd ..
+          export GITHUB_PATH=$GITHUB_PATH
+          export cross_compiling=yes
+          source ./installer && cd $BUILD_DIR && build_git
           
-          echo DL PCRE2
-          curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-10.42.tar.gz | tar -zx
-          cd ./pcre2-10.42
-          ./configure $CONFIGURE_FLAGS --disable-shared --prefix=$INSTALL_DIR
-          make -j 1 install
-          cd ..
           
+<<<<<<< HEAD
           echo DL openssl
           # OPENSSL_CMD="./config linux-aarch64 no-shared"
           WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
@@ -235,56 +150,71 @@ jobs:
           ls $INSTALL_DIR/lib
           echo "#:####:###:#:###"
           ls $INSTALL_DIR/bin
+=======
+>>>>>>> parent of 568a036 (Update git_build.yml)
 
       - name: minifying and fixing git-core
-        working-directory: git-static/libexec/git-core
+        working-directory: git-static
         run: |
+<<<<<<< HEAD
         
             ls --color=auto
+=======
+            echo linking git
+>>>>>>> parent of 568a036 (Update git_build.yml)
             for file in add am annotate apply archive bisect--helper blame branch bugreport bundle cat-file check-attr check-ignore check-mailmap check-ref-format checkout checkout--worker checkout-index cherry cherry-pick clean clone column commit commit-graph commit-tree config count-objects credential credential-cache credential-cache--daemon credential-store describe diff diff-files diff-index diff-tree diftool env--helper fast-export fast-import fetch fetch-pack fmt-merge-msg for-each-ref for-each-repo format-patch fsck fsck-obkects gc get-tar-commit-id grep hash-object help index-pack init init-db interpret-trailers log ls-files ls-remote ls-tree mailinfo mailsplit maintenance merge merge-base merge-file merge-index merge-ours merge-recursive merge-subtree merge-tree mktag mktree multi-pack-index mv name-rev notes pack-objects pack-redundant pack-refs patch-id prune prune-packed pull push range-diff read-tree rebase receive-pack reflog remote remote-ext remote-fd repack replace rerere reset restore rev-list rev-parse revert rm send-pack shortlog show show-branch show-index show-ref sparse-checkout stage stash status stripspace submodule--helper switch symbolic-ref tag unpack-file unpack-objects update-index update-ref update-server-info upload-archive upload-pack var verify-commit verify-pack verify-tag whatchanged worktree write-tree; do 
-              rm -fv "git-"$file
-              echo "git" >> "git-"$file
+              if [ -e "git/libexec/git-core/git-"$file ]; then
+                rm -f "git/libexec/git-core/git-"$file
+                ln -sfv "git/libexec/git-core/git" "git/libexec/git-core/git-"$file
+                fi
             done
-            # for file in remote-ftp remote-ftps ; do
-            #  rm -fv "git-"$file
-            #  echo "git-remote-http" >> "git-"$file
-            # done
-            for file in merge-resolve bisect merge-octopus difftool--helper quiltimport merge-one-file request-pull web--browse submodule mergetool filter-branch instaweb subtree citool ; do
-               if [ -e "git-$file" ]; then
-               sed -i 's/#!\/bin\/sh/#!\/system\/bin\/sh/g' "git-"$file
-               fi
-               done
-               
-            # perl
-            for file in cvsexportcommit cvsimport archimport add--interactive send-email cvsserver  ; do
-              if [ -e "git-$file" ]; then
-              sed -i 's/#!\/bin\/sh/#!\/system\/bin\/perl/g' "git-"$file
-              fi
-              done
-              
-            # python
-            for file in p4; do
-              if [ -e "git-$file" ]; then
-                sed -i 's/#!\/bin\/sh/#!\/system\/bin\/python/g' "git-"$file
-              fi
-            done
-
-
-      - name: Download artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: "bin"
-          path: "git-static/bin"
             
+            echo linking https
+            for file in remote-ftp remote-ftps remote-https ; do
+              if [ -e "git/libexec/git-core/git-"$file ]; then
+                rm -f "git/libexec/git-core/git-"$file
+                ln -sfv "git/libexec/git-core/git-remote-http" "git/libexec/git-core/git-"$file
+              fi
+            done
+            
+            # #sh
+            # echo linking to sh
+            # for file in merge-resolve bisect merge-octopus difftool--helper quiltimport merge-one-file request-pull web--browse submodule mergetool filter-branch instaweb subtree citool ; do
+            # if [ -e "etc/git/git-core/git-"$file ]; then
+            #     sudo sed -i 's/#!\/bin\/sh/#!\/system\/bin\/sh/g' "etc/git/git-core/git-"$file
+            #   fi
+            # done
+               
+            # # perl
+            # echo linking to perl
+            # for file in cvsexportcommit cvsimport archimport add--interactive send-email cvsserver  ; do
+            # if [ -e "./etc/git/git-core/git-"$file ]; then
+            #     sed -i 's/#!\/bin\/sh/#!\/system\/bin\/perl/g' "./etc/git/git-core/git-"$file
+            #   fi
+            # done
+            
+            # # python
+            # echo linking to python
+            # for file in p4; do
+            #   if [ -e "./etc/git/git-core/git-"$file ]; then
+            #     sed -i 's/#!\/bin\/sh/#!\/system\/bin\/python/g' "./etc/git/git-core/git-"$file
+            #   fi
+            # done
+
+            # echo deleting unneeded file
+             
+
+            tar -cv git | gzip -9 - > git.tar.gz
+            
+            # for file in bin share lib etc; do
+              rm -rvf git
+            # done
+
+
       - name: Download artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: "libexec_gitcore"
-          path: "git-static/libexec/git-core"
-      
-      - name: Download artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: "share"
-          path: "git-static/share"
+          name: "package"
+          path: "git-static"
+
             

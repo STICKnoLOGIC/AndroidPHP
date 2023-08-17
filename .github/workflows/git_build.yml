@@ -32,7 +32,9 @@ jobs:
 
       - name: setup Environment for Cross-compiling for Android ARMv8 (aarch64)
         run: |
-          source ./installer && setup_environment
+          source ./installer
+          setup_environment
+          echo "$(pwd)/aarch64-linux-musl/bin" >> $GITHUB_PATH
           
       - name: install
         run: |

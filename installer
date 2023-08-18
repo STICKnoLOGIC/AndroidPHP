@@ -281,7 +281,7 @@ function build_mdb()
     fi
     echo DL mdb
     cd $BUILD_DIR
-    curl -L https://archive.mariadb.org/mariadb-$mariadb_v/source/mariadb-$mariadb_v.tar.gz | tar -zxv
+    curl -L https://archive.mariadb.org/mariadb-$mariadb_v/source/mariadb-$mariadb_v.tar.gz | tar -zx
     cd mariadb-$mariadb_v
     
     echo cmake HOST

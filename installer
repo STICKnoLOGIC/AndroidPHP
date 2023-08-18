@@ -23,7 +23,7 @@ INSTALL_DIR="$DIR/LS"
 #cross compiler env
 TOOLCHAIN_PREFIX="aarch64-linux-musl"
 export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-export CFLAGS="$CFLAGS -static -02 -s -w"
+export CFLAGS="$CFLAGS -static -s -w"
 export CXXFLAGS="-static $CXXFLAGS "
 export LDFLAGS="-static -static-libgcc -Wl,-static -L$INSTALL_DIR/lib -L/usr/lib"
 export ac_cv_func_fnmatch_works=yes

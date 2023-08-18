@@ -233,7 +233,8 @@ function build_curses(){
     /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
     cd ncurses-$ncurses_v
     ./configure --with-install-prefix=$INSTALL_DIR \
-        BUILD_CC=$musl_bin$CC \
+        BUILD_CC=gcc \
+        --with-build-cc=$musl_bin$CC \
         BUILD_CPP=$musl_bin$CPP \
         BUILD_CFLAGS="$CFLAGS" \
         BUILD_CPPFLAGS="$CPPFLAGS" \

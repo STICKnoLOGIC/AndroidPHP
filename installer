@@ -237,7 +237,7 @@ function build_curses(){
         --with-build-cflags="$CFLAGS" \
         --with-build-cppflags="$CPPFLAGS" \
         --with-build-ldflags="$LDFLAGS" \
-        --with-build-libs=$DIR/aarch64-linux-musl/bin \
+        --with-build-libs=$RANLIB \
         ac_cv_header_local_h=no \
         am_cv_langinfo_codeset=no \
         --disable-stripping \

@@ -239,7 +239,7 @@ function build_curses(){
         BUILD_CFLAGS="$CFLAGS" \
         BUILD_CPPFLAGS="$CPPFLAGS" \
         BUILD_LDFLAGS="$LDFLAGS" \
-        --with-build-libs=$musl_bin$RANLIB \
+        --with-build-libs=$musl_bin../lib \
         ac_cv_header_local_h=no \
         am_cv_langinfo_codeset=no \
         --disable-stripping \

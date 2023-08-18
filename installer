@@ -37,8 +37,8 @@ export LD="$TOOLCHAIN_PREFIX-ld"
 export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include"
 export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:$LIBRARY_PATH:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
-export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$LD_LIBRARY_PATH;
-export PATH=$INSTALL_DIR/bin:$PATH
+export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$DIR/aarch64-linux-musl/lib:$LD_LIBRARY_PATH;
+export PATH=$INSTALL_DIR/bin:$DIR/aarch64-linux-musl/bin:$PATH
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
 
@@ -229,15 +229,16 @@ function build_curses(){
     else
         ncurses_v=$NCURSES_v
     fi
+    musl_bin=$DIR/aarch64-linux-musl/bin/
     /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
     cd ncurses-$ncurses_v
     ./configure --with-install-prefix=$INSTALL_DIR \
-        --with-build-cc=$CC \
-        --with-build-cpp=$CPP \
+        --with-build-cc=$musl_bin$CC \
+        --with-build-cpp=$musl_bin$CPP \
         --with-build-cflags="$CFLAGS" \
         --with-build-cppflags="$CPPFLAGS" \
         --with-build-ldflags="$LDFLAGS" \
-        --with-build-libs=$RANLIB \
+        --with-build-libs=$musl_bin$RANLIB \
         ac_cv_header_local_h=no \
         am_cv_langinfo_codeset=no \
         --disable-stripping \

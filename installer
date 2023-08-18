@@ -5,7 +5,7 @@
 CURL_v='8.2.1'
 GIT_v='2.41.0'
 OPENSSL_v='1.1.1t'
-ZLIB_v='1.2.13'
+ZLIB_v='1.3'
 PCRE_v='10.42'
 LIBEXPAT_v='2.5.0'
 MARIADB_v='11.0.3'
@@ -70,7 +70,7 @@ function build_zlib(){
     else
         zlib_v=$ZLIB_v
     fi 
-    /usr/bin/curl -L "https://github.com/madler/zlib/releases/latest/download/zlib-$zlib_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
+    /usr/bin/curl -L "https://github.com/madler/zlib/releases/download/v$zlib_v/zlib-$zlib_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
     echo -n " checking..."
     cd "./zlib-$zlib_v"
     ./configure --prefix="$INSTALL_DIR" --static >> "$DIR/install.log" 2>&1

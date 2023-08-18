@@ -9,6 +9,7 @@ ZLIB_v='1.2.13'
 PCRE_v='10.42'
 LIBEXPAT_v='2.5.0'
 MARIADB_v='11.0.3'
+NCURSES_v='6.4'
 
 
 #DIRS
@@ -221,6 +222,21 @@ function build_pcre2()
     
 }
 
+function build_curses(){
+    echo installing ncurses...
+    if [ ! "$1" = "" ]; then
+        ncurses_v=$1
+    else
+        ncurses_v=$NCURSES_v
+    fi
+    /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
+    cd ncurses-$ncurses_v
+    ./configure --with-install-prefix=$INSTALL_DIR
+    make -j 2 install
+    cd ..
+    echo ncurses installed...
+}
+
 function build_git()
 {
     export ac_cv_func_memcmp_working=yes
@@ -276,6 +292,7 @@ function build_mdb()
     build_pcre2
     build_libexpat
     build_pcre2
+    build_curses
 
     local mdb_dir=$DIR/mdb-static/mariadb
     mkdir -p $mdb_dir

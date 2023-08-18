@@ -271,6 +271,12 @@ function build_git()
 
 function build_mdb()
 {
+
+    build_curl
+    build_pcre2
+    build_libexpat
+    build_pcre2
+
     local mdb_dir=$DIR/mdb-static/mariadb
     mkdir -p $mdb_dir
 
@@ -284,10 +290,18 @@ function build_mdb()
     curl -L https://archive.mariadb.org/mariadb-$mariadb_v/source/mariadb-$mariadb_v.tar.gz | tar -zx
     cd mariadb-$mariadb_v
     
+    sed -i 's/^\s*END[(][)]/ENDIF()/g' ./../libmariadb/cmake/ConnectorName.cmake
+    sed '/ADD_SUBDIRECTORY(libmysqld\/examples)/d' ./CMakeLists.txt
+    sed '/mariadb-test/d' ./CMakeLists.txt
+    sed '/MYSQL_ADD_EXECUTABLE(mariadb-test mysqltest.cc \${CMAKE_SOURCE_DIR/d' ./client/CMakeLists.txt
+    sed '/SET_SOURCE_FILES_PROPERTIES(mysqltest.cc PROPERTIES COMPILE_FLAGS/d' ./client/CMakeLists.txt
+    sed '/TARGET_LINK_LIBRARIES(mariadb-test/d' ./client/CMakeLists.txt
+    sed '/SET_TARGET_PROPERTIES(mariadb-test/d' ./client/CMakeLists.txt
+    sed -i 's/FOREACH(t mariadb mariadb-test/FOREACH(t mariadb/g' ./client/CMakeLists.txt
+    sed '/\/etc\/mysql\/mariadb.conf.d/d' ./cmake/install_layout.cmake
     echo cmake HOST
     mkdir -p HOST
     cd HOST
-    sed -i 's/^\s*END[(][)]/ENDIF()/g' ./../libmariadb/cmake/ConnectorName.cmake
     cmake -G "Unix Makefiles" \
           $BUILD_DIR/mariadb-$mariadb_v \
           -DWITHSSL=bundled \

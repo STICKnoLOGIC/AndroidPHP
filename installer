@@ -233,13 +233,11 @@ function build_curses(){
     /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
     cd ncurses-$ncurses_v
     ./configure --with-install-prefix=$INSTALL_DIR \
-        BUILD_CC=gcc \
-        --with-build-cc=$musl_bin$CC \
-        BUILD_CPP=$musl_bin$CPP \
-        BUILD_CFLAGS="$CFLAGS" \
-        BUILD_CPPFLAGS="$CPPFLAGS" \
-        BUILD_LDFLAGS="$LDFLAGS" \
-        --with-build-libs=$musl_bin../lib \
+        --with-build-cc=$CC \
+        --with-build-cpp=$CPP \
+        --with-build-cflags="$CFLAGS" \
+        --with-build-cppflags="$CPPFLAGS" \
+        --with-build-ldflags="$LDFLAGS" \
         ac_cv_header_local_h=no \
         am_cv_langinfo_codeset=no \
         --disable-stripping \
@@ -255,7 +253,6 @@ function build_curses(){
         --without-tests \
         --with-normal \
         --with-pkg-config-libdir=$PKG_CONFIG_PATH \
-        --with-static \
         $CONFIGURE_FLAGS
     make -j 2 install
     cd ..

@@ -247,6 +247,7 @@ function build_curses(){
         $CONFIGURE_FLAGS
     make -j 2 install
     cd ..
+    ls -al $INSTALL_DIR/lib
     echo ncurses installed...
 }
 

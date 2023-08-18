@@ -23,7 +23,7 @@ INSTALL_DIR="$DIR/LS"
 #cross compiler env
 TOOLCHAIN_PREFIX="aarch64-linux-musl"
 export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-export CFLAGS="$CFLAGS -static"
+export CFLAGS="$CFLAGS -static -s -w"
 export CXXFLAGS="-static $CXXFLAGS "
 export LDFLAGS="-static -static-libgcc -Wl,-static -L$INSTALL_DIR/lib -L/usr/lib"
 export ac_cv_func_fnmatch_works=yes
@@ -232,11 +232,11 @@ function build_curses(){
     /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
     cd ncurses-$ncurses_v
     ./configure --with-install-prefix=$INSTALL_DIR \
-        --with-build-cc=$CC \
-        --with-build-cpp=$CPP \
-        --with-build-cflags=$CFLAGS \
-        --with-build-cppflags=$CPPFLAGS \
-        --with-build-ldflags=$LDFLAGS \
+        --with-build-cc="$CC" \
+        --with-build-cpp="$CPP" \
+        --with-build-cflags="$CFLAGS" \
+        --with-build-cppflags="$"CPPFLAGS \
+        --with-build-ldflags="$LDFLAGS" \
         ac_cv_header_local_h=no \
         am_cv_langinfo_codeset=no \
         --disable-stripping \
@@ -251,7 +251,7 @@ function build_curses(){
         --without-debug \
         --without-tests \
         --with-normal \
-        --with-pkg-config-libdir=$PKG_CONFIG_PATH \
+        --with-pkg-config-libdir="$PKG_CONFIG_PATH" \
         --with-static \
         $CONFIGURE_FLAGS
     make -j 2 install
@@ -286,7 +286,6 @@ function build_git()
     cd git-$git_v
     ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
-        CFLAGS="-static -s -w" \
         NO_GETTEXT=YesPlease \
         NO_NSEC=YesPlease \
         NO_ICONV=YesPlease \

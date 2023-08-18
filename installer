@@ -290,7 +290,7 @@ function build_mdb()
     /usr/bin/curl -L https://archive.mariadb.org/mariadb-$mariadb_v/source/mariadb-$mariadb_v.tar.gz | tar -zx
     cd mariadb-$mariadb_v
     
-    sed -i 's/^\s*END[(][)]/ENDIF()/g' ./../libmariadb/cmake/ConnectorName.cmake
+    sed -i 's/^\s*END[(][)]/ENDIF()/g' ./libmariadb/cmake/ConnectorName.cmake
     sed '/ADD_SUBDIRECTORY(libmysqld\/examples)/d' ./CMakeLists.txt
     sed '/mariadb-test/d' ./CMakeLists.txt
     sed '/MYSQL_ADD_EXECUTABLE(mariadb-test mysqltest.cc \${CMAKE_SOURCE_DIR/d' ./client/CMakeLists.txt

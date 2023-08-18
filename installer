@@ -231,7 +231,29 @@ function build_curses(){
     fi
     /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
     cd ncurses-$ncurses_v
-    ./configure --with-install-prefix=$INSTALL_DIR
+    ./configure --with-install-prefix=$INSTALL_DIR \
+        --with-build-cc=$CC \
+        --with-build-cpp=$CPP \
+        --with-build-cflags=$CFLAGS \
+        --with-build-cppflags=$CPPFLAGS \
+        --with-build-ldflags=$LDFLAGS \
+        ac_cv_header_local_h=no \
+        am_cv_langinfo_codeset=no \
+        --disable-stripping \
+        --enable-const \
+        --enable-ext-colors \
+        --enable-ext-mouse \
+        --enable-overwrite \
+        --enable-pc-files \
+        --enable-termcap \
+        --enable-widec \
+        --without-ada \
+        --without-debug \
+        --without-tests \
+        --with-normal \
+        --with-pkg-config-libdir=$PKG_CONFIG_PATH \
+        --with-static \
+        $CONFIGURE_FLAGS
     make -j 2 install
     cd ..
     echo ncurses installed...

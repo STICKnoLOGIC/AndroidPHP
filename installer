@@ -47,10 +47,10 @@ set -ex
 
 function setup_repo_ubuntu(){
     
-    sudo add-apt-repository "deb http://ftp.debian.org/debian buster main contrib"
-    sudo add-apt-repository "deb http://security.debian.org buster/updates main contrib"
-    sudo add-apt-repository "deb-src http://ftp.debian.org/debian buster main contrib"
-    sudo add-apt-repository "deb-src  http://security.debian.org buster/updates main contrib"
+    sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu focal universe"
+    sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu focal universe"
+    sudo add-apt-repository "http://archive.ubuntu.com/ubuntu focal-updates universe"
+    sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu focal-updates universe"
 }
 
 function setup_environment()

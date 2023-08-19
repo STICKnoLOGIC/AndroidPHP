@@ -256,7 +256,7 @@ function build_curses(){
 function build_libxml2(){
     echo LIBXML
     wget https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.4.tar.xz
-    tar -xzf libxml2-2.10.4.tar.xz
+    tar -xf libxml2-2.10.4.tar.xz
     echo checking...
     cd libxml2-2.10.4
     ./configure --prefix=$INSTALL_DIR --disable-shared $CONFIGURE_FLAGS
@@ -269,7 +269,7 @@ function build_libxml2(){
 
 function build_libevent(){
     echo LIBEVENT
-    /usr/bin/curl -L https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz | tar xvzf
+    /usr/bin/curl -L https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz | tar xf
     cd libevent-2.1.12-stable
     echo checking...
     ./configure --prefix=$INSTALL_DIR $CONFIGURE_FLAGS
@@ -283,7 +283,7 @@ function build_libevent(){
 function build_m4(){
     echo M4
     wget http://ftp.gnu.org/gnu/m4/m4-latest.tar.gz
-    tar -xzf m4-latest.tar.gz
+    tar -xf m4-latest.tar.gz
     cd m4-latest
     echo checking...
     ./configure --prefix=$INSTALL_DIR $CONFIGURE_FLAGS
@@ -297,7 +297,7 @@ function build_m4(){
 function build_bison(){
     echo BISON
     wget http://ftp.gnu.org/gnu/bison/bison-3.8.tar.gz
-    tar -xzf bison-3.8.tar.gz
+    tar -xf bison-3.8.tar.gz
     cd bison-3.8
     echo checking...
     ./configure --prefix=$INSTALL_DIR $CONFIGURE_FLAGS

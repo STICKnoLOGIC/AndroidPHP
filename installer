@@ -333,8 +333,9 @@ function build_mdb()
     cmake -G "Unix Makefiles" \
           $BUILD_DIR/mariadb-$mariadb_v \
           -DWITHSSL=bundled \
-          -DWITH_ZLIB=system \
+          -DWITH_ZLIB=bundled \
           -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
+          -DZLIB_LIBRARY=$INSTALL_DIR/lib/libz.a -DZLIB_INCLUDE_PATH=$INSTALL_DIR/include \
           -DCMAKE_BUILD_TYPE=Release
     make -j 8 import_executables
     cd ..

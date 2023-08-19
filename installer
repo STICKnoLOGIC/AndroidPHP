@@ -333,14 +333,14 @@ function build_mdb()
     cd mariadb-$mariadb_v
     
     sed -i 's/^\s*END[(][)]/ENDIF()/g' ./libmariadb/cmake/ConnectorName.cmake
-    sed '/ADD_SUBDIRECTORY(libmysqld\/examples)/d' ./CMakeLists.txt
-    sed '/mariadb-test/d' ./CMakeLists.txt
-    sed '/MYSQL_ADD_EXECUTABLE(mariadb-test mysqltest.cc \${CMAKE_SOURCE_DIR/d' ./client/CMakeLists.txt
-    sed '/SET_SOURCE_FILES_PROPERTIES(mysqltest.cc PROPERTIES COMPILE_FLAGS/d' ./client/CMakeLists.txt
-    sed '/TARGET_LINK_LIBRARIES(mariadb-test/d' ./client/CMakeLists.txt
-    sed '/SET_TARGET_PROPERTIES(mariadb-test/d' ./client/CMakeLists.txt
+    sed -i '/ADD_SUBDIRECTORY(libmysqld\/examples)/d' ./CMakeLists.txt
+    sed -i '/mariadb-test/d' ./CMakeLists.txt
+    sed -i '/MYSQL_ADD_EXECUTABLE(mariadb-test mysqltest.cc \${CMAKE_SOURCE_DIR/d' ./client/CMakeLists.txt
+    sed -i '/SET_SOURCE_FILES_PROPERTIES(mysqltest.cc PROPERTIES COMPILE_FLAGS/d' ./client/CMakeLists.txt
+    sed -i '/TARGET_LINK_LIBRARIES(mariadb-test/d' ./client/CMakeLists.txt
+    sed -i '/SET_TARGET_PROPERTIES(mariadb-test/d' ./client/CMakeLists.txt
     sed -i 's/FOREACH(t mariadb mariadb-test/FOREACH(t mariadb/g' ./client/CMakeLists.txt
-    sed '/\/etc\/mysql\/mariadb.conf.d/d' ./cmake/install_layout.cmake
+    sed -i '/\/etc\/mysql\/mariadb.conf.d/d' ./cmake/install_layout.cmake
     echo cmake HOST
     mkdir -p HOST
     cd HOST

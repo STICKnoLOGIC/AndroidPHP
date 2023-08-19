@@ -48,7 +48,7 @@ set -ex
 function setup_environment()
 {
     sudo apt update &> /dev/null
-    sudo apt install -y pcre2-utils git cmake libncurses-dev make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
+    sudo apt install -y pcre2-utils git cmake make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
     
     mkdir -p aarch64-linux-musl && cd aarch64-linux-musl
     wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"
@@ -333,14 +333,16 @@ function build_mdb()
     cmake -G "Unix Makefiles" \
           $BUILD_DIR/mariadb-$mariadb_v \
           -DWITHSSL=bundled \
+          -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
           -DCMAKE_BUILD_TYPE=Release
-    make -j 2 import_executables
+    make -j 8 import_executables
     cd ..
 
     echo compiling...
     export CPPFLAGS="$CPPFLAGS -Dushort=u_short"
     cmake . -DWITHOUT_TOKUDB=1 \
           -DBUILD_CONFIG=mysql_release \
+          -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
           -DGSSAPI_FOUND=NO \
           -DGRN_WITH_LZ4=yes \
           -DENABLED_LOCAL_INFILE=ON \
@@ -381,7 +383,7 @@ function build_mdb()
     mkdir -p $mdb_dir/etc/my.cnf.d
 
     echo installing...
-    make -j 2 install
+    make -j 8 install
     
     echo success...
 

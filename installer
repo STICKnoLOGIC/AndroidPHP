@@ -64,37 +64,37 @@ function setup_environment()
 }
 
 function build_zlib(){
-    echo "[INFO] Initializing zlib Build..."
+
     if [ ! "$1" = "" ]; then
         zlib_v=$1
     else
         zlib_v=$ZLIB_v
     fi 
+    echo ZLIB
     /usr/bin/curl -L "https://github.com/madler/zlib/releases/download/v$zlib_v/zlib-$zlib_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
-    echo -n " checking..."
+    echo "checking..."
     cd "./zlib-$zlib_v"
     ./configure --prefix="$INSTALL_DIR" --static >> "$DIR/install.log" 2>&1
-    echo -n " compiling..."
-    make -j 2 >> "$DIR/install.log"
-    make -j 2 install >> "$DIR/install.log"
+    echo "compiling..."
+    make -j 8 >> "$DIR/install.log"
+    make -j 8 install >> "$DIR/install.log"
     cd ..
-    echo " done!"
-    echo "[INFO] Building zlib:success..."
+    echo " success..."
 }
 
 function build_openssl()
 {
-    echo "[INFO] Initializing OpenSSL Build..."
     if [ ! "$1" = "" ]; then
         openssl_v=$1
     else
         openssl_v=$OPENSSL_v
-    fi 
+    fi
+    echo OPENSSL
     local OPENSSL_CMD='./Configure linux-aarch64 no-shared'
     local WITH_OPENSSL="--with-openssl=$INSTALL_DIR"
     openssl_dir="./openssl-$openssl_v"
     /usr/bin/curl -L "http://www.openssl.org/source/openssl-$openssl_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
-    echo -n " checking..."
+    echo "checking..."
     cd "$openssl_dir"
     $OPENSSL_CMD \
         --prefix="$INSTALL_DIR" \
@@ -102,42 +102,34 @@ function build_openssl()
         no-asm \
         no-hw \
         no-engine >> "$DIR/install.log" 2>&1
-    echo -n " compiling..."
-     make -j 2 >> "$DIR/install.log" 2>&1
-    echo -n " installing..."
-    make -j 2 install_sw >> "$DIR/install.log" 2>&1
+    echo " compiling..."
+     make -j 8 >> "$DIR/install.log" 2>&1
+    echo " installing..."
+    make -j 8 install_sw >> "$DIR/install.log" 2>&1
     cd ..
-    echo " done!"
-    echo "[INFO] Building OpenSSL:success..."
+    echo "success..."
 }
 
 function build_curl()
 {
-    echo "[INFO] Initializing Curl Build..."
-    
-    echo "[INFO] checking zlib..."
     if [ ! -e "$INSTALL_DIR/lib/libz.a" ]; then
-        echo -n "[INFO] zlib not found..."
         build_zlib
     fi    
-
-    echo "[INFO] checking openssl..."
     if [ ! -e "$INSTALL_DIR/bin/openssl" ]; then
-        echo -n "[INFO] openssl not found..."
         build_openssl
     fi
 
-    echo "[INFO] building Curl..."
     if [ ! "$1" = "" ]; then
         curl_v=$1
     else
         curl_v=$CURL_v
     fi
 
+    echo CURL
     EXTRA_FLAGS="--enable-static --disable-shared"
     curl_dir="./curl-$curl_v"
     /usr/bin/curl -L "https://curl.se/download/curl-$curl_v.tar.gz" | tar -zvx >> "$DIR/install.log" 2>&1
-    echo -n " checking..."
+    echo " checking..."
     cd "$curl_dir"
     ./buildconf --force >> "$DIR/install.log" 2>&1
     ./configure --disable-dependency-tracking \
@@ -168,13 +160,13 @@ function build_curl()
         --prefix="$INSTALL_DIR" \
         $EXTRA_FLAGS \
         $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
-    echo -n " compiling..."
-    make -j 2 >> "$DIR/install.log" 2>&1
-    echo -n " installing..."
-    make -j 2 install >> "$DIR/install.log" 2>&1
+    echo " compiling..."
+    make -j 8 >> "$DIR/install.log" 2>&1
+    echo " installing..."
+    make -j 8 install >> "$DIR/install.log" 2>&1
     cd ..
-    echo " done!"
-    echo "[INFO] Building Curl:success..."
+    echo "success..."
+
 }
 
 function build_libexpat()
@@ -184,9 +176,10 @@ function build_libexpat()
     else
         libexpat_v=$LIBEXPAT_v
     fi
-
+    echo LIBEXPAT
     /usr/bin/curl -L https://github.com/libexpat/libexpat/releases/latest/download/expat-$libexpat_v.tar.gz | tar -xz
     cd ./expat-$libexpat_v
+    echo checking...
     ./configure --prefix=$INSTALL_DIR \
         --enable-silent-rules \
         --disable-dependency-tracking \
@@ -195,44 +188,48 @@ function build_libexpat()
         --enable-fast-install=yes \
         --without-docbook \
         $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
-    make -j 2 
-    make -j 2 install
+    echo compiling...
+    make -j 8 >> "$DIR/install.log" 2>&1 
+    echo installing...
+    make -j 8 install >> "$DIR/install.log" 2>&1
+    echo success...
     cd ..
 
 }
 
 function build_pcre2()
 {
-    echo "[INFO] Initializing Pcre2 Build..."
+
     if [ ! "$1" = "" ]; then
         pcre2_v=$1
     else
         pcre2_v=$PCRE_v
     fi 
+    echo PCRE2
     /usr/bin/curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-$pcre2_v.tar.gz | tar -zxv
     cd ./pcre2-$pcre2_v
     ./configure $CONFIGURE_FLAGS --disable-shared --prefix=$INSTALL_DIR >> "$DIR/install.log" 2>&1
-    echo -n " compiling..."
-    make -j 2 >> "$DIR/install.log" 2>&1
-    echo -n " installing..."
-    make -j 2 install >> "$DIR/install.log" 2>&1
+    echo "compiling..."
+    make -j 8 >> "$DIR/install.log" 2>&1
+    echo "installing..."
+    make -j 8 install >> "$DIR/install.log" 2>&1
     cd ..
-    echo " done!"
-    echo "[INFO] Building Pcre2:success..."
+    echo " success..."
     
 }
 
 function build_curses(){
-    echo installing ncurses...
+    
     if [ ! "$1" = "" ]; then
         ncurses_v=$1
     else
         ncurses_v=$NCURSES_v
     fi
-
+    echo NCURSES 
     wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-$ncurses_v.tar.gz
     tar xzf ncurses-$ncurses_v.tar.gz
     cd ncurses-$ncurses_v
+    echo checking...
     ./configure --prefix=$INSTALL_DIR \
         --disable-nls \
         CFLAGS="$CFLAGS" \
@@ -246,33 +243,14 @@ function build_curses(){
         --without-debug \
         --without-tests \
         $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
-    make -j 8
-    make -j 8 install   
-# ls -la /opt/ncurses
-
-    # musl_bin=$DIR/aarch64-linux-musl/bin/
-    # /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
-    # cd ncurses-$ncurses_v
-    # ./configure --prefix=$INSTALL_DIR \
-    #     --disable-nls \
-    #     CFLAGS="$CFLAGS" \
-    #     LDFLAGS="$LDFLAGS" \
-    #     ac_cv_header_local_h=no \
-    #     am_cv_langinfo_codeset=no \
-    #     --disable-stripping \
-    #     --enable-widec \
-    #     --without-manpages \
-    #     --without-ada \
-    #     --without-debug \
-    #     --without-tests \
-    #     $CONFIGURE_FLAGS
-    # echo compiling...
-    # make -j 2
-    # echo installing...
-    # make -j 2 install
-    # cd ..
+    echo compiling...
+    make -j 8 >> "$DIR/install.log" 2>&1
+    echo instaliing...
+    make -j 8 install >> "$DIR/install.log" 2>&1
+    cd ..
+    echo success...
     ls -al $INSTALL_DIR/lib
-    # echo ncurses installed...
+   
 }
 
 function build_git()
@@ -283,8 +261,6 @@ function build_git()
     export ac_cv_iconv_omits_bom=no
     export ac_cv_snprintf_returns_bogus=no
     export ac_cv_lib_curl_curl_global_init=yes
-
-    echo "[INFO] Initializing git Build..."
 
     build_curl
     build_pcre2
@@ -297,9 +273,10 @@ function build_git()
         git_v=$GIT_v
     fi
 
-    
+    echo GIT
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     cd git-$git_v
+    echo checking...
     ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
         NO_GETTEXT=YesPlease \
@@ -310,16 +287,13 @@ function build_git()
         --with-openssl \
         --with-curl \
         --with-expat \
-        $CONFIGURE_FLAGS # LIBS="-lcurl -lssl -lcrypto"
-    # make -j 1 strip
-    echo -n " compiling..."
-    make -j 2 -s  # >> "$DIR/install.log" 2>&1
-    echo -n " installing..."
-    make -j 2 install
-    echo " done!"
-    echo "[INFO] Building git:success..."
-    # cd $DIR/git-static
-    # mv -fv $GIT_DIRS ./
+        $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1 # LIBS="-lcurl -lssl -lcrypto"
+    echo " compiling..."
+    make -j 8 -s >> "$DIR/install.log" 2>&1
+    echo " installing..."
+    make -j 8 install >> "$DIR/install.log" 2>&1
+    echo " success..."
+    cd ..
 }
 
 function build_mdb()
@@ -339,7 +313,7 @@ function build_mdb()
     else
         mariadb_v=$MARIADB_v
     fi
-    echo DL mdb
+    echo MARIAdb
     cd $BUILD_DIR
     /usr/bin/curl -L https://archive.mariadb.org/mariadb-$mariadb_v/source/mariadb-$mariadb_v.tar.gz | tar -zx
     cd mariadb-$mariadb_v
@@ -363,7 +337,7 @@ function build_mdb()
     make -j 2 import_executables
     cd ..
 
-    echo Making
+    echo compiling...
     export CPPFLAGS="$CPPFLAGS -Dushort=u_short"
     cmake . -DWITHOUT_TOKUDB=1 \
           -DBUILD_CONFIG=mysql_release \
@@ -407,9 +381,10 @@ function build_mdb()
 
     mkdir -p $mdb_dir/etc/my.cnf.d
 
-    echo installing
+    echo installing...
     make -j 2 install
     
+    echo success...
 
 }
 

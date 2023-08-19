@@ -255,11 +255,10 @@ function build_curses(){
 
 function build_libxml2(){
     echo LIBXML
-    wget ftp://xmlsoft.org/libxml2/libxml2-sources-2.6.29.tar.gz
-    tar -xvzf  libxml2-sources-2.6.29.tar.gz
+    /usr/bin/curl -L https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.4.tar.xz | tar -xzf
     echo checking...
-    cd libxml2-2.6.29
-    ./configure --prefix=$INSTALL_DIR
+    cd libxml2-2.10.4
+    ./configure --prefix=$INSTALL_DIR --disable-shared
     echo compiling...
     make -j 8 
     echo installing...
@@ -269,9 +268,8 @@ function build_libxml2(){
 
 function build_libevent(){
     echo LIBEVENT
-    wget http://monkey.org/~provos/libevent-1.4.14b-stable.tar.gz
-    tar xzf libevent-1.4.14b-stable.tar.gz
-    cd libevent-1.4.14b-stable
+    /usr/bin/curl -L https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz | tar -xzf
+    cd libevent-2.1.12-stable
     echo checking...
     ./configure --prefix=$INSTALL_DIR
     echo compiling...
@@ -283,9 +281,8 @@ function build_libevent(){
 
 function build_m4(){
     echo M4
-    wget ftp://ftp.gnu.org/gnu/m4/m4-1.4.10.tar.gz
-    tar -xvzf m4-1.4.10.tar.gz
-    cd m4-1.4.10
+    curl -L http://ftp.gnu.org/gnu/m4/m4-latest.tar.gz | tar -xzf
+    cd m4-latest
     echo checking...
     ./configure --prefix=$INSTALL_DIR
     echo compiling...
@@ -297,9 +294,8 @@ function build_m4(){
 
 function build_bison(){
     echo BISON
-    wget http://ftp.gnu.org/gnu/bison/bison-2.3.tar.gz
-    tar -xzf bison-2.3.tar.gz
-    cd bison-2.3
+    vurl -L http://ftp.gnu.org/gnu/bison/bison-3.8.tar.gz | tar -xzf
+    cd bison-3.8
     echo checking...
     ./configure --prefix=$INSTALL_DIR
     echo compiling...

@@ -47,7 +47,7 @@ set -ex
 
 function setup_environment()
 {
-    sudo apt update &> /dev/null
+    sudo apt update && sudo apt upgrade &> /dev/null
     sudo apt install -y pcre2-utils git cmake make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
     
     mkdir -p aarch64-linux-musl && cd aarch64-linux-musl
@@ -300,7 +300,6 @@ function build_mdb()
 {
 
     build_curl
-    build_pcre2
     build_libexpat
     build_pcre2
     build_curses
@@ -333,7 +332,13 @@ function build_mdb()
     cmake -G "Unix Makefiles" \
           $BUILD_DIR/mariadb-$mariadb_v \
           -DWITHSSL=bundled \
-          -DWITH_ZLIB=bundled \
+          -DGSSAPI_FOUND=NO \
+          -DWITH_INNODB_BZIP2=OFF \
+          -DWITH_INNODB_LZ4=ON \
+          -DWITH_INNODB_LZMA=ON \
+          -DWITH_INNODB_LZO=ON \
+          -DWITH_INNODB_SNAPPY=OFF \
+          -DWITH_UNIT_TESTS=OFF \
           -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
           -DZLIB_LIBRARY=$INSTALL_DIR/lib/libz.a -DZLIB_INCLUDE_PATH=$INSTALL_DIR/include \
           -DCMAKE_BUILD_TYPE=Release
@@ -344,6 +349,7 @@ function build_mdb()
     export CPPFLAGS="$CPPFLAGS -Dushort=u_short"
     cmake . -DWITHOUT_TOKUDB=1 \
           -DBUILD_CONFIG=mysql_release \
+          -DZLIB_LIBRARY=$INSTALL_DIR/lib/libz.a -DZLIB_INCLUDE_PATH=$INSTALL_DIR/include \
           -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
           -DGSSAPI_FOUND=NO \
           -DGRN_WITH_LZ4=yes \

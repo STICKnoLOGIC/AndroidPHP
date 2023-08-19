@@ -230,9 +230,9 @@ function build_curses(){
         ncurses_v=$NCURSES_v
     fi
 
-    wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.7.tar.gz
-    tar xzf ncurses-5.7.tar.gz
-    cd ncurses-5.7
+    wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-$ncurses_v.tar.gz
+    tar xzf ncurses-$ncurses_v.tar.gz
+    cd ncurses-$ncurses_v
     ./configure --prefix=$INSTALL_DIR \
         --disable-nls \
         CFLAGS="$CFLAGS" \

@@ -229,26 +229,38 @@ function build_curses(){
     else
         ncurses_v=$NCURSES_v
     fi
-    musl_bin=$DIR/aarch64-linux-musl/bin/
-    /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
-    cd ncurses-$ncurses_v
-    ./configure --prefix=$INSTALL_DIR \
-        --disable-nls \
-        CFLAGS="$CFLAGS" \
-        LDFLAGS="$LDFLAGS" \
-        ac_cv_header_local_h=no \
-        am_cv_langinfo_codeset=no \
-        --disable-stripping \
-        --enable-widec \
-        --without-manpages \
-        --without-ada \
-        --without-debug \
-        --without-tests \
-        $CONFIGURE_FLAGS
-    make -j 2 install
-    cd ..
-    ls -al $INSTALL_DIR/lib
-    echo ncurses installed...
+
+    wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.7.tar.gz
+    tar xzf ncurses-5.7.tar.gz
+    cd ncurses-5.7
+    ./configure --prefix=$INSTALL_DIR
+    make
+    make install
+# ls -la /opt/ncurses
+
+    # musl_bin=$DIR/aarch64-linux-musl/bin/
+    # /usr/bin/curl -L https://github.com/mirror/ncurses/archive/refs/tags/v$ncurses_v.tar.gz | tar -zx
+    # cd ncurses-$ncurses_v
+    # ./configure --prefix=$INSTALL_DIR \
+    #     --disable-nls \
+    #     CFLAGS="$CFLAGS" \
+    #     LDFLAGS="$LDFLAGS" \
+    #     ac_cv_header_local_h=no \
+    #     am_cv_langinfo_codeset=no \
+    #     --disable-stripping \
+    #     --enable-widec \
+    #     --without-manpages \
+    #     --without-ada \
+    #     --without-debug \
+    #     --without-tests \
+    #     $CONFIGURE_FLAGS
+    # echo compiling...
+    # make -j 2
+    # echo installing...
+    # make -j 2 install
+    # cd ..
+    # ls -al $INSTALL_DIR/lib
+    # echo ncurses installed...
 }
 
 function build_git()
@@ -343,6 +355,7 @@ function build_mdb()
     export CPPFLAGS="$CPPFLAGS -Dushort=u_short"
     cmake . -DWITHOUT_TOKUDB=1 \
           -DBUILD_CONFIG=mysql_release \
+          -DCURSES_LIBRARY=/path/to/lib/libncurses.a -DCURSES_INCLUDE_PATH=/path/to/include/ \
           -DGSSAPI_FOUND=NO \
           -DGRN_WITH_LZ4=yes \
           -DENABLED_LOCAL_INFILE=ON \

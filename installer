@@ -45,13 +45,17 @@ export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
 #error catching
 set -ex
 
+function setup_repo_ubuntu(){
+    
+    sudo add-apt-repository "deb http://ftp.debian.org/debian buster main contrib"
+    sudo add-apt-repository "deb http://security.debian.org buster/updates main contrib"
+    sudo add-apt-repository "deb-src http://ftp.debian.org/debian buster main contrib"
+    sudo add-apt-repository "deb-src  http://security.debian.org buster/updates main contrib"
+}
+
 function setup_environment()
 {
-    deb http://ftp.debian.org/debian buster main contrib
-    deb http://security.debian.org buster/updates main contrib
-    deb-src http://ftp.debian.org/debian buster main contrib
-    deb-src  http://security.debian.org buster/updates main contrib
-    
+
     sudo apt update &> /dev/null
     sudo apt install -y pcre2-utils git cmake make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
     sudo apt build-dep mariadb-server
@@ -305,10 +309,10 @@ function build_git()
 function build_mdb()
 {
 
-    build_curl
-    build_libexpat
-    build_pcre2
-    build_curses
+    # build_curl
+    # build_libexpat
+    # build_pcre2
+    # build_curses
 
     local mdb_dir=$DIR/mdb-static/mariadb
     mkdir -p $mdb_dir

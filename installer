@@ -194,8 +194,8 @@ function build_libexpat()
         --enable-shared=no \
         --enable-fast-install=yes \
         --without-docbook \
-        $CONFIGURE_FLAGS 
-    make -j 2
+        $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
+    make -j 2 
     make -j 2 install
     cd ..
 
@@ -211,11 +211,11 @@ function build_pcre2()
     fi 
     /usr/bin/curl -L https://github.com/PCRE2Project/pcre2/releases/latest/download/pcre2-$pcre2_v.tar.gz | tar -zxv
     cd ./pcre2-$pcre2_v
-    ./configure $CONFIGURE_FLAGS --disable-shared --prefix=$INSTALL_DIR
+    ./configure $CONFIGURE_FLAGS --disable-shared --prefix=$INSTALL_DIR >> "$DIR/install.log" 2>&1
     echo -n " compiling..."
     make -j 2 >> "$DIR/install.log" 2>&1
     echo -n " installing..."
-    make -j 2 install
+    make -j 2 install >> "$DIR/install.log" 2>&1
     cd ..
     echo " done!"
     echo "[INFO] Building Pcre2:success..."
@@ -245,9 +245,9 @@ function build_curses(){
         --without-ada \
         --without-debug \
         --without-tests \
-        $CONFIGURE_FLAGS
-    make
-    make install
+        $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
+    make -j 8
+    make -j 8 install
 # ls -la /opt/ncurses
 
     # musl_bin=$DIR/aarch64-linux-musl/bin/
@@ -271,7 +271,7 @@ function build_curses(){
     # echo installing...
     # make -j 2 install
     # cd ..
-    # ls -al $INSTALL_DIR/lib
+    ls -al $INSTALL_DIR/lib
     # echo ncurses installed...
 }
 
@@ -344,15 +344,15 @@ function build_mdb()
     /usr/bin/curl -L https://archive.mariadb.org/mariadb-$mariadb_v/source/mariadb-$mariadb_v.tar.gz | tar -zx
     cd mariadb-$mariadb_v
     
-    sed -i 's/^\s*END[(][)]/ENDIF()/g' ./libmariadb/cmake/ConnectorName.cmake
-    sed -i '/ADD_SUBDIRECTORY(libmysqld\/examples)/d' ./CMakeLists.txt
-    sed -i '/mariadb-test/d' ./CMakeLists.txt
-    sed -i '/MYSQL_ADD_EXECUTABLE(mariadb-test mysqltest.cc \${CMAKE_SOURCE_DIR/d' ./client/CMakeLists.txt
-    sed -i '/SET_SOURCE_FILES_PROPERTIES(mysqltest.cc PROPERTIES COMPILE_FLAGS/d' ./client/CMakeLists.txt
-    sed -i '/TARGET_LINK_LIBRARIES(mariadb-test/d' ./client/CMakeLists.txt
-    sed -i '/SET_TARGET_PROPERTIES(mariadb-test/d' ./client/CMakeLists.txt
-    sed -i 's/FOREACH(t mariadb mariadb-test/FOREACH(t mariadb/g' ./client/CMakeLists.txt
-    sed -i '/\/etc\/mysql\/mariadb.conf.d/d' ./cmake/install_layout.cmake
+    sed -i 's/^\s*END[(][)]/ENDIF()/g' ./libmariadb/cmake/ConnectorName.cmake >> "$DIR/install.log" 2>&1
+    sed -i '/ADD_SUBDIRECTORY(libmysqld\/examples)/d' ./CMakeLists.txt >> "$DIR/install.log" 2>&1
+    sed -i '/mariadb-test/d' ./CMakeLists.txt >> "$DIR/install.log" 2>&1
+    sed -i '/MYSQL_ADD_EXECUTABLE(mariadb-test mysqltest.cc \${CMAKE_SOURCE_DIR/d' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
+    sed -i '/SET_SOURCE_FILES_PROPERTIES(mysqltest.cc PROPERTIES COMPILE_FLAGS/d' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
+    sed -i '/TARGET_LINK_LIBRARIES(mariadb-test/d' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
+    sed -i '/SET_TARGET_PROPERTIES(mariadb-test/d' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
+    sed -i 's/FOREACH(t mariadb mariadb-test/FOREACH(t mariadb/g' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
+    sed -i '/\/etc\/mysql\/mariadb.conf.d/d' ./cmake/install_layout.cmake >> "$DIR/install.log" 2>&1
     echo cmake HOST
     mkdir -p HOST
     cd HOST

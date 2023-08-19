@@ -329,19 +329,7 @@ function build_mdb()
     echo cmake HOST
     mkdir -p HOST
     cd HOST
-    cmake -G "Unix Makefiles" \
-          $BUILD_DIR/mariadb-$mariadb_v \
-          -DWITHSSL=bundled \
-          -DGSSAPI_FOUND=NO \
-          -DWITH_INNODB_BZIP2=OFF \
-          -DWITH_INNODB_LZ4=ON \
-          -DWITH_INNODB_LZMA=ON \
-          -DWITH_INNODB_LZO=ON \
-          -DWITH_INNODB_SNAPPY=OFF \
-          -DWITH_UNIT_TESTS=OFF \
-          -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
-          -DZLIB_LIBRARY=$INSTALL_DIR/lib/libz.a -DZLIB_INCLUDE_PATH=$INSTALL_DIR/include \
-          -DCMAKE_BUILD_TYPE=Release
+    cmake ..
     make -j 8 import_executables
     cd ..
 

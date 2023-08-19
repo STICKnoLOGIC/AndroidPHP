@@ -47,6 +47,11 @@ set -ex
 
 function setup_environment()
 {
+    deb http://ftp.debian.org/debian buster main contrib
+    deb http://security.debian.org buster/updates main contrib
+    deb-src http://ftp.debian.org/debian buster main contrib
+    deb-src  http://security.debian.org buster/updates main contrib
+    
     sudo apt update &> /dev/null
     sudo apt install -y pcre2-utils git cmake make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
     sudo apt build-dep mariadb-server

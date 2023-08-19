@@ -233,7 +233,7 @@ function build_curses(){
     wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.7.tar.gz
     tar xzf ncurses-5.7.tar.gz
     cd ncurses-5.7
-    ./configure --prefix=$INSTALL_DIR
+    ./configure --prefix=$INSTALL_DIR $CONFIGURE_FLAGS
     make
     make install
 # ls -la /opt/ncurses

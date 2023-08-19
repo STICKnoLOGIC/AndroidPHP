@@ -51,7 +51,6 @@ function setup_repo_ubuntu(){
     sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu focal universe"
     sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu focal-updates universe"
     sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu focal-updates universe"
-    sudo sed -i 's/#/ /g' /etc/apt/sources.list
 
 }
 
@@ -60,7 +59,7 @@ function setup_environment()
 
     sudo apt update &> /dev/null
     sudo apt-get install -y pcre2-utils git cmake make autoconf build-essential re2c libexpat1-dev asciidoc libz-dev gettext libtool libtool-bin zlib1g-dev libcurl4-openssl-dev libzip-dev libssl-dev &> /dev/null
-    sudo apt-get build-dep mariadb-server-10.3
+    sudo apt-get build-dep mariadb-server
     
     mkdir -p aarch64-linux-musl && cd aarch64-linux-musl
     wget -q -O "aarch64-linux-musl.tar.xz" "https://github.com/STICKnoLOGIC/musl-cross-make/releases/latest/download/aarch64-linux-musl.tar.xz"

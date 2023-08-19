@@ -64,7 +64,7 @@ function setup_environment()
 }
 
 function setup_mdb_env(){
-    sudo apt &> /dev/null
+    sudo apt update &> /dev/null
     sudo apt instal -y  autopoint bison chrpath comerr-dev cracklib-runtime debhelper dh-apparmor dh-autoreconf dh-exec dh-strip-nondeterminism dwz gdb icu-devtools intltool-debian krb5-multidev libaio-dev libarchive-dev libarchive-zip-perl libbabeltrace1 \
     libboost-dev libboost1.71-dev libcrack2 libcrack2-dev libdebhelper-perl libdw1 libfile-stripnondeterminism-perl libgmp-dev libgmpxx4ldbl libgnutls-dane0 libgnutls-openssl27 libgnutls28-dev libgnutlsxx28 libgssrpc4 libicu-dev \
     libidn2-dev libjemalloc-dev libjemalloc2 libjudy-dev libjudydebian1 libkadm5clnt-mit11 libkadm5srv-mit11 libkdb5-9 libkrb5-dev liblz4-dev libncurses-dev libncurses5-dev libodbc1 libp11-kit-dev libpam0g-dev libpcre16-3 libpcre3-dev \

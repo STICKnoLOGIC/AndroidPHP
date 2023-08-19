@@ -329,7 +329,9 @@ function build_mdb()
     echo cmake HOST
     mkdir -p HOST
     cd HOST
-    cmake ..
+    cmake .. \
+          -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
+          -DZLIB_LIBRARY=$INSTALL_DIR/lib/libz.a -DZLIB_INCLUDE_PATH=$INSTALL_DIR/include 
     make -j 8 import_executables
     cd ..
 

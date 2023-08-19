@@ -263,7 +263,6 @@ function build_libxml2(){
     CFLAGS="$CFLAGS" \
     LDFLAGS="$LDFLAGS" \
     CPPFLAGS="$CPPFLAGS" \
-    PKG_CONFIG="$PKG_CONFIG_PATH" \
     enable_static=yes \
     cross_compiling=yes \
     $CONFIGURE_FLAGS

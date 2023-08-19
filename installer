@@ -259,7 +259,14 @@ function build_libxml2(){
     tar -xf libxml2-2.10.4.tar.xz
     echo checking...
     cd libxml2-2.10.4
-    ./configure --prefix=$INSTALL_DIR --disable-shared cross_compiling=yes $CONFIGURE_FLAGS
+    ./configure --prefix=$INSTALL_DIR \
+    CFLAGS="$CFLAGS" \
+    LDFLAGS="$LDFLAGS" \
+    CPPFLAGS="$CPPFLAGS" \
+    PKG_CONFIG="$PKG_CONFIG_PATH" \
+    enable_static=yes \
+    cross_compiling=yes \
+    $CONFIGURE_FLAGS
     echo compiling...
     make -j 8 
     echo installing...

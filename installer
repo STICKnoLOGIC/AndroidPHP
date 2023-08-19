@@ -233,7 +233,19 @@ function build_curses(){
     wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.7.tar.gz
     tar xzf ncurses-5.7.tar.gz
     cd ncurses-5.7
-    ./configure --prefix=$INSTALL_DIR $CONFIGURE_FLAGS
+    ./configure --prefix=$INSTALL_DIR \
+        --disable-nls \
+        CFLAGS="$CFLAGS" \
+        LDFLAGS="$LDFLAGS" \
+        ac_cv_header_local_h=no \
+        am_cv_langinfo_codeset=no \
+        --disable-stripping \
+        --enable-widec \
+        --without-manpages \
+        --without-ada \
+        --without-debug \
+        --without-tests \
+        $CONFIGURE_FLAGS
     make
     make install
 # ls -la /opt/ncurses

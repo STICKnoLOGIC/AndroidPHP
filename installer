@@ -247,7 +247,7 @@ function build_curses(){
         --without-tests \
         $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1
     make -j 8
-    make -j 8 install
+    make -j 8 install   
 # ls -la /opt/ncurses
 
     # musl_bin=$DIR/aarch64-linux-musl/bin/
@@ -367,7 +367,7 @@ function build_mdb()
     export CPPFLAGS="$CPPFLAGS -Dushort=u_short"
     cmake . -DWITHOUT_TOKUDB=1 \
           -DBUILD_CONFIG=mysql_release \
-          -DCURSES_LIBRARY=/path/to/lib/libncurses.a -DCURSES_INCLUDE_PATH=/path/to/include/ \
+          -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
           -DGSSAPI_FOUND=NO \
           -DGRN_WITH_LZ4=yes \
           -DENABLED_LOCAL_INFILE=ON \

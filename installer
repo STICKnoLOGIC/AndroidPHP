@@ -52,7 +52,6 @@ function setup_repo_ubuntu(){
     sudo add-apt-repository "http://archive.ubuntu.com/ubuntu focal-updates universe"
     sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu focal-updates universe"
 
-    sudo sed -i 's/#//g' /etc/apt/sources.list
 }
 
 function setup_environment()

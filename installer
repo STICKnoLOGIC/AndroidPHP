@@ -103,9 +103,9 @@ function build_openssl()
         no-hw \
         no-engine >> "$DIR/install.log" 2>&1
     echo " compiling..."
-     make -j 8 >> "$DIR/install.log" 2>&1
+     make -j 8 # >> "$DIR/install.log" 2>&1
     echo " installing..."
-    make -j 8 install_sw >> "$DIR/install.log" 2>&1
+    make -j 8 install_sw # >> "$DIR/install.log" 2>&1
     cd ..
     echo "success..."
 }

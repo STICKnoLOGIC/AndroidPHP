@@ -386,7 +386,7 @@ function build_mdb()
     build_libevent
     build_curses
     build_m4
-    build_bison
+    # build_bison
 
 
     local mdb_dir=$DIR/mdb-static/mariadb

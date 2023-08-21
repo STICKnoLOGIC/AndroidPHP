@@ -381,7 +381,7 @@ function build_mdb()
     build_curl
     build_libexpat
     build_pcre2
-    build_libxml2
+    # build_libxml2
     build_libevent
     build_curses
     build_m4

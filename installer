@@ -378,14 +378,14 @@ function build_git()
 function build_mdb()
 {
 
-    # build_curl
-    # build_libexpat
-    # build_pcre2
-    # build_libxml2
-    # build_libevent
-    # build_curses
-    # build_m4
-    # build_bison
+    build_curl
+    build_libexpat
+    build_pcre2
+    build_libxml2
+    build_libevent
+    build_curses
+    build_m4
+    build_bison
 
 
     local mdb_dir=$DIR/mdb-static/mariadb

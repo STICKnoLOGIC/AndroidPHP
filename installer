@@ -293,7 +293,8 @@ function build_libxml2(){
 
 function build_libevent(){
     echo LIBEVENT
-    /usr/bin/curl -L https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz | tar xf
+    wget -L https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
+    tar -xf libevent-2.1.12-stable.tar.gz
     cd libevent-2.1.12-stable
     echo checking...
     ./configure --prefix=$INSTALL_DIR $CONFIGURE_FLAGS

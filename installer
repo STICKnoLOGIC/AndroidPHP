@@ -309,7 +309,7 @@ function build_m4(){
     echo M4
     wget http://ftp.gnu.org/gnu/m4/m4-latest.tar.gz
     tar -xf m4-latest.tar.gz
-    cd m4-latest
+    cd m4-1.4.19
     echo checking...
     ./configure --prefix=$INSTALL_DIR $CONFIGURE_FLAGS
     echo compiling...

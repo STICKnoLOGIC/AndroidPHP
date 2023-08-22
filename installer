@@ -345,7 +345,12 @@ cd build
 local ldlibdir=$LD_LIBRARY_PATH
 unset LD_LIBRARY_PATH
 ./../glibc-2.31/configure --prefix=$INSTALL_DIR \
-$CONFIGURE_FLAGS 
+--host=x86_64-linux-gnu \
+  --build=x86_64-linux-gnu \
+  CC="gcc -m64" \
+  CXX="g++ -m64" \
+  CFLAGS="-O2" \
+  CXXFLAGS="-O2"
 export LD_LIBRARY_PATH=$ldlibdir
 make -j 8
 make -j 8 install

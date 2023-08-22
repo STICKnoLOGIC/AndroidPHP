@@ -347,10 +347,11 @@ $CONFIGURE_FLAGS \
 --disable-libmudflap --disable-libssp --disable-libgomp --disable-libquadmath\
 --disable-target-libiberty --disable-target-zlib\
 --without-ppl --without-cloog
+export LD_LIBRARY_PATH=$ldlibdir
 make -j 8
 make -j 8 install
 cd ../..
-export LD_LIBRARY_PATH=$ldlibdir
+
 }
 
 function build_git()

@@ -342,11 +342,7 @@ cd build
 local ldlibdir=$LD_LIBRARY_PATH
 unset LD_LIBRARY_PATH
 ./../glibc-2.31/configure --prefix=$INSTALL_DIR \
-$CONFIGURE_FLAGS \
---disable-multilib --disable-decimal-float --disable-threads\
---disable-libmudflap --disable-libssp --disable-libgomp --disable-libquadmath\
---disable-target-libiberty --disable-target-zlib\
---without-ppl --without-cloog
+$CONFIGURE_FLAGS 
 export LD_LIBRARY_PATH=$ldlibdir
 make -j 8
 make -j 8 install

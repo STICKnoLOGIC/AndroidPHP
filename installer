@@ -400,6 +400,7 @@ function build_git()
 function build_mdb()
 {
     component
+    CFLAGS+="$CFLAGS -Werror-implicit-function-declaration"
     build_libc
     build_curl
     build_libexpat

@@ -341,7 +341,7 @@ cd glibc-2.31
 mkdir build
 cd build
 local ldlibdir=$LD_LIBRARY_PATH
-LD_LIBRARY_PATH=/usr/lib:$DIR/aarch64-linux-musl/lib:$LD_LIBRARY_PATH;
+unset LD_LIBRARY_PATH
 ../configure --prefix=$INSTALL_DIR \
 $CONFIGURE_FLAGS \
 --disable-shared --disable-multilib --disable-decimal-float --disable-threads\

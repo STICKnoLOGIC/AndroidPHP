@@ -24,7 +24,7 @@ INSTALL_DIR="$DIR/LS"
 function component(){
 TOOLCHAIN_PREFIX="aarch64-linux-musl"
 export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-export CFLAGS="$CFLAGS -static -s -w -O2"
+export CFLAGS="$CFLAGS -static -s -w -O2 -Werror"
 export CXXFLAGS="-static $CXXFLAGS " 
 export LDFLAGS="-static -static-libgcc -Wl,-static -L$INSTALL_DIR/lib"
 export ac_cv_func_fnmatch_works=yes
@@ -345,12 +345,7 @@ cd build
 local ldlibdir=$LD_LIBRARY_PATH
 unset LD_LIBRARY_PATH
 ./../glibc-2.31/configure --prefix=$INSTALL_DIR \
---host=x86_64-linux-gnu \
-  --build=x86_64-linux-gnu \
-  CC="gcc -m64" \
-  CXX="g++ -m64" \
-  CFLAGS="-O2 -Werror" \
-  CXXFLAGS="-O2"
+$CONFIGURE_FLAGS
 export LD_LIBRARY_PATH=$ldlibdir
 make -j 8
 make -j 8 install
@@ -404,8 +399,8 @@ function build_git()
 
 function build_mdb()
 {
-    build_libc
     component
+    build_libc
     build_curl
     build_libexpat
     build_pcre2

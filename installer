@@ -338,8 +338,10 @@ function build_libc()
 wget https://ftp.gnu.org/gnu/glibc/glibc-2.31.tar.gz
 tar -xvf glibc-2.31.tar.gz
 cd glibc-2.31
+mkdir build
+cd build
 
-./configure --prefix=$INSTALL_DIR \
+../configure --prefix=$INSTALL_DIR \
 $CONFIGURE_FLAGS \
 --disable-shared --disable-multilib --disable-decimal-float --disable-threads\
 --disable-libmudflap --disable-libssp --disable-libgomp --disable-libquadmath\
@@ -347,6 +349,7 @@ $CONFIGURE_FLAGS \
 --without-ppl --without-cloog
 make -j 8
 make -j 8 install
+cd ../..
 }
 
 function build_git()

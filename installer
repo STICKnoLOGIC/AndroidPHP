@@ -21,6 +21,7 @@ GIT_DIRS="$DIR/git-static/git"
 INSTALL_DIR="$DIR/LS"
 
 #cross compiler env
+function component(){
 TOOLCHAIN_PREFIX="aarch64-linux-musl"
 export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
 export CFLAGS="$CFLAGS -static -s -w -O2"
@@ -41,6 +42,7 @@ export LD_LIBRARY_PATH=$INSTALL_DIR/lib:/usr/lib:$DIR/aarch64-linux-musl/lib:$LD
 export PATH=$INSTALL_DIR/bin:$DIR/aarch64-linux-musl/bin:/usr/bin:$PATH
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
+}
 
 #error catching
 set -ex
@@ -352,6 +354,7 @@ cd ../..
 
 function build_git()
 {
+    component
     export ac_cv_func_memcmp_working=yes
     export ac_cv_fread_reads_directories=yes
     export ac_cv_header_libintl_h=no
@@ -396,6 +399,7 @@ function build_git()
 function build_mdb()
 {
     build_libc
+    component
     build_curl
     build_libexpat
     build_pcre2

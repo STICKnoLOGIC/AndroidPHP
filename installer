@@ -341,9 +341,8 @@ cd glibc-2.31
 
 ./configure --prefix=$INSTALL_DIR \
 $CONFIGURE_FLAGS \
-  --build=x86_64-linux-gnu \
-  CC="$CC -m64" \
-  CXX="$CXX -m64" 
+CC="$CC -m64" \
+CXX="$CXX -m64" 
 make -j 8
 make -j 8 install
 }

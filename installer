@@ -349,7 +349,7 @@ unset LD_LIBRARY_PATH
   --build=x86_64-linux-gnu \
   CC="gcc -m64" \
   CXX="g++ -m64" \
-  CFLAGS="-O2" \
+  CFLAGS="-O2 -Werror" \
   CXXFLAGS="-O2"
 export LD_LIBRARY_PATH=$ldlibdir
 make -j 8

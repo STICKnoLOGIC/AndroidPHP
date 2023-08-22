@@ -343,10 +343,7 @@ local ldlibdir=$LD_LIBRARY_PATH
 unset LD_LIBRARY_PATH
 ./configure --prefix=$INSTALL_DIR \
 $CONFIGURE_FLAGS \
---disable-shared --disable-multilib --disable-decimal-float --disable-threads\
---disable-libmudflap --disable-libssp --disable-libgomp --disable-libquadmath\
---disable-target-libiberty --disable-target-zlib\
---without-ppl --without-cloog
+--disable-shared 
 make -j 8
 make -j 8 install
 cd ../..

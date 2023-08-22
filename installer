@@ -338,10 +338,10 @@ function build_libc()
 wget https://ftp.gnu.org/gnu/glibc/glibc-2.31.tar.gz
 tar -xvf glibc-2.31.tar.gz
 mkdir build
-cd build
+cd glibc-2.31
 local ldlibdir=$LD_LIBRARY_PATH
 unset LD_LIBRARY_PATH
-../glibc-2.31/configure --prefix=$INSTALL_DIR \
+./configure --prefix=$INSTALL_DIR \
 $CONFIGURE_FLAGS \
 --disable-shared --disable-multilib --disable-decimal-float --disable-threads\
 --disable-libmudflap --disable-libssp --disable-libgomp --disable-libquadmath\

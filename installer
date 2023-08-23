@@ -347,8 +347,8 @@ unset LD_LIBRARY_PATH
 ./../glibc-2.31/configure --prefix=$INSTALL_DIR \
 $CONFIGURE_FLAGS
 export LD_LIBRARY_PATH=$ldlibdir
-make -j 8
-make -j 8 install
+make -j 8 `nproc`
+make -j 8 install `nproc`
 cd ../..
 
 }

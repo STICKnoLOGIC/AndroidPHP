@@ -36,4 +36,4 @@ jobs:
           
       - name: install
         run: |
-          source ./installer && cd $BUILD_DIR && build_mdb
+          source ./installer && cd $BUILD_DIR && build_mysql_p1 && build_mysql_p2

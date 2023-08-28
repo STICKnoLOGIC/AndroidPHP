@@ -36,7 +36,7 @@ export AR="$TOOLCHAIN_PREFIX-ar"
 export RANLIB="$TOOLCHAIN_PREFIX-ranlib"
 export CPP="$TOOLCHAIN_PREFIX-cpp"
 export LD="$TOOLCHAIN_PREFIX-ld"
-export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/$TOOLCHAIN_PREFIX/include -I$/usr/include"
+export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include -I$/usr/include"
 export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:/usr/lib:$LIBRARY_PATH:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
 export LD_LIBRARY_PATH=$INSTALL_DIR/lib:/usr/lib:$DIR/aarch64-linux-musl/lib:$LD_LIBRARY_PATH
@@ -395,7 +395,7 @@ function build_git()
         --with-expat \
         $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1 # LIBS="-lcurl -lssl -lcrypto"
     echo " compiling..."
-    make -j 8 >> "$DIR/install.log" 2>&1
+    make -j 8 -s >> "$DIR/install.log" 2>&1
     echo " installing..."
     make -j 8 install >> "$DIR/install.log" 2>&1
     echo " success..."

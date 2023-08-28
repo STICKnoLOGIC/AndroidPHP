@@ -395,7 +395,7 @@ function build_git()
         --with-expat \
         $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1 # LIBS="-lcurl -lssl -lcrypto"
     echo " compiling..."
-    make -j 8 -s >> "$DIR/install.log" 2>&1
+    make -j 8 >> "$DIR/install.log" 2>&1
     echo " installing..."
     make -j 8 install >> "$DIR/install.log" 2>&1
     echo " success..."
@@ -427,103 +427,6 @@ function build_mysql_p2(){
     make -j 8 VERBOSE=1
 }
 
-function build_mdb()
-{
-    component
-    CFLAGS+="$CFLAGS -Werror-implicit-function-declaration"
-    build_libc
-    build_curl
-    build_libexpat
-    build_pcre2
-    build_libxml2
-    build_libevent
-    build_curses
-    build_m4
-    build_bison
-
-
-    local mdb_dir=$DIR/mdb-static/mariadb
-    mkdir -p $mdb_dir
-
-    if [ ! "$1" = "" ]; then
-        mariadb_v=$1
-    else
-        mariadb_v=$MARIADB_v
-    fi
-    echo MARIAdb
-    cd $BUILD_DIR
-    /usr/bin/curl -L https://archive.mariadb.org/mariadb-$mariadb_v/source/mariadb-$mariadb_v.tar.gz | tar -zx
-    cd mariadb-$mariadb_v
-    
-    # sed -i 's/^\s*END[(][)]/ENDIF()/g' ./libmariadb/cmake/ConnectorName.cmake >> "$DIR/install.log" 2>&1
-    # sed -i '/ADD_SUBDIRECTORY(libmysqld\/examples)/d' ./CMakeLists.txt >> "$DIR/install.log" 2>&1
-    # sed -i '/mariadb-test/d' ./CMakeLists.txt >> "$DIR/install.log" 2>&1
-    # sed -i '/MYSQL_ADD_EXECUTABLE(mariadb-test mysqltest.cc \${CMAKE_SOURCE_DIR/d' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
-    # sed -i '/SET_SOURCE_FILES_PROPERTIES(mysqltest.cc PROPERTIES COMPILE_FLAGS/d' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
-    # sed -i '/TARGET_LINK_LIBRARIES(mariadb-test/d' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
-    # sed -i '/SET_TARGET_PROPERTIES(mariadb-test/d' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
-    # sed -i 's/FOREACH(t mariadb mariadb-test/FOREACH(t mariadb/g' ./client/CMakeLists.txt >> "$DIR/install.log" 2>&1
-    # sed -i '/\/etc\/mysql\/mariadb.conf.d/d' ./cmake/install_layout.cmake >> "$DIR/install.log" 2>&1
-    echo cmake HOST
-    mkdir -p HOST
-    cd HOST
-    cmake .. \
-          -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
-          -DZLIB_LIBRARY=$INSTALL_DIR/lib/libz.a -DZLIB_INCLUDE_PATH=$INSTALL_DIR/include 
-    make -j 8 import_executables
-    cd ..
-
-    echo compiling...
-    export CPPFLAGS="$CPPFLAGS -Dushort=u_short"
-    cmake . -DWITHOUT_TOKUDB=1 \
-          -DBUILD_CONFIG=mysql_release \
-          -DZLIB_LIBRARY=$INSTALL_DIR/lib/libz.a -DZLIB_INCLUDE_PATH=$INSTALL_DIR/include \
-          -DCURSES_LIBRARY=$INSTALL_DIR/lib/libncursesw.a -DCURSES_INCLUDE_PATH=$INSTALL_DIR/include \
-          -DGSSAPI_FOUND=NO \
-          -DGRN_WITH_LZ4=yes \
-          -DENABLED_LOCAL_INFILE=ON \
-          -DHAVE_UCONTEXT_H=False \
-          -DIMPORT_EXECUTABLES=$mdb_dir/HOST/import_executables.cmake \
-          -DINSTALL_UNIX_ADDRDIR=$mdb_dir/var/mysqld.sock \
-          -DINSTALL_SBINDIR=$mdb_dir/bin \
-          -DMYSQL_DATADIR=$mdb/lib/mysql \
-          -DPLUGIN_AUTH_GSSAPI_CLIENT=OFF \
-          -DPLUGIN_AUTH_GSSAPI=NO \
-          -DPLUGIN_AUTH_PAM=NO \
-          -DPLUGIN_CONNECT=NO \
-          -DPLUGIN_DAEMON_EXAMPLE=NO \
-          -DPLUGIN_EXAMPLE=NO \
-          -DPLUGIN_GSSAPI=OFF \
-          -DPLUGIN_ROCKSDB=NO \
-          -DPLUGIN_TOKUDB=NO \
-          -DPLUGIN_SERVER_AUDIT=NO \
-          -DSTACK_DIRECTION=-1 \
-          -DTMPDIR=$mdb_dir/tmp \
-          -DWITH_EXTRA_CHARSETS=complex \
-          -DWITH_JEMALLOC=OFF \
-          -DWITH_MARIABACKUP=OFF \
-          -DWITH_PCRE=system \
-          -DWITH_LZ4=system \
-          -DWITH_SSL=system \
-          -DWITH_ZLIB=system \
-          -DWITH_READLINE=OFF \
-          -DWITH_WSREP=False \
-          -DWITH_INNODB_BZIP2=OFF \
-          -DWITH_INNODB_LZ4=ON \
-          -DWITH_INNODB_LZMA=ON \
-          -DWITH_INNODB_LZO=ON \
-          -DWITH_INNODB_SNAPPY=OFF \
-          -DWITH_UNIT_TESTS=OFF \
-          -DINSTALL_SYSCONFDIR=$mdb_dir/etc
-
-    mkdir -p $mdb_dir/etc/my.cnf.d
-
-    echo installing...
-    make -j 8 install
-    cd ..
-    echo success...
-
-}
 
 function build_ssh(){
     

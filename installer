@@ -3,7 +3,7 @@
 
 #versions of libs
 CURL_v='8.2.1'
-GIT_v='2.41.0'
+GIT_v='2.42.0'
 OPENSSL_v='1.1.1t'
 ZLIB_v='1.3'
 PCRE_v='10.42'

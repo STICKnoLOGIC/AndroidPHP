@@ -367,6 +367,7 @@ function build_git()
     export ac_cv_iconv_omits_bom=no
     export ac_cv_snprintf_returns_bogus=no
     export ac_cv_lib_curl_curl_global_init=yes
+    export cross_compiling=yes
 
     build_curl
     build_pcre2
@@ -382,9 +383,11 @@ function build_git()
     echo GIT
     /usr/bin/curl https://mirrors.kernel.org/pub/software/scm/git/git-$git_v.tar.gz | tar xz
     cd git-$git_v
+    make configure
     echo checking...
     ./configure CURLDIR=$INSTALL_DIR \
         OPENSSLDIR=$INSTALL_DIR \
+        CFLAGS="-static -s -w" \
         NO_GETTEXT=YesPlease \
         NO_NSEC=YesPlease \
         NO_ICONV=YesPlease \
@@ -393,7 +396,7 @@ function build_git()
         --with-openssl \
         --with-curl \
         --with-expat \
-        $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1 # LIBS="-lcurl -lssl -lcrypto"
+        $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1 # LIBS="-lcurl -lssl -lcrypto"
     echo " compiling..."
     make -j 8  # >> "$DIR/install.log" 2>&1
     echo " installing..."

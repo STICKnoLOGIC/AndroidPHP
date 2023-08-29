@@ -25,7 +25,7 @@ INSTALL_DIR="$DIR/LS"
 function component(){
 TOOLCHAIN_PREFIX="aarch64-linux-musl"
 export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-export CFLAGS="$CFLAGS -static -O2 -Wno-error"
+export CFLAGS="$CFLAGS -static"
 export CXXFLAGS="-static $CXXFLAGS " 
 export LDFLAGS="-static -static-libgcc -Wl,-static -L$INSTALL_DIR/lib"
 export ac_cv_func_fnmatch_works=yes
@@ -39,7 +39,7 @@ export LD="$TOOLCHAIN_PREFIX-ld"
 export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include -I$/usr/include"
 export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:/usr/lib:$LIBRARY_PATH:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
-export LD_LIBRARY_PATH=$INSTALL_DIR/lib:/usr/lib:$DIR/aarch64-linux-musl/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$DIR/aarch64-linux-musl/lib:/usr/lib:$LD_LIBRARY_PATH
 export PATH=$INSTALL_DIR/bin:$DIR/aarch64-linux-musl/bin:/usr/bin:$PATH
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"

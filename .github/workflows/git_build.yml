@@ -88,11 +88,11 @@ jobs:
             done
 
             cd ../..
-            for file in bin/git-cvsserver bin/git-shell libexec/git-core/git-shell libexec/git-core/git-cvsserver share/man/man1/git-cvsserver.1 share/man/man1/git-shell.1 ; do
-              if [ -e "$file" ]; then
+            # for file in bin/git-cvsserver bin/git-shell libexec/git-core/git-shell libexec/git-core/git-cvsserver share/man/man1/git-cvsserver.1 share/man/man1/git-shell.1 ; do
+            #  if [ -e "$file" ]; then
              #   rm -fvR $file
-              fi
-            done
+            #  fi
+            # done
             cd ..
             
             tar -cv git | gzip -9 - > git.tar.gz

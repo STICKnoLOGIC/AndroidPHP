@@ -395,9 +395,9 @@ function build_git()
         --with-expat \
         $CONFIGURE_FLAGS >> "$DIR/install.log" 2>&1 # LIBS="-lcurl -lssl -lcrypto"
     echo " compiling..."
-    make -j 8 -s >> "$DIR/install.log" 2>&1
+    make -j 8  # >> "$DIR/install.log" 2>&1
     echo " installing..."
-    make -j 8 install >> "$DIR/install.log" 2>&1
+    make -j 8 install # >> "$DIR/install.log" 2>&1
     echo " success..."
     cd ..
 }

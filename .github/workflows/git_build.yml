@@ -95,7 +95,11 @@ jobs:
             # done
             cd ..
             
-            tar -czv git.tar.gz git
+            tar_o=$( tar -czv git.tar.gz ./git 2>1 )
+            if  [ ! "$tar_o" = "" ]; then
+            echo $tar_o
+            exit
+            fi
             
             echo deleting unneeded file
             rm -rvf git

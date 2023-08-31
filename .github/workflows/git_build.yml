@@ -95,7 +95,7 @@ jobs:
             # done
             cd ..
             
-            tar -czvf git.tar.gz git
+            sudo tar -czv git.tar.gz git
             
             echo deleting unneeded file
             rm -rvf git

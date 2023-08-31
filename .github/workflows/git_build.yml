@@ -95,7 +95,7 @@ jobs:
             # done
             cd ..
             
-            tar_o=$( tar -czv git.tar.gz ./git 2>1 )
+            tar_o=$( tar --no-null -czvf git.tar.gz ./git 2>&1 )
             if  [ ! "$tar_o" = "" ]; then
             echo $tar_o
             exit

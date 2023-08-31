@@ -95,7 +95,7 @@ jobs:
              done
             cd ..
             
-            tar_o=$( tar --no-null -cjvf git.tar.bz git 2>&1 )
+            zip -9 git.zip git
             
             echo deleting unneeded file
             rm -rvf git

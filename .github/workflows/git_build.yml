@@ -88,18 +88,14 @@ jobs:
             done
 
             cd ../..
-            # for file in bin/git-cvsserver bin/git-shell libexec/git-core/git-shell libexec/git-core/git-cvsserver share/man/man1/git-cvsserver.1 share/man/man1/git-shell.1 ; do
-            #  if [ -e "$file" ]; then
-             #   rm -fvR $file
-            #  fi
-            # done
+             for file in bin/git-cvsserver bin/git-shell libexec/git-core/git-shell libexec/git-core/git-cvsserver share/man/man1/git-cvsserver.1 share/man/man1/git-shell.1 ; do
+              if [ -e "$file" ]; then
+                rm -fvR $file
+              fi
+             done
             cd ..
             
-            tar_o=$( tar --no-null -czvf git.tar.gz ./git 2>&1 )
-            if  [ ! "$tar_o" = "" ]; then
-            echo $tar_o
-            exit
-            fi
+            tar_o=$( tar --no-null -czvf git 2>&1 )
             
             echo deleting unneeded file
             rm -rvf git

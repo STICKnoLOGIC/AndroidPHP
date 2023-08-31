@@ -97,6 +97,7 @@ jobs:
             
             echo compressing binary file
             zip -9 -r git ./git
+            rm -fvr ./git
             
 
 

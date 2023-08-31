@@ -96,7 +96,7 @@ jobs:
             cd ..
             
             echo compressing binary file
-            zip -9 -dr git ./git
+            zip -9 -r git ./git
             
 
 

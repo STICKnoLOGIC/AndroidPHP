@@ -95,10 +95,9 @@ jobs:
              done
             cd ..
             
-            zip -9 git.zip git
+            echo compressing binary file
+            zip -9 -dr git.zip git
             
-            echo deleting unneeded file
-            rm -rvf git
 
 
       - name: upload artifacts

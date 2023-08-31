@@ -3,7 +3,7 @@
 
 #versions of libs
 CURL_v='8.2.1'
-GIT_v='2.41.0'
+GIT_v='2.42.0'
 OPENSSL_v='1.1.1t'
 ZLIB_v='1.3'
 PCRE_v='10.42'
@@ -25,9 +25,9 @@ INSTALL_DIR="$DIR/LS"
 function component(){
 TOOLCHAIN_PREFIX="aarch64-linux-musl"
 export CONFIGURE_FLAGS="--host=$TOOLCHAIN_PREFIX"
-export CFLAGS="$CFLAGS -static"
+export CFLAGS="$CFLAGS -static "
 export CXXFLAGS="-static $CXXFLAGS " 
-export LDFLAGS="-static -static-libgcc -Wl,-static -L$INSTALL_DIR/lib"
+export LDFLAGS="-static -static-libgcc -Wl,-static -L$INSTALL_DIR/lib -L/usr/lib "
 export ac_cv_func_fnmatch_works=yes
 export EXTRA_CFLAGS=-lresolv
 export CC="$TOOLCHAIN_PREFIX-gcc"
@@ -36,11 +36,11 @@ export AR="$TOOLCHAIN_PREFIX-ar"
 export RANLIB="$TOOLCHAIN_PREFIX-ranlib"
 export CPP="$TOOLCHAIN_PREFIX-cpp"
 export LD="$TOOLCHAIN_PREFIX-ld"
-export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include -I$/usr/include"
-export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:/usr/lib:$LIBRARY_PATH:$LD_LIBRARY_PATH"
+export CPPFLAGS="$CPPFLAGS -I$INSTALL_DIR/include "
+export LIBRARY_PATH="$INSTALL_DIR:$INSTALL_DIR/lib:$LIBRARY_PATH:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig"
-export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$DIR/aarch64-linux-musl/lib:/usr/lib:$LD_LIBRARY_PATH
-export PATH=$INSTALL_DIR/bin:$DIR/aarch64-linux-musl/bin:/usr/bin:$PATH
+export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$LD_LIBRARY_PATH
+export PATH=$INSTALL_DIR/bin:$PATH
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS="yes"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS="yes"
 }
@@ -398,7 +398,7 @@ function build_git()
         --with-expat \
         $CONFIGURE_FLAGS # >> "$DIR/install.log" 2>&1 # LIBS="-lcurl -lssl -lcrypto"
     echo " compiling..."
-    # make -j 8  # >> "$DIR/install.log" 2>&1
+    make -j 8  # >> "$DIR/install.log" 2>&1
     echo " installing..."
     make -j 8 install # >> "$DIR/install.log" 2>&1
     echo " success..."

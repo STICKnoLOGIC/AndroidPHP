@@ -119,10 +119,12 @@ jobs:
           mkdir -p git
           echo "Git:${{ github.event.inputs.version }}:git/git;git/patch:https://avatars.githubusercontent.com/u/18133?s=100&v=:Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals.:$( stat -c "$s" ../git-static/git.zip )" >> Refs
           fi
-          mv -frv ../git-static/git.zip ./git
+          mv -fv ../git-static/git.zip ./git
           echo "Creating patch"
           cd git
-          rm -fvr patch
+          if [ -e "./git/patch" ]; then
+          rm -fvr ./git/patch
+          fi
           echo "# Author: STICKnoLOGIC" >> ./git/patch
           echo "# Email: jobeth.llame@gmail.com" >> ./git/patch
           echo "# # # # # # # # # # # # #" >> ./git/patch
@@ -141,7 +143,9 @@ jobs:
           echo "# echo 'GIT_EXEC_PATH=/data/data/ph.sticknologic.com.laraide/usr/lib/git/libexec/git-core' >> bashrc" >> ./git/patch
           echo "# echo 'GIT_SSL_CAINFO=/data/data/ph.sticknologic.com.laraide/usr/etc/cacert.pem' >> bashrc" >> ./git/patch
           echo "creating Readme.md"
+          if [ -e "ReadMe.md" ]; then
           rm -fvr Readme.md
+          fi
           echo "# GIT (aarch64/arm64-v8a)" >> ./git/Readme.md
           echo "[ Binary Version: 2.42.0 ]" >> ./git/Readme.md
           echo "[ Build Version: ${{ github.event.inputs.version }} ]" >> ./git/Readme.md

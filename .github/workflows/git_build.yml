@@ -114,10 +114,10 @@ jobs:
           echo "creating Refs to fetch by the app"
           if [ -e "./git" ]; then
           sed -i /^Git/d Refs
-          echo "Git:${{ github.event.inputs.version }}:git/git;git/patch:https://avatars.githubusercontent.com/u/18133?s=100&v=:Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals.:$( stat -c "$s" ../git-static/git.tar.gz )" >> Refs
+          echo "Git:${{ github.event.inputs.version }}:git/git;git/patch:https://avatars.githubusercontent.com/u/18133?s=100&v=:Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals.:$( stat -c "$s" ../git-static/git.zip )" >> Refs
           else
           mkdir -p git
-          echo "Git:${{ github.event.inputs.version }}:git/git;git/patch:https://avatars.githubusercontent.com/u/18133?s=100&v=:Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals.:$( stat -c "$s" ../git-static/git.tar.gz )" >> Refs
+          echo "Git:${{ github.event.inputs.version }}:git/git;git/patch:https://avatars.githubusercontent.com/u/18133?s=100&v=:Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals.:$( stat -c "$s" ../git-static/git.zip )" >> Refs
           fi
           mv -frv ../git-static/git.zip ./git
           echo "Creating patch"
@@ -127,7 +127,7 @@ jobs:
           echo "# Email: jobeth.llame@gmail.com" >> ./git/patch
           echo "# # # # # # # # # # # # #" >> ./git/patch
           echo "# extracting binary" >> ./git/patch
-          echo "tar -xf git.tar.gz --directory=/data/data/ph.sticknologic.com.laraide/usr/lib" >> ./git/patch
+          echo "unzip -fo git.ip -d /data/data/ph.sticknologic.com.laraide/usr/lib" >> ./git/patch
           echo "chmod 0755 -R /data/data/ph.sticknologic.com.laraide/usr/lib/git/*" >> ./git/patch
           echo "# # # # # # # # # # # # #" >> ./git/patch
           echo "# adding uninstall function" >> ./git/patch

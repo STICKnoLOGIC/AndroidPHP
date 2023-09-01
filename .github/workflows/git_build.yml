@@ -50,16 +50,14 @@ jobs:
             cd git/libexec/git-core/
             for file in add am annotate apply archive bisect--helper blame branch bugreport bundle cat-file check-attr check-ignore check-mailmap check-ref-format checkout checkout--worker checkout-index cherry cherry-pick clean clone column commit commit-graph commit-tree config count-objects credential credential-cache credential-cache--daemon credential-store describe diff diff-files diff-index diff-tree difftool env--helper fast-export fast-import fetch fetch-pack fmt-merge-msg for-each-ref for-each-repo format-patch fsck fsck-objects gc get-tar-commit-id grep hash-object help index-pack init init-db interpret-trailers log ls-files ls-remote ls-tree mailinfo mailsplit maintenance merge merge-base merge-file merge-index merge-ours merge-recursive merge-subtree merge-tree mktag mktree multi-pack-index mv name-rev notes pack-objects pack-redundant pack-refs patch-id prune prune-packed pull push range-diff read-tree rebase receive-pack reflog remote remote-ext remote-fd repack replace rerere reset restore rev-list rev-parse revert rm send-pack shortlog show show-branch show-index show-ref sparse-checkout stage stash status stripspace submodule--helper switch symbolic-ref tag unpack-file unpack-objects update-index update-ref update-server-info upload-archive upload-pack var verify-commit verify-pack verify-tag whatchanged worktree write-tree; do 
             if [ -e "git-"$file ]; then
-            rm -vrf "git-"$file
-            echo 'git' >> "git-"$file
+            ln -fsv git "git-"$file
             fi
             done
 
             echo linking https
             for file in remote-ftp remote-ftps remote-https ; do
             if [ -e "git-"$file ]; then
-            rm -vf "git-"$file
-            echo 'git-remote-http' >> "git-"$file
+            ln -sfv git-remote-http "git-"$file
             fi
             done
             
@@ -114,44 +112,49 @@ jobs:
         run: |
           echo "Moving git package"
           echo "creating Refs to fetch by the app"
-          if [ -e "git" ]; then
-          mkdir -p git
-          echo "Git:${{ github.event.inputs.version }}:git/git;git/patch:https://avatars.githubusercontent.com/u/18133?s=100&v=:Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals.:$( stat -c "$s" ../git-static/git.tar.gz )" >> Refs
-          else
+          if [ -e "./git" ]; then
           sed -i /^Git/d Refs
           echo "Git:${{ github.event.inputs.version }}:git/git;git/patch:https://avatars.githubusercontent.com/u/18133?s=100&v=:Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals.:$( stat -c "$s" ../git-static/git.tar.gz )" >> Refs
+          else
+          mkdir -p git
+          echo "Git:${{ github.event.inputs.version }}:git/git;git/patch:https://avatars.githubusercontent.com/u/18133?s=100&v=:Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals.:$( stat -c "$s" ../git-static/git.tar.gz )" >> Refs
           fi
-          mv -frv ../git-static/git.tar.gz ./git
+          mv -frv ../git-static/git.zip ./git
           echo "Creating patch"
           cd git
           rm -fvr patch
-          echo "# Author: STICKnoLOGIC" >> patch
-          echo "# Email: jobeth.llame@gmail.com" >> patch
-          echo "# # # # # # # # # # # # #" >> patch
-          echo "# extracting binary" >> patch
-          echo "tar -xf git.tar.gz --directory=/data/data/ph.sticknologic.com.laraide/usr/lib" >> patch
-          echo "chmod 0755 -R /data/data/ph.sticknologic.com.laraide/usr/lib/git/*" >> patch
-          echo "# # # # # # # # # # # # #" >> patch
-          echo "# adding uninstall function" >> patch
-          echo "sed -i /^git/d /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall" >> patch
-          echo "sed -i '/^if \[ \"\$1\" = \"git\" \]/d' /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall" >> patch
-          echo "sed -i 's@\" # add package here@git\n\" # add package here@g' /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall" >> patch
-          echo "sed -i 's@\" # add uninstaller here@if [ \"\$1\" = \"git\" ]; then sed -i /^git/d /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall; sed -i '/^if \[ \"\$1\" = \"git\" \]/d' /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall; rm -frv /data/data/ph.sticknologic.com.laraide/usr/lib/git; fi echo successflly uninstalled \" # add package here@g' /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall" >> patch
-          echo "# # # # # # # # # # # # #" >> patch
-          echo "# creating github env" >> patch
-          echo "# echo 'GIT_EDITOR=nano' >> bashrc" >> patch
-          echo "# echo 'GIT_EXEC_PATH=/data/data/ph.sticknologic.com.laraide/usr/lib/git/libexec/git-core' >> bashrc" >> patch
-          echo "# echo 'GIT_SSL_CAINFO=/data/data/ph.sticknologic.com.laraide/usr/etc/cacert.pem' >> bashrc" >> patch
+          echo "# Author: STICKnoLOGIC" >> ./git/patch
+          echo "# Email: jobeth.llame@gmail.com" >> ./git/patch
+          echo "# # # # # # # # # # # # #" >> ./git/patch
+          echo "# extracting binary" >> ./git/patch
+          echo "tar -xf git.tar.gz --directory=/data/data/ph.sticknologic.com.laraide/usr/lib" >> ./git/patch
+          echo "chmod 0755 -R /data/data/ph.sticknologic.com.laraide/usr/lib/git/*" >> ./git/patch
+          echo "# # # # # # # # # # # # #" >> ./git/patch
+          echo "# adding uninstall function" >> ./git/patch
+          echo "sed -i /^git/d /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall" >> ./git/patch
+          echo "sed -i '/^if \[ \"\$1\" = \"git\" \]/d' /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall" >> ./git/patch
+          echo "sed -i 's@\" # add package here@git\n\" # add package here@g' /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall" >> ./git/patch
+          echo "sed -i 's@\" # add uninstaller here@if [ \"\$1\" = \"git\" ]; then sed -i /^git/d /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall; sed -i '/^if \[ \"\$1\" = \"git\" \]/d' /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall; rm -frv /data/data/ph.sticknologic.com.laraide/usr/lib/git; fi echo successflly uninstalled \" # add package here@g' /data/data/ph.sticknologic.com.laraide/usr/bin/uninstall" >> ./git/patch
+          echo "# # # # # # # # # # # # #" >> ./git/patch
+          echo "# creating github env" >> ./git/patch
+          echo "# echo 'GIT_EDITOR=nano' >> bashrc" >> ./git/patch
+          echo "# echo 'GIT_EXEC_PATH=/data/data/ph.sticknologic.com.laraide/usr/lib/git/libexec/git-core' >> bashrc" >> ./git/patch
+          echo "# echo 'GIT_SSL_CAINFO=/data/data/ph.sticknologic.com.laraide/usr/etc/cacert.pem' >> bashrc" >> ./git/patch
           echo "creating Readme.md"
           rm -fvr Readme.md
-          echo "# GIT (aarch64/arm64-v8a)" >> Readme.md
-          echo "[ Binary Version: 2.42.0 ]" >> Readme.md
-          echo "[ Build Version: ${{ github.event.inputs.version }} ]" >> Readme.md
-          echo "Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals." >> Readme.md
-          echo "Git is an Open Source project covered by GNU General Public License version 2 (some of it are under under different licenses, compatible with the GPLv2). It was originally written by Linus Torvalds with help of a group of hackers around the net." >> Readme.md
-          echo "" >> Readme.md
-          echo "This Binary are build from the source: https://mirrors.kernel.org/pub/software/scm/git/git-\$git_v.tar.gz , where '$git_v' is the current Binary version used." >> Readme.md
-          echo "Ypu might also check their github repository: https://github.com/git/git" >> Readme.md
+          echo "# GIT (aarch64/arm64-v8a)" >> ./git/Readme.md
+          echo "[ Binary Version: 2.42.0 ]" >> ./git/Readme.md
+          echo "[ Build Version: ${{ github.event.inputs.version }} ]" >> ./git/Readme.md
+          echo "Git is a fast, scalable, distributed revision control system with an unussually rich command set that provides both high-level operations and full access to internals." >> ./git/Readme.md
+          echo "Git is an Open Source project covered by GNU General Public License version 2 (some of it are under under different licenses, compatible with the GPLv2). It was originally written by Linus Torvalds with help of a group of hackers around the net." >> ./git/Readme.md
+          echo "" >> ./git/Readme.md
+          echo "This Binary are build from the source: https://mirrors.kernel.org/pub/software/scm/git/git-\$git_v.tar.gz , where '\$git_v' is the current Binary version used." >> ./git/Readme.md
+          echo "You might also check their github repository: https://github.com/git/git" >> ./git/Readme.md
+          git add git
+          git config --global user.name "LaraScript: CI" 
+          git config --global user.name "LaraScriptCI@StickNoLogic.com" 
+          git commit -m "LaraScript CI : ${{ github.event.inputs.message }}"
+          git push
 
       
 

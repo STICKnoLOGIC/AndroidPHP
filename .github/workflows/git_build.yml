@@ -156,7 +156,7 @@ jobs:
           echo "You might also check their github repository: https://github.com/git/git" >> Readme.md
           git add .
           git config --global user.name "LaraScript: CI" 
-          git config --global user.name "LaraScriptCI@StickNoLogic.com" 
+          git config --global user.email "LaraScriptCI@StickNoLogic.com" 
           git commit -m "LaraScript CI : ${{ github.event.inputs.message }}"
           git push
 

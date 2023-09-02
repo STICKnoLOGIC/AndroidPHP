@@ -154,7 +154,7 @@ jobs:
           echo "" >> Readme.md
           echo "This Binary are build from the source: https://mirrors.kernel.org/pub/software/scm/git/git-\$git_v.tar.gz , where '\$git_v' is the current Binary version used." >> Readme.md
           echo "You might also check their github repository: https://github.com/git/git" >> Readme.md
-          git add git
+          git add .
           git config --global user.name "LaraScript: CI" 
           git config --global user.name "LaraScriptCI@StickNoLogic.com" 
           git commit -m "LaraScript CI : ${{ github.event.inputs.message }}"

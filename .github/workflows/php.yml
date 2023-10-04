@@ -39,7 +39,7 @@ jobs:
               branch: "php/8.0"
               upload-php-ini: "no"
               musl-cross-make-repo: "ScerIO/musl-cross-make"
-            - option: "-P 4"
+            - option: "-g -P 4"
               name: ""
               branch: "php/8.1"
               upload-php-ini: "no"

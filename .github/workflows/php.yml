@@ -123,6 +123,7 @@ jobs:
           name: Linux
           path: |
             ./php-build-scripts/install.log
+            ./php-build-scripts/install-*
             ./php-build-scripts/compile.sh
           if-no-files-found: error
 

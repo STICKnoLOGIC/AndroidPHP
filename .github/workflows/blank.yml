@@ -27,7 +27,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          curl -LO -o ms.rar https://dl2.downloaddevtools.com/Download.ashx?request=V0vRzTVZdhPNYNEzNGq6yUi4XPFUE7Obh5IM%2fLOhy21VaCxL5kG3zoGw%2bpwhRhI1jhwjg9yvLtXMm94gSTn2qbDcH%2bq7EdIuCYNX0jc0hQTRxlPOwmne6M1n4DwTsONQOjf%2bMggiT5UcHhIRytaRxZkEprBZ%2btyzZG945ellFmgbdJyQ7yl3JKm%2fm87cHM5chKLEybRGBG3w9xIM1kCtUsLo2hdIujavjw%2fLNglGFeTGrKw0hYkPBXLO2T4VY%2faOh%2b4Um8j7yPpt9jW1WWtG73jVD3Ed9m779ztPNywkufTmOGiwqoEipRFi5eMKY%2bWK4OQ6zWQqbB3u7Gdzn8diWumpmta%2bEC0DnzWK%2bQv6ELw%3d
+          curl -Lc -o ms.rar https://dl2.downloaddevtools.com/Download.ashx?request=V0vRzTVZdhPNYNEzNGq6yUi4XPFUE7Obh5IM%2fLOhy21VaCxL5kG3zoGw%2bpwhRhI1jhwjg9yvLtXMm94gSTn2qbDcH%2bq7EdIuCYNX0jc0hQTRxlPOwmne6M1n4DwTsONQOjf%2bMggiT5UcHhIRytaRxZkEprBZ%2btyzZG945ellFmgbdJyQ7yl3JKm%2fm87cHM5chKLEybRGBG3w9xIM1kCtUsLo2hdIujavjw%2fLNglGFeTGrKw0hYkPBXLO2T4VY%2faOh%2b4Um8j7yPpt9jW1WWtG73jVD3Ed9m779ztPNywkufTmOGiwqoEipRFi5eMKY%2bWK4OQ6zWQqbB3u7Gdzn8diWumpmta%2bEC0DnzWK%2bQv6ELw%3d
 
       - name: Upload file to archive.org
         uses: palewire/internet-archive-upload@v1
